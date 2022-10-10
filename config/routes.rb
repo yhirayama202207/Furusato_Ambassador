@@ -12,12 +12,12 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
 
-  scope module: :public do
-    #get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
-  end
-
   namespace :admin do
     #get "/" => "homes#top"
+  end
+
+  scope module: :public do
+    #get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
