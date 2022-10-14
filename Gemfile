@@ -60,3 +60,5 @@ gem 'net-smtp'
 gem 'devise'
 
 gem 'geocoder'
+
+gem "gmaps4rails"
