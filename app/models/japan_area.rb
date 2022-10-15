@@ -1,0 +1,2 @@
+class JapanArea < ApplicationRecord
+end
