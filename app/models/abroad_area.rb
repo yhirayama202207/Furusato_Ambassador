@@ -1,0 +1,2 @@
+class AbroadArea < ApplicationRecord
+end
