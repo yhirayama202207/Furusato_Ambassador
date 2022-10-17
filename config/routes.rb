@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
+
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, controllers: {
@@ -17,11 +14,12 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    #get "/" => "homes#top"
+    get "/" => "homes#top"
   end
 
   scope module: :public do
-    #get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
+    get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
+    get "homes/about"
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
