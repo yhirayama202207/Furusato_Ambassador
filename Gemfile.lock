@@ -118,6 +118,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
+    obscenity (1.0.2)
     orm_adapter (0.5.0)
     public_suffix (5.0.0)
     puma (5.6.5)
@@ -236,6 +237,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   net-smtp
+  obscenity
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7)
