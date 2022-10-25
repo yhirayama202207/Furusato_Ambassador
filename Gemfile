@@ -64,3 +64,5 @@ gem 'geocoder'
 gem "gmaps4rails"
 
 gem "obscenity"
+
+gem 'dotenv-rails'
