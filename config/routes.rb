@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/" => "homes#top"
+    resources :japan_areas, only: [:index, :create, :edit, :update]
   end
 
   scope module: :public do
