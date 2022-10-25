@@ -3,6 +3,8 @@
 
 <%= form_with model: @japan_prefecture, url: admin_japan_prefectures_path, method: :post do |f| %>
 <label>都道府県名</label><%= f.text_field :name %>
+<label>日本エリア名</label>
+  <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>
 <%= f.submit "新規登録", class: "btn btn-success" %></br>
 <% end %>
 
@@ -11,6 +13,7 @@
     <thead>
       <tr>
         <th>都道府県</th>
+        <th>日本エリア名</th>
         <th></th>
         <th colspan="3"></th>
       </tr>
@@ -19,6 +22,7 @@
       <% @japan_prefectures.each do |japan_prefecture| %>
       <tr>
         <td><%= japan_prefecture.name %></td>
+        <td><%= japan_prefecture.japan_area.name %></td>
         <td>
           <%= link_to "編集する", edit_admin_japan_prefecture_path(japan_prefecture.id), class: "btn btn-success" %>
         </td>
