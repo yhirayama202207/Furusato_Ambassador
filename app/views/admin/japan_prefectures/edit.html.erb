@@ -6,7 +6,9 @@
         </br>
           <%= form_with model: @japan_prefecture, url: admin_japan_prefecture_path(@japan_prefecture.id), method: :patch do |f| %>
             <%= f.label :"都道府県名" %>
-            <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%>
+            <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
+            <%= f.label :"日本エリア名" %>
+            <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>
             <%= f.submit "変更を保存", class: "btn btn-success" %>
           <% end %>
       </div>
