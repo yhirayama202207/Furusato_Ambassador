@@ -1,2 +1,0 @@
-class AbroadCountry < ApplicationRecord
-end
