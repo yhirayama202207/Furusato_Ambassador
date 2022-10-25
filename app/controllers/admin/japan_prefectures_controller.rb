@@ -1,7 +1,38 @@
 class Admin::JapanPrefecturesController < ApplicationController
-  def edit
-  end
+
+  before_action :authenticate_admin!
 
   def index
+    @japan_prefecture = JapanPrefecture.new
+    @japan_prefectures = JapanPrefecture.all
+  end
+
+  def create
+    @japan_prefecture = JapanPrefecture.new(japan_prefecture_params)
+    if @japan_prefecture.save
+      flash[:notice] = "都道府県登録が完了しました"
+      redirect_to admin_japan_prefectures_path
+    end
+  end
+
+  def edit
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+  end
+
+  def update
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    if @japan_prefecture.update(japan_prefecture_params)
+      flash[:notice] = "都道府県名変更が完了しました"
+      redirect_to admin_japan_prefectures_path
+    else
+      render :edit
+    end
+  end
+
+  #投稿データのストロングパラメータ
+  private
+
+  def japan_prefecture_params
+    params.require(:japan_prefecture).permit(:name)
   end
 end
