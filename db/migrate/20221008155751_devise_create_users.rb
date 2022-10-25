@@ -4,7 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      t.string :email,              null: false, default: "", unique: true
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -35,9 +35,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :user_name, null: false
       t.string :home
       t.string :hometown
-      t.string :area_cheering1
-      t.string :area_cheering2
-      t.string :area_cheering3
       t.boolean :is_deleted, null: false, default: false
       t.timestamps null: false
     end
