@@ -1,8 +1,9 @@
 class CreateJapanAreas < ActiveRecord::Migration[6.1]
   def change
     create_table :japan_areas do |t|
+      t.string :name, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
