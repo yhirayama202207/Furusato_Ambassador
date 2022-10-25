@@ -1,2 +1,0 @@
-class AbroadArea < ApplicationRecord
-end
