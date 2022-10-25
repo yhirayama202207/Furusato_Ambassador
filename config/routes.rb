@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'japan_prefectures/edit'
-    get 'japan_prefectures/index'
-  end
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -20,6 +16,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/" => "homes#top"
     resources :japan_areas, only: [:index, :create, :edit, :update]
+    resources :japan_prefectures, only: [:index, :create, :edit, :update]
   end
 
   scope module: :public do
