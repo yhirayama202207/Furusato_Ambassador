@@ -1,0 +1,2 @@
+class CheerRegion < ApplicationRecord
+end
