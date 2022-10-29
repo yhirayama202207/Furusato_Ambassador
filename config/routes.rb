@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   scope module: :public do
     get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
     get "homes/about"
-    get "users/confirm" => "public/users#confirm"
+    get "users/confirm" => "users#confirm"
     patch "users/unsubscribe" => "public/users#unsubscribe"
     resources :users, only: [:show, :edit, :update, :index]
   end

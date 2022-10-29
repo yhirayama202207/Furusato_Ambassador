@@ -19,7 +19,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.update(user_params)
       flash[:notice] = "ユーザー情報の編集が完了しました"
-      redirect_to user_show_path(current_user)
+      redirect_to user_path(current_user)
     else
       render :edit
     end
