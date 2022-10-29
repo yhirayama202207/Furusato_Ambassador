@@ -1,42 +1,43 @@
-    <div class= "col-md-8 offset-md-1">
-        <h5>ユーザー一覧</h5>
-        <div style="text-align:center;">
-        <table class="table table-hover table-inverse">
-          <thead>
-            <tr>
-              <th>ユーザーID</th>
-              <th>ユーザーネーム</th>
-              <th>メールアドレス</th>
-              <th>ステータス</th>
-              <th colspan="4"></th>
-            </tr>
-          </thread>
-          <tbody>
-              <% @users.each do |user| %>
-              <tr>
-              <td>
-                <%= user.id %>
-              </td>
-              <td>
-                <%= link_to admin_user_path(user.id) do %>
-                <%= user.user_name %>
-                <% end %>
-              </td>
-              <td>
-                <%= user.email %>
-              </td>
-              <td>
-                <% if user.is_deleted %>
-                  <label class="text-secondary">退会</label>
-                <% else %>
-                  <label class="text-success">有効</label>
-                <% end %>
-              </td>
+</br>
+<div class= "col-md-8 offset-md-1">
+  <h5>ユーザー一覧</h5>
+  <div style="text-align:center;">
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr>
+        <th>ユーザーID</th>
+        <th>ユーザーネーム</th>
+        <th>メールアドレス</th>
+        <th>ステータス</th>
+        <th colspan="4"></th>
+      </tr>
+    </thread>
+    <tbody>
+        <% @users.each do |user| %>
+        <tr>
+        <td>
+          <%= user.id %>
+        </td>
+        <td>
+          <%= link_to admin_user_path(user.id) do %>
+          <%= user.user_name %>
+          <% end %>
+        </td>
+        <td>
+          <%= user.email %>
+        </td>
+        <td>
+          <% if user.is_deleted %>
+            <label class="text-secondary">退会</label>
+          <% else %>
+            <label class="text-success">有効</label>
+          <% end %>
+        </td>
 
-              </tr>
-              <% end %>
-          </tbody>
-        </table>
-        </div>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+  </div>
 
-        <%= paginate @users %>
+  <%= paginate @users %>
