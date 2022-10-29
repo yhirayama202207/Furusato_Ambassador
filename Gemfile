@@ -66,3 +66,5 @@ gem "gmaps4rails"
 gem "obscenity"
 
 gem 'dotenv-rails'
+
+gem 'kaminari','~> 1.2.1'
