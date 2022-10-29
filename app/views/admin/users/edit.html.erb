@@ -1,2 +1,21 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<h5>
+  <%= @user.user_name %>さんの会員情報編集
+</h5>
+
+<%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
+            <label>ユーザーID</label><%= @user.id %></br>
+            <label>ユーザーネーム</label>
+            <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %></br>
+            <label>メールアドレス</label>
+            <%= f.text_field :email, autofocus: true, id:"inpute-mail", placeholder:"" %></br>
+            <label>居住地</label>
+            <%= f.text_field :home, autofocus: true, id:"inputhome", placeholder:"" %></br>
+            <label>出身地</label>
+            <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %></br>
+            <label>会員ステータス</label>
+            <%= f.radio_button :is_deleted, :false %>
+            <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>
+            <%= f.radio_button :is_deleted, :true %>
+            <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %></br>
+            <%= f.submit "変更を保存", class: "btn btn-success" %>
+          <% end %>
