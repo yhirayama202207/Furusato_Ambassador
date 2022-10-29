@@ -1,2 +1,18 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h5>
+  <%= @user.user_name %>さんの会員詳細
+</h5>
+
+<label>会員ID</label><%= @user.id %></br>
+<label>ユーザーネーム</label><%= @user.user_name %></br>
+<label>メールアドレス</label><%= @user.email %></br>
+<label>居住地</label><%= @user.home %></br>
+<label>出身地</label><%= @user.hometown %></br>
+<label>会員ステータス</label>
+<% if @user.is_deleted %>
+  <label class="text-secondary">退会</label>
+<% else %>
+  <label class="text-success">有効</label>
+<% end %>
+</br>
+<%= link_to "編集する", edit_admin_user_path(@user.id), class: "btn btn-success" %>
+<%#= link_to "投稿履歴一覧を見る", admin_articles_customer_index_path(@user.id), class: "btn btn-primary"
