@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   scope module: :public do
     get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
     get "homes/about"
+    get "users/confirm" => "public/users#confirm"
+    patch "users/unsubscribe" => "public/users#unsubscribe"
+    resources :users, only: [:show, :edit, :update]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
