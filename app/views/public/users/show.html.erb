@@ -2,7 +2,7 @@
 
 </br>
 
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label>登録情報</label>&emsp;<%= link_to "編集する", user_edit_path, class: "btn btn-success" %>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label>登録情報</label>&emsp;<%= link_to "編集する", edit_user_path, class: "btn btn-success" %>
 </br>
 </br>
 
@@ -13,6 +13,12 @@
         <th class="table-secondary">ユーザー名</th>
         <td>
           <%= @user.user_name %>
+        </td>
+      </tr>
+      <tr>
+        <th class="table-secondary">メールアドレス</th>
+        <td>
+          <%= @user.email %>
         </td>
       </tr>
       <tr>
