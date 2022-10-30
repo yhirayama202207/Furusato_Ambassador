@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
     get "homes/about"
     get "users/confirm" => "users#confirm"
-    patch "users/unsubscribe" => "public/users#unsubscribe"
+    patch "users/unsubscribe" => "users#unsubscribe"
     resources :users, only: [:show, :edit, :update, :index]
   end
 
