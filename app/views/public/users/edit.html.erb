@@ -1,21 +1,21 @@
 <h5>会員情報編集</h5>
 </br>
-<%= form_with model: @user, url: user_path, method: :patch do |f| %>
+<%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
     &emsp;&emsp;&emsp;
-    <label>ユーザー名</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <label>ユーザー名</label>&emsp;&emsp;&emsp;
         <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %></br>
     &emsp;&emsp;&emsp;
-    <label>メールアドレス</label>&emsp;&emsp;&emsp;&emsp;&emsp;
+    <label>メールアドレス</label>&emsp;
         <%= f.text_field :email, autofocus: true, id:"inputemail", placeholder:"" %></br>
     &emsp;&emsp;&emsp;
     <label>居住地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
         <%= f.text_field :home, autofocus: true, id:"inputhome", placeholder:"" %></br>
     &emsp;&emsp;&emsp;
-    <label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
         <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %></br>
     &emsp;&emsp;&emsp;
     <label>プロフィール画像</label>
-    <%= f.file_field :image, accept: "image/*" %></br>
+        <%= f.file_field :image, accept: "image/*" %></br>
     &emsp;&emsp;&emsp;
     <%= f.submit "編集内容を保存", class: "btn btn-success" %>
     &emsp;&emsp;&emsp;&emsp;&emsp;
