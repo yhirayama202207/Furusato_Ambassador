@@ -11,6 +11,114 @@
   </head>
 
   <body>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+      <div class="container">
+        <a class="navbar-brand" href="/"><span>FurusatoAmbassador<span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+    <% if user_signed_in? %>
+      <li>
+      <label class="text-white">
+      ようこそ、<%= current_user.user_name %>さん！
+      </label>
+      </li>
+      <li>
+        &emsp;&emsp;
+      </li>
+      <li>
+        <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+        マイページ
+        <% end %>
+      </li>
+      <li>
+        <%= link_to public_articles_index_path, class: 'nav-link text-light' do %>
+        記事一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to users_path, class: 'nav-link text-light' do %>
+         ユーザー一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+        ログアウト
+        <% end %>
+      </li>
+      <% elsif admin_signed_in? %>
+      <li>
+        <%= link_to admin_users_path, class: 'nav-link text-light' do %>
+        記事一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to admin_users_path, class: 'nav-link text-light' do %>
+        ユーザー一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to admin_japan_areas_path, class: 'nav-link text-light' do %>
+         エリア一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to admin_japan_prefectures_path, class: 'nav-link text-light' do %>
+         都道府県一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
+        ログアウト
+        <% end %>
+      </li>
+    <% else %>
+      <li>
+      <%= link_to homes_about_path, class: 'nav-link text-light' do %>
+        About
+        <% end %>
+      </li>
+      <li>
+        <%= link_to public_articles_index_path, class: 'nav-link text-light' do %>
+        記事一覧
+        <% end %>
+      </li>
+      <li>
+        <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+        新規登録
+        <% end %>
+      </li>
+      <li>
+        <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+        ログイン
+        <% end %>
+      </li>
+    <% end %>
+        </ul>
+        </div>
+      </div>
+      <!--<%#= form_tag(search_items_path,:method => 'get') do %>-->
+        <div class="d-flex form-control search_box">
+          <input class="search-invalid" type="search" placeholder="Search" v-model="keyword">
+          <i class="fas fa-search"></i>
+        </div>
+      <!--  <%#= submit_tag 'Search', :name => nil %>-->
+      <!--  <%# end %>-->
+      <!--  <i class="far fa-search"></i>-->
+    </nav>
+    </header>
     <%= yield %>
+    <footer>
+      <div class= "container mt-5">
+        <div class= "row">
+          <div class= "mx-auto">
+            <p>CopyRight Yuri Hirayama</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
