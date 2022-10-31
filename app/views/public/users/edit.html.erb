@@ -14,6 +14,9 @@
     <label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
         <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %></br>
     &emsp;&emsp;&emsp;
+    <label>プロフィール画像</label>
+    <%= f.file_field :image, accept: "image/*" %></br>
+    &emsp;&emsp;&emsp;
     <%= f.submit "編集内容を保存", class: "btn btn-success" %>
     &emsp;&emsp;&emsp;&emsp;&emsp;
     <%= link_to "退会する", users_confirm_path, class: "btn btn-danger" %>
