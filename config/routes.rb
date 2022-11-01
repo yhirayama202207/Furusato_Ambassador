@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'articles/new'
-    get 'articles/create'
-    get 'articles/index'
-    get 'articles/show'
-    get 'articles/edit'
-    get 'articles/update'
-  end
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -34,6 +26,7 @@ Rails.application.routes.draw do
     get "users/confirm" => "users#confirm"
     patch "users/unsubscribe" => "users#unsubscribe"
     resources :users, only: [:show, :edit, :update, :index]
+    resources :articles, only: [:new, :create, :show, :edit, :update, :index]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
