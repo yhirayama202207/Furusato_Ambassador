@@ -13,11 +13,11 @@
     <label>都道府県</label>
     <%= f.collection_select :prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
     <label>場所／物の名前</label><%= f.text_field :name %></br>
-    <label>表示ステータス</label>
+    <label>記事を公開しますか？</label>
       <%= f.radio_button :is_active, :true %>
-      <%= f.label :is_active, "表示", {value: :true, checked: true, style: "display: inline-block;"} %>
+      <%= f.label :is_active, "公開", {value: :true, checked: true, style: "display: inline-block;"} %>
       <%= f.radio_button :is_active, :false %>
-      <%= f.label :is_active, "非表示", {value: :false, style: "display: inline-block;"} %></br>
+      <%= f.label :is_active, "非公開", {value: :false, style: "display: inline-block;"} %></br>
     <%= f.submit "新規登録", class: "btn btn-success" %></br>
   <% end %>
   </div>
