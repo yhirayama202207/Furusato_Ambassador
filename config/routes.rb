@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get "users/confirm" => "users#confirm"
     patch "users/unsubscribe" => "users#unsubscribe"
     resources :users, only: [:show, :edit, :update, :index]
-    resources :articles, only: [:new, :create, :show, :edit, :update, :index]
+    resources :articles, only: [:new, :create, :show, :edit, :update, :index, :destroy]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
