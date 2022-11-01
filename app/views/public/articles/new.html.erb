@@ -1,2 +1,23 @@
-<h1>Public::Articles#new</h1>
-<p>Find me in app/views/public/articles/new.html.erb</p>
+<h5>新規記事登録</h5>
+
+<div style="text-align:center;">
+<% @article.errors.full_messages.each do | msg | %>
+<%= msg %>
+<% end %>
+
+<%= form_with model: @article, url: articles_path, method: :post do |f| %>
+    <label>画像</label>
+    <%= f.file_field :image, accept: "image/*" %></br>
+    <label>タイトル</label><%= f.text_field :title, placeholder: "タイトル" %></br>
+    <label>本文</label><%= f.text_area :body, placeholder: "ここに本文を記述します" %></br>
+    <label>都道府県</label>
+    <%= f.collection_select :prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
+    <label>場所／物の名前</label><%= f.text_field :name %></br>
+    <label>表示ステータス</label>
+      <%= f.radio_button :is_active, :true %>
+      <%= f.label :is_active, "表示", {value: :true, checked: true, style: "display: inline-block;"} %>
+      <%= f.radio_button :is_active, :false %>
+      <%= f.label :is_active, "非表示", {value: :false, style: "display: inline-block;"} %></br>
+    <%= f.submit "新規登録", class: "btn btn-success" %></br>
+  <% end %>
+  </div>
