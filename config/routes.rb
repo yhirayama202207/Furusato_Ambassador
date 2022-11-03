@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'articles/index'
+    get 'articles/show'
+    get 'articles/edit'
+    get 'articles/update'
+    get 'articles/destroy'
+  end
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
