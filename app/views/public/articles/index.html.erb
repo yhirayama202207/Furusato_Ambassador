@@ -9,7 +9,7 @@
     <tbody>
         <% @japan_prefectures.each do |japan_prefecture| %>
         <tr>
-        <td><%= link_to japan_prefecture.name, articles_path(japan_prefecture.id) %></td>
+        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %></td>
         </tr>
         <% end %>
     </tbody>
