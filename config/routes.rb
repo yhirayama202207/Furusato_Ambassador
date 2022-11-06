@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'articles/index'
-    get 'articles/show'
-    get 'articles/edit'
-    get 'articles/update'
-    get 'articles/destroy'
-  end
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -25,6 +18,7 @@ Rails.application.routes.draw do
     resources :japan_areas, only: [:index, :create, :edit, :update]
     resources :japan_prefectures, only: [:index, :create, :edit, :update]
     resources :users, only: [:show, :edit, :update, :index]
+    resources :articles, only: [:index, :show, :edit, :update, :destroy]
   end
 
   scope module: :public do
@@ -32,6 +26,8 @@ Rails.application.routes.draw do
     get "homes/about"
     get "users/confirm" => "users#confirm"
     patch "users/unsubscribe" => "users#unsubscribe"
+    get "articles/prefectures/:id" => "public/articles#prefecture_index", as: "articles_prefecture_index"
+    get "articles/areas/:id" => "public/articles#area_index", as: "articles_area_index"
     resources :users, only: [:show, :edit, :update, :index]
     resources :articles, only: [:new, :create, :show, :edit, :update, :index, :destroy]
   end
