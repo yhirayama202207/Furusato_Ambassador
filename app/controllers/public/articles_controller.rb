@@ -19,6 +19,7 @@ class Public::ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
+    @japan_prefectures = JapanPrefecture.all
     @user = current_user
   end
 
