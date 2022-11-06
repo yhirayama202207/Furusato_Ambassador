@@ -1,1 +1,43 @@
-<h5>public/記事一覧</h5>
+<div class= "row">
+<div class= "col-3">
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>都道府県から記事を検索する</th>
+      </tr>
+    </thread>
+    <tbody>
+        <% @japan_prefectures.each do |japan_prefecture| %>
+        <tr>
+        <td><%= link_to japan_prefecture.name, articles_path(japan_prefecture.id) %></td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class= "col-8">
+<h5>記事一覧（全<%= @articles.count %>件）</h5>
+
+<div class= "row">
+<% @articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture %>
+
+</div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
