@@ -56,7 +56,7 @@ class Public::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:user_id, :prefecture_id, :region, :name, :title, :address, :latitude, :longitude, :body, :rate, :is_active)
+    params.require(:article).permit(:user_id, :prefecture_id, :region, :name, :title, :address, :latitude, :longitude, :body, :rate, :is_active, :image)
   end
 
 end
