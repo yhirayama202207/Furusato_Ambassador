@@ -1,8 +1,10 @@
 class CreateArticles < ActiveRecord::Migration[6.1]
   def change
     create_table :articles do |t|
+      t.integer "user_id", null: false
+      t.integer "japan_prefecture_id", null: false
       t.string :region
-      t.string :name, null: false
+      t.string :name
       t.string :title, null: false
       t.string :address
       t.float :latitude
