@@ -6,6 +6,7 @@ class Public::ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @japan_prefectures = JapanPrefecture.all
     @article.user_id = current_user.id
     if @article.save
       flash[:notice] = "新規記事投稿が完了しました。"
