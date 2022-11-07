@@ -23,7 +23,7 @@
 <% @articles.each do |article| %>
 <div class= "col-3">
 
-<%= link_to article_path(article.id) do %>
+<%= link_to article_path(@article.id) do %>
 <% if article.image.attached? %>
   <%= image_tag article.image, size: "200x200" %>
 <% else %>
