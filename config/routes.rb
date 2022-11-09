@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    get "/Furusato_Ambassador" => "homes#top", as: "homes_top"
+    get "/" => "homes#top", as: "homes_top"
     get "homes/about"
     get "users/confirm" => "users#confirm"
     patch "users/unsubscribe" => "users#unsubscribe"
