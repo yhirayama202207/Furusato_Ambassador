@@ -1,2 +1,22 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.search-invalid {
+    background-color: #fff;
+    border: 0px;
+    font-size: 16px;
+  }
+
+.search_box {
+  width: auto;
+}
+
+.fa-search {
+  height: auto;
+}
+
+footer {
+  background-color: #5AD6AE;
+  color: white;
+  text-align: center;
+}
