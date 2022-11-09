@@ -19,7 +19,7 @@ class Public::ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+    @articles = Article.all.page(params[:page])
     @japan_prefectures = JapanPrefecture.all
   end
 
