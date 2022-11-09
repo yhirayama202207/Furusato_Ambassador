@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
   has_one_attached :image
   belongs_to :user
-  belongs_to :prefecture
+  belongs_to :japan_prefecture
 end
