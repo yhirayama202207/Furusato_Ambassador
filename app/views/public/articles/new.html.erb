@@ -5,7 +5,7 @@
 <%= msg %>
 <% end %>
 
-<%= form_with model: @article, url: articles_new_path, method: :post do |f| %>
+<%= form_with model: @article, url: articles_path, method: :post do |f| %>
     <label>画像</label>
     <%= f.file_field :image, accept: "image/*" %></br>
     </br>

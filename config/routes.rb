@@ -28,7 +28,6 @@ Rails.application.routes.draw do
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
-    post "articles/new" => "articles#new"
     resources :users, only: [:show, :edit, :update, :index]
     resources :articles, only: [:new,:create, :show, :edit, :update, :index, :destroy]
   end

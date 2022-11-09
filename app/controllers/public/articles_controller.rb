@@ -19,7 +19,7 @@ class Public::ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all.page(params[:page])
+    @articles = Article.where(is_active: true)
     @japan_prefectures = JapanPrefecture.all
   end
 
@@ -57,7 +57,7 @@ class Public::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:user_id, :prefecture_id, :region, :name, :title, :address, :latitude, :longitude, :body, :rate, :is_active, :image)
+    params.require(:article).permit(:user_id, :japan_prefecture_id, :region, :name, :title, :address, :latitude, :longitude, :body, :rate, :is_active, :image)
   end
 
 end
