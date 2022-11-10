@@ -19,4 +19,7 @@
 <% end %>
 </br>
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<% if @article.user == current_user %>
 <%= link_to "編集する", edit_article_path(@article.id), class: "btn btn-success" %>
+<%= link_to "Destroy", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に消しますか？" %>
+<% end %>
