@@ -9,7 +9,7 @@
     <tbody>
         <% @japan_prefectures.each do |japan_prefecture| %>
         <tr>
-        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %>（<%= @prefecture_articles.count %>件）</td>
+        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %>&emsp;（<%= japan_prefecture.articles.count %>件）</td>
         </tr>
         <% end %>
     </tbody>

@@ -1,8 +1,8 @@
 class Admin::ArticlesController < ApplicationController
 
   def index
-    @articles = Article.where(is_active: true)
     @japan_prefectures = JapanPrefecture.all
+    @articles = Article.where(is_active: true)
   end
 
   def show
