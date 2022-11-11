@@ -17,7 +17,8 @@
 </div>
 
 <div class= "col-8">
-<h5>記事一覧（全<%= @articles.count %>件）</h5>
+</br>
+<h5>すべての記事一覧（全<%= @articles.count %>件）</h5>
 
 <div class= "row">
 <% @articles.each do |article| %>
@@ -34,6 +35,7 @@
 <%= article.title %>
 </br>
 <%= article.japan_prefecture.name %>
+<%= link_to "×", admin_article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
 
 </div>
 <% end %>

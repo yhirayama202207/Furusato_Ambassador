@@ -9,6 +9,16 @@ class Admin::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      flash[:notice] = "記事の編集が完了しました"
+      redirect_to admin_article_path(@article.id)
+    else
+      render :show
+    end
+  end
+
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
