@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :japan_areas, only: [:index, :create, :edit, :update]
     resources :japan_prefectures, only: [:index, :create, :edit, :update]
     resources :users, only: [:show, :edit, :update, :index]
-    resources :articles, only: [:index, :show, :edit, :update, :destroy]
+    resources :articles, only: [:index, :show, :destroy]
   end
 
   scope module: :public do
