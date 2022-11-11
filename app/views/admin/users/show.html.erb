@@ -1,13 +1,27 @@
-<h5>
-  <%= @user.user_name %>さんの会員詳細
-</h5>
+</br>
+<h5><%= @user.user_name %>さんの会員詳細</h5>
+</br>
+<label>会員ＩＤ</label>&emsp;&emsp;&emsp;&emsp;
+<%= @user.id %>
+</br>
 
-<label>会員ID</label><%= @user.id %></br>
-<label>ユーザーネーム</label><%= @user.user_name %></br>
-<label>メールアドレス</label><%= @user.email %></br>
-<label>居住地</label><%= @user.home %></br>
-<label>出身地</label><%= @user.hometown %></br>
-<label>会員ステータス</label>
+<label>ユーザーネーム</label>&emsp;
+<%= @user.user_name %>
+</br>
+
+<label>メールアドレス</label>&emsp;
+<%= @user.email %>
+</br>
+
+<label>居住地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
+<%= @user.home %>
+</br>
+
+<label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
+<%= @user.hometown %>
+</br>
+
+<label>会員ステータス</label>&emsp;
 <% if @user.is_deleted %>
   <label class="text-secondary">退会</label>
 <% else %>
