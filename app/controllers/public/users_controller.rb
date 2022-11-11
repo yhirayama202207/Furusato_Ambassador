@@ -9,6 +9,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = current_user
     @users = User.all
+    @user_articles = @user.articles.all
   end
 
   def edit

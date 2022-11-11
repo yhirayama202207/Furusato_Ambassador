@@ -1,21 +1,19 @@
+</br>
 <h5>マイページ</h5>
 
-</br>
-
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label>登録情報</label>&emsp;<%= link_to "編集する", edit_user_path, class: "btn btn-success" %>
-</br>
-</br>
-
 <div class= "col-1 mt-2">
-<%#= form_with model: @item, url: cart_items_path, method: :post do |f| %>
-<% if @user.image.attached? %>
-  <%= image_tag @user.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
-<% end %>
+
 </div>
 
  <div class= "col-md-8 offset-md-1">
+   <% if @user.image.attached? %>
+  <%= image_tag @user.image, size: "100x100" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "100x100" %>
+<% end %>
+<label>登録情報</label>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<%= link_to "編集", edit_user_path, class: "btn btn-success" %>
   <table class="table table-hover table-bordered table-inverse">
     <tbody>
       <tr>
@@ -46,4 +44,32 @@
   </table>
 </br>
 
-記事履歴&emsp;<%#= link_to "一覧を見る", articles_path(@user.id), class: "btn btn-primary" %>
+<label>記事履歴（全<%= @user_articles.count %>件）</label>
+
+<div class= "col-8">
+</br>
+<div class= "row">
+<% @user_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to admin_article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
+<%= link_to "×", admin_article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+
+</div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+
+</div>
