@@ -43,6 +43,8 @@
     </tbody>
   </table>
 </br>
+</div>
+</div>
 
 <label>記事履歴（全<%= @user_articles.count %>件）</label>
 
@@ -52,7 +54,7 @@
 <% @user_articles.each do |article| %>
 <div class= "col-3">
 
-<%= link_to admin_article_path(article.id) do %>
+<%= link_to article_path(article.id) do %>
 <% if article.image.attached? %>
   <%= image_tag article.image, size: "200x200" %>
 <% else %>
@@ -63,13 +65,9 @@
 <%= article.title %>
 </br>
 <%= article.japan_prefecture.name %>
-<%= link_to "×", admin_article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+<%= link_to "×", article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
 
 </div>
 <% end %>
 </div>
-</div>
-</div>
-</div>
-
 </div>
