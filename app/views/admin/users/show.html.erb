@@ -1,5 +1,11 @@
 </br>
-<h5><%= @user.user_name %>さんの会員詳細</h5>
+<h5><%= @user.user_name %>さんの 会員詳細</h5>
+<% if @user.image.attached? %>
+  <%= image_tag @user.image, size: "100x100" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "100x100" %>
+<% end %>
+</br>
 </br>
 <label>会員ＩＤ</label>&emsp;&emsp;&emsp;&emsp;
 <%= @user.id %>
@@ -28,5 +34,41 @@
   <label class="text-success">有効</label>
 <% end %>
 </br>
-<%= link_to "編集する", edit_admin_user_path(@user.id), class: "btn btn-success" %>
-<%#= link_to "投稿履歴一覧を見る", admin_articles_customer_index_path(@user.id), class: "btn btn-primary"
+</br>
+
+<%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
+<label>会員ステータスを変更する</label>
+</br>
+  <%= f.radio_button :is_deleted, :false %>
+  <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>&emsp;
+  <%= f.radio_button :is_deleted, :true %>
+  <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %></br>
+  <%= f.submit "変更を保存", class: "btn btn-success" %>
+<% end %>
+</br>
+<div class= "col-8">
+</br>
+<h5><%= @user.user_name %>さんの 投稿一覧（全<%= @user_articles.count %>件）</h5>
+<div class= "row">
+<% @user_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to admin_article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
+<%= link_to "×", admin_article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+
+</div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
