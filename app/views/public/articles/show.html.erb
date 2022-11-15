@@ -26,3 +26,39 @@
 <%= link_to "編集する", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
 <%= link_to "削除する", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
 <% end %>
+</br>
+</br>
+</br>
+
+<h5>この記事にコメントする</h5>
+<%= form_with model: @comment, url: article_comments_path(@comment.article_id), method: :post do |f| %>
+    <%= f.text_field :comment, placeholder: "コメント" %>&emsp;
+    <label>画像</label>
+    <%= f.file_field :image, accept: "image/*" %></br>
+    <%= f.submit "新規登録", class: "btn btn-success" %></br>
+<% end %>
+</br>
+</br>
+
+<h5>コメント一覧</h5>
+🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎
+</br>
+<% @comments.each do |comment| %>
+<%= link_to user_path(comment.user_id) do %>
+<% if comment.user.image.attached? %>
+  <%= image_tag comment.user.image, size: "100x100" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "100x100" %>
+<% end %>
+</br>
+<%= comment.user.user_name %>
+<% end %>&emsp;
+<%= comment.comment %>
+</br>
+<% if comment.image.attached? %>
+  <%= image_tag comment.image, size: "200x200" %>
+<% end %>
+</br>
+🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎
+</br>
+<% end %>

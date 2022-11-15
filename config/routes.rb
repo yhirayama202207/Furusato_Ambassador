@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'comments/index'
-  end
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -22,6 +19,7 @@ Rails.application.routes.draw do
     resources :japan_prefectures, only: [:index, :create, :edit, :update]
     resources :users, only: [:show, :edit, :update, :index]
     resources :articles, only: [:index, :show, :update, :destroy]
+    resources :comments, only: [:index, :destroy]
   end
 
   scope module: :public do
@@ -32,7 +30,9 @@ Rails.application.routes.draw do
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
     resources :users, only: [:show, :edit, :update, :index]
-    resources :articles, only: [:new,:create, :show, :edit, :update, :index, :destroy]
+    resources :articles, only: [:new,:create, :show, :edit, :update, :index, :destroy] do
+      resources :comments, only: [:create, :edit, :update, :index, :destroy]
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
