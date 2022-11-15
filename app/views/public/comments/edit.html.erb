@@ -1,0 +1,11 @@
+<h5>コメント編集</h5>
+</br>
+
+<div style="text-align:center;">
+<%= form_with model: @comment, url: article_comment_path(@comment.id), method: :patch do |f| %>
+  <label>コメント</label><%= f.text_field :comment, autofocus: true, id:"inputcomment", placeholder:"" %></br>
+  <label>画像</label>
+  <%= f.file_field :image, accept: "image/*" %></br>
+    <%= f.submit "変更を保存", class: "btn btn-success" %>
+<% end %>
+</div>
