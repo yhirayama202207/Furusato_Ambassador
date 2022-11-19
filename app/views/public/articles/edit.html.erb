@@ -3,19 +3,37 @@
 
 <div style="text-align:center;">
 <%= form_with model: @article, url: article_path(@article.id), method: :patch do |f| %>
+
   <label>画像</label>&emsp;
-  <%= f.file_field :image, accept: "image/*" %></br>
-  <label>タイトル</label><%= f.text_field :title, autofocus: true, id:"inputtitle", placeholder:"" %></br>
-  <label>本文</label><%= f.text_area :body, autofocus: true, id:"inputbody" %></br>
+  <%= f.file_field :image, accept: "image/*" %>
+  </br>
+
+  <label>タイトル</label>&emsp;
+  <%= f.text_field :title, autofocus: true, id:"inputtitle", placeholder:"" %>&emsp;&emsp;&emsp;&emsp;&emsp;
+  </br>
+
+  <label>本文</label>&emsp;
+  <%= f.text_area :body, autofocus: true, id:"inputbody" %>&emsp;&emsp;&emsp;&emsp;
+  </br>
+
   <label>都道府県</label>
-    <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "選択してください", class: "form-control col-sm-8" %></br>
-  <label>市区町村（任意）</label><%= f.text_field :region, autofocus: true, id:"inputregion", placeholder:"" %></br>
-  <label>場所・物の名前（任意）</label><%= f.text_field :name, autofocus: true, id:"inputname", placeholder:"" %></br>
+  <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "選択してください", class: "form-control col-sm-8" %>
+  </br>
+
+  <label>市区町村（任意）</label>
+  <%= f.text_field :region, autofocus: true, id:"inputregion", placeholder:"" %>
+  </br>
+
+  <label>場所・物の名前（任意）</label>
+  <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:"" %>
+  </br>
+
   <label>記事を公開しますか？</label>
     <%= f.radio_button :is_active, :true %>
     <%= f.label :is_active, "公開中", {value: :true, checked: true, style: "display: inline-block;"} %>
     <%= f.radio_button :is_active, :false %>
-    <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
+    <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %>
+    </br>
     <%= f.submit "変更を保存", class: "btn btn-success" %>
 <% end %>
 </div>
