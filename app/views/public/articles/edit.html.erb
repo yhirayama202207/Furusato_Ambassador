@@ -3,7 +3,7 @@
 
 <div style="text-align:center;">
 <%= form_with model: @article, url: article_path(@article.id), method: :patch do |f| %>
-  <label>画像</label>
+  <label>画像</label>&emsp;
   <%= f.file_field :image, accept: "image/*" %></br>
   <label>タイトル</label><%= f.text_field :title, autofocus: true, id:"inputtitle", placeholder:"" %></br>
   <label>本文</label><%= f.text_area :body, autofocus: true, id:"inputbody" %></br>
