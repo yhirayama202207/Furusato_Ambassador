@@ -7,7 +7,7 @@
   <table class="table table-hover table-inverse">
     <thead>
       <tr>
-        
+        <th></th>
         <th>ユーザーネーム</th>
         <th>出身地</th>
         <th colspan="4"></th>
@@ -16,6 +16,14 @@
     <tbody>
         <% @users.each do |user| %>
         <tr>
+        <td>
+          <%= link_to user_path(comment.user_id) do %>
+          <% if comment.user.image.attached? %>
+            <%= image_tag comment.user.image, size: "80x80" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "80x80" %>
+          <% end %>
+        </td>
         <td>
           <%= link_to admin_user_path(user.id) do %>
           <%= user.user_name %>
