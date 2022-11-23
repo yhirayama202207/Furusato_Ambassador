@@ -1,5 +1,4 @@
-<h5>public/users/index</h5>
-
+<h5>ユーザー一覧</h5>
 </br>
 <div class= "col-md-8 offset-md-1">
   <h5>ユーザー一覧</h5>
@@ -17,8 +16,8 @@
         <% @users.each do |user| %>
         <tr>
         <td>
-          <%= link_to user_path(user.user_id) do %>
-          <% if comment.user.image.attached? %>
+          <%= link_to user_path(user.id) do %>
+          <% if user.image.attached? %>
             <%= image_tag user.image, size: "80x80" %>
           <% else %>
             <%= image_tag 'no_image.jpg', size: "80x80" %>
