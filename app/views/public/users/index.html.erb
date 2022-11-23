@@ -33,9 +33,9 @@
         </td>
         <td>
           <% if current_user.following?(user) %>
-            <%= link_to "フォロー中", relationship_path(user.id), method: :delete %>
+            <%= link_to "フォロー中", relationship_path(user.id), method: :delete, class: "btn btn-info" %>
           <% else %>
-            <%= link_to "フォローする", relationships_path(user.id), method: :post %>
+            <%= link_to "フォロー", relationships_path(user.id), method: :post, class: "btn btn-info" %>
           <% end %>
         </td>
         </tr>
