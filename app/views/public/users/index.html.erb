@@ -17,15 +17,15 @@
         <% @users.each do |user| %>
         <tr>
         <td>
-          <%= link_to user_path(comment.user_id) do %>
+          <%= link_to user_path(user.user_id) do %>
           <% if comment.user.image.attached? %>
-            <%= image_tag comment.user.image, size: "80x80" %>
+            <%= image_tag user.image, size: "80x80" %>
           <% else %>
             <%= image_tag 'no_image.jpg', size: "80x80" %>
           <% end %>
         </td>
         <td>
-          <%= link_to admin_user_path(user.id) do %>
+          <%= link_to user_path(user.id) do %>
           <%= user.user_name %>
           <% end %>
         </td>
