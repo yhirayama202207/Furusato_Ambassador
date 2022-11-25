@@ -19,4 +19,11 @@ class Public::RelationshipsController < ApplicationController
     user = User.find(params[:user_id])
     @users = user.followers
   end
+
+  # ストロングパラメータ
+  private
+
+  def relationship_params
+    params.require(:relationship).permit(:user_id, :followed_id, :follower_id)
+  end
 end
