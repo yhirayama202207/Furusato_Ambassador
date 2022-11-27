@@ -19,6 +19,12 @@ class Public::UsersController < ApplicationController
     @users = @user.followers.page(params[:page])
   end
 
+  def likes
+    @user = User.find(params[:id])
+    likes= Like.where(user_id: @user.id).pluck(:article_id)
+    @like_articles = Article.find(likes)
+  end
+
   def show
     @user = User.find(params[:id])
     if @user == current_user
