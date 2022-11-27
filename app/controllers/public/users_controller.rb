@@ -50,7 +50,7 @@ class Public::UsersController < ApplicationController
   end
 
   def mypage
-    @user = User.find(params[:id])
+    @user = current_user
     @user_articles = @user.articles.all
   end
 
