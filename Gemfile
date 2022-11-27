@@ -68,3 +68,5 @@ gem "obscenity"
 gem 'dotenv-rails'
 
 gem 'kaminari','~> 1.2.1'
+
+gem "jquery-rails"
