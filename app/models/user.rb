@@ -18,16 +18,8 @@ class User < ApplicationRecord
   #フォロワー一覧用
   has_many :followers, through: :reverse_of_relationships, source: :following
 
-  # フォローしたときの処理
-  def follow(user_id)
-    relationships.create(followed_id: user_id)
-  end
-  # フォローを外すときの処理
-  def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy
-  end
   # フォローしているか判定
-  def following?(user)
-    followings.include?(user)
+  def is_followed_by?(user)
+    reverse_of_relationships.find_by(following_id: user.id).present?
   end
 end
