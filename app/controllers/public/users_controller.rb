@@ -21,7 +21,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @user_articles = @user.articles.all
+    @user_articles = @user.articles.where(is_active: true)
   end
 
   def mypage
