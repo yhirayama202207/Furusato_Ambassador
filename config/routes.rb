@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :edit, :update, :index, :destroy]
       resource :likes, only: [:create, :destroy]
       resource :foot_prints, only: [:create, :destroy]
+      resource :clips, only: [:create, :destroy]
     end
   end
 
