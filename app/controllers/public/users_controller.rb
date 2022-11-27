@@ -24,6 +24,11 @@ class Public::UsersController < ApplicationController
     @user_articles = @user.articles.all
   end
 
+  def mypage
+    @user = User.find(params[:id])
+    @user_articles = @user.articles.all
+  end
+
   def edit
     @user = User.find(params[:id])
   end

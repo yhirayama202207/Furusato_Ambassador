@@ -1,0 +1,79 @@
+</br>
+<h5>マイページ</h5>
+
+<div class= "col-1 mt-2">
+
+</div>
+
+ <div class= "col-md-8 offset-md-1">
+   <% if @user.image.attached? %>
+  <%= image_tag @user.image, size: "100x100" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "100x100" %>
+<% end %>
+<label>登録情報</label>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<%= link_to "編集", edit_user_path, class: "btn btn-success" %>
+  <table class="table table-hover table-bordered table-inverse">
+    <tbody>
+      <tr>
+        <th class="table-secondary">ユーザー名</th>
+        <td>
+          <%= @user.user_name %>
+        </td>
+      </tr>
+      <tr>
+        <th class="table-secondary">メールアドレス</th>
+        <td>
+          <%= @user.email %>
+        </td>
+      </tr>
+      <tr>
+        <th class="table-secondary">居住地</th>
+        <td>
+          <%= @user.home %>
+        </td>
+      </tr>
+      <tr>
+        <th class="table-secondary">出身地</th>
+        <td>
+          <%= @user.hometown %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</br>
+</div>
+</div>
+
+<label>&emsp;記事履歴（全<%= @user_articles.count %>件）</label>
+
+<div class= "col-8">
+</br>
+<div class= "row">
+<% @user_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
+</br>
+<% if article.is_active %>
+  <label class="text-success">公開中</label>
+<% else %>
+  <label class="text-secondary">非公開</label>
+<% end %>&emsp;&emsp;&emsp;&emsp;
+<%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+
+</div>
+<% end %>
+</div>
+</div>
