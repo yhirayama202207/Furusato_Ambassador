@@ -31,6 +31,12 @@ class Public::UsersController < ApplicationController
     @foot_print_articles = Article.find(foot_prints)
   end
 
+  def clips
+    @user = User.find(params[:id])
+    clips= Clip.where(user_id: @user.id).pluck(:article_id)
+    @clip_articles = Article.find(clips)
+  end
+
   def show
     @user = User.find(params[:id])
     if @user == current_user
