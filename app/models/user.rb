@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :articles
   has_many :comments
+  has_many :likes, dependent: :destroy
 
   # フォローする
   has_many :relationships, foreign_key: :following_id, dependent: :destroy
