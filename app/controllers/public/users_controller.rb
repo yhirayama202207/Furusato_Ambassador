@@ -2,8 +2,21 @@ class Public::UsersController < ApplicationController
 
   before_action :authenticate_user!
 
+  # 全ユーザー一覧
   def index
     @users = User.all.page(params[:page])
+  end
+
+  # フォローしているユーザー一覧
+  def followings
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+
+  # フォロワー一覧
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
   end
 
   def show
