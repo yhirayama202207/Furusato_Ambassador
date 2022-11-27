@@ -48,6 +48,12 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
     @user_articles = @user.articles.all
+    likes= Like.where(user_id: @user.id).pluck(:article_id)
+    @like_articles = Article.find(likes)
+    foot_prints= FootPrint.where(user_id: @user.id).pluck(:article_id)
+    @foot_print_articles = Article.find(foot_prints)
+    clips= Clip.where(user_id: @user.id).pluck(:article_id)
+    @clip_articles = Article.find(clips)
   end
 
   def edit

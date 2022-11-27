@@ -46,7 +46,7 @@
 </div>
 </div>
 
-<label>&emsp;記事履歴（全<%= @user_articles.count %>件）</label>
+<label>&emsp;あなたの記事（全<%= @user_articles.count %>件）</label>
 
 <div class= "col-8">
 </br>
@@ -72,6 +72,87 @@
   <label class="text-secondary">非公開</label>
 <% end %>&emsp;&emsp;&emsp;&emsp;
 <%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+
+</div>
+<% end %>
+</div>
+</div>
+
+</br>
+
+<label>&emsp;💗いいねした記事（全<%= @like_articles.count %>件）</label>
+
+<div class= "col-8">
+</br>
+<div class= "row">
+<% @like_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
+
+</div>
+<% end %>
+</div>
+</div>
+
+</br>
+
+<label>&emsp;🐾行った！した記事（全<%= @foot_print_articles.count %>件）</label>
+
+<div class= "col-8">
+</br>
+<div class= "row">
+<% @foot_print_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
+
+</div>
+<% end %>
+</div>
+</div>
+
+</br>
+
+<label>&emsp;📎クリップした記事（全<%= @clip_articles.count %>件）</label>
+
+<div class= "col-8">
+</br>
+<div class= "row">
+<% @clip_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.png', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
 
 </div>
 <% end %>
