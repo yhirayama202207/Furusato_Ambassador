@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get "homes/about"
     get "users/confirm" => "users#confirm"
     get "users/mypage" => "users#mypage"
+    get "users/user_articles" => "users#user_articles", as: "user_articles"
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"

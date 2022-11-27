@@ -1,0 +1,52 @@
+<div class= "row">
+<div class= "col-2">
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
+      </tr>
+    </thread>
+    <tbody>
+        <% @japan_prefectures.each do |japan_prefecture| %>
+        <tr>
+        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %></td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class= "col-8">
+</br>
+<h5><%= @user.user_name %>さんの記事一覧（全<%= @user_articles.count %>件）</h5>
+
+<div class= "row">
+<% @user_articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>
+
+</br>
+<% if article.is_active %>
+  <label class="text-success">公開中</label>
+<% else %>
+  <label class="text-secondary">非公開</label>
+<% end %>&emsp;&emsp;&emsp;&emsp;
+<%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+
+</div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
