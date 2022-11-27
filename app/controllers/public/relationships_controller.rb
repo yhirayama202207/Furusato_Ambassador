@@ -1,13 +1,15 @@
 class Public::RelationshipsController < ApplicationController
     # フォローするとき
   def create
-    current_user.follow(params[:user_id])
-    redirect_to request.referer
+    following = current_user.relationships.build(follower_id: params[:user_id])
+    following.save
+    redirect_to request.referer || root_path
   end
-  # フォロー外すとき
+  # フォローを外すとき
   def destroy
-    current_user.unfollow(params[:user_id])
-    redirect_to request.referer
+    following = current_user.relationships.find_by(follower_id: params[:user_id])
+    following.destroy
+    redirect_to request.referer || root_path
   end
   # フォロー一覧
   def followings
@@ -24,6 +26,6 @@ class Public::RelationshipsController < ApplicationController
   private
 
   def relationship_params
-    params.require(:relationship).permit(:user_id, :followed_id, :follower_id)
+    params.require(:relationship).permit(:following_id, :follower_id)
   end
 end
