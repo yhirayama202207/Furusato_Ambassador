@@ -30,9 +30,10 @@ Rails.application.routes.draw do
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
     resources :users, only: [:show, :edit, :update, :index] do
-      resources :relationships, only: [:create, :destroy]
-      get 'followings' => 'relationships#followings', as: 'followings'
-      get 'followers' => 'relationships#followers', as: 'followers'
+      resource :relationships, only: [:create, :destroy]
+      #on: :memberとすることによってidを取得できる
+      get :followings, on: :member
+      get :followers, on: :member
     end
     resources :articles, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
       resources :comments, only: [:create, :edit, :update, :index, :destroy]
