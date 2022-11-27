@@ -21,21 +21,40 @@
 <% end %>
 </br>
 </br>
+
 <% if @article.liked_by?(current_user) %>
-    <p>
+    <label>
       <%= link_to article_likes_path(@article), method: :delete do %>
         <i class="fas fa-heart"></i>
       <% end %>
       <%= @article.likes.count %> いいね済み
-    </p>
+    </label>
     <% else %>
-    <p>
+    <label>
       <%= link_to article_likes_path(@article), method: :post do %>
         <i class="far fa-heart"></i>
       <% end %>
       <%= @article.likes.count %> いいね
-    </p>
+    </label>
   <% end %>
+  &emsp;
+  <% if @article.foot_printed_by?(current_user) %>
+    <label>
+      <%= link_to article_foot_prints_path(@article), method: :delete do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= @article.foot_prints.count %> 行った！済み
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_foot_prints_path(@article), method: :post do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= @article.foot_prints.count %> 行った
+    </label>
+  <% end %>
+
+</br>
 &emsp;&emsp;
 <% if @article.user == current_user %>
 <%= link_to "編集する", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
