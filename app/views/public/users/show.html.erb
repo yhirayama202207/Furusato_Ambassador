@@ -14,8 +14,7 @@
 <label><%= @user.user_name %></label>
 </br>
 <label class="text-small"><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー&emsp;<%=link_to @user.followers.count, followers_user_path(@user) %>フォロワー</label>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-<%= link_to "編集", edit_user_path, class: "btn btn-success" %>
+</br>
   <table class="table table-hover table-bordered table-inverse">
     <tbody>
       <tr>

@@ -42,11 +42,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if @user == current_user
-      @user_articles = @user.articles.all
-    else
-      @user_articles = @user.articles.where(is_active: true)
-    end
+    @user_articles = @user.articles.where(is_active: true)
   end
 
   def mypage
