@@ -29,9 +29,11 @@ Rails.application.routes.draw do
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
+    #get "users/:id/followings" => "public/users#followings_index", as: "user_followings_index"
+    #get "users/:id/followers" => "public/users#followers_index", as: "user_followers_index"
     resources :users, only: [:show, :edit, :update, :index] do
       resource :relationships, only: [:create, :destroy]
-      #on: :memberとすることによってidを取得できる
+      #memberとすることでidを取得できる
       get :followings, on: :member
       get :followers, on: :member
     end
