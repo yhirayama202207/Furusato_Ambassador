@@ -1,5 +1,5 @@
 </br>
-<h5>マイページ</h5>
+<h5>プロフィール</h5>
 
 <div class= "col-1 mt-2">
 
@@ -11,23 +11,11 @@
 <% else %>
   <%= image_tag 'no_image.jpg', size: "100x100" %>
 <% end %>
-<label>登録情報</label>
+<label><%= @user.user_name %></label>
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <%= link_to "編集", edit_user_path, class: "btn btn-success" %>
   <table class="table table-hover table-bordered table-inverse">
     <tbody>
-      <tr>
-        <th class="table-secondary">ユーザー名</th>
-        <td>
-          <%= @user.user_name %>
-        </td>
-      </tr>
-      <tr>
-        <th class="table-secondary">メールアドレス</th>
-        <td>
-          <%= @user.email %>
-        </td>
-      </tr>
       <tr>
         <th class="table-secondary">居住地</th>
         <td>
