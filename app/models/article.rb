@@ -5,6 +5,7 @@ class Article < ApplicationRecord
   has_many :comments
   has_many :likes, dependent: :destroy
   has_many :foot_prints, dependent: :destroy
+  has_many :clips, dependent: :destroy
 
   def liked_by?(user)
     likes.exists?(user_id: user.id)
@@ -12,6 +13,10 @@ class Article < ApplicationRecord
 
   def foot_printed_by?(user)
     foot_prints.exists?(user_id: user.id)
+  end
+
+  def clipped_by?(user)
+    clips.exists?(user_id: user.id)
   end
 
 end
