@@ -55,7 +55,7 @@
 <div class= "col-8">
 </br>
 <div class= "row">
-<% @user_articles.each do |article| %>
+<% @user_articles.last(5).each do |article| %>
 <div class= "col-3">
 
 <%= link_to article_path(article.id) do %>
@@ -94,7 +94,7 @@
 <div class= "col-8">
 </br>
 <div class= "row">
-<% @like_articles.each do |article| %>
+<% @like_articles.last(5).each do |article| %>
 <div class= "col-3">
 
 <%= link_to article_path(article.id) do %>
@@ -125,7 +125,7 @@
 <div class= "col-8">
 </br>
 <div class= "row">
-<% @foot_print_articles.each do |article| %>
+<% @foot_print_articles.last(5).each do |article| %>
 <div class= "col-3">
 
 <%= link_to article_path(article.id) do %>
@@ -156,7 +156,7 @@
 <div class= "col-8">
 </br>
 <div class= "row">
-<% @clip_articles.each do |article| %>
+<% @clip_articles.last(5).each do |article| %>
 <div class= "col-3">
 
 <%= link_to article_path(article.id) do %>
