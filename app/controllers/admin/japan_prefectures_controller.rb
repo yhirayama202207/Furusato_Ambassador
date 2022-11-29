@@ -33,6 +33,6 @@ class Admin::JapanPrefecturesController < ApplicationController
   private
 
   def japan_prefecture_params
-    params.require(:japan_prefecture).permit(:name, :japan_area_id)
+    params.require(:japan_prefecture).permit(:name, :name_english, :japan_area_id)
   end
 end
