@@ -1,14 +1,18 @@
 <main>
-  <h5>都道府県編集</h5>
+  </br>
+  <h5>&emsp;都道府県編集</h5>
   <div class= "container">
     <div class= "row">
       <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
         </br>
           <%= form_with model: @japan_prefecture, url: admin_japan_prefecture_path(@japan_prefecture.id), method: :patch do |f| %>
-            <%= f.label :"都道府県名" %>
+            <%= f.label :"都道府県名" %></br>
+            <%= f.label :"日本語表記" %>&emsp;
             <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
+            <%= f.label :"英語表記" %>&emsp;&emsp;
+            <%= f.text_field :name_english, autofocus: true, id:"inputname", placeholder:""%></br>
             <%= f.label :"日本エリア名" %>
-            <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>
+            <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>&emsp;&emsp;&emsp;&emsp;&emsp;
             <%= f.submit "変更を保存", class: "btn btn-success" %>
           <% end %>
       </div>

@@ -16,4 +16,22 @@
       </div>
     </div>
   </div>
+</main><main>
+  </br>
+  <h5>&emsp;日本エリア編集</h5>
+  <div class= "container">
+    <div class= "row">
+      <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+        </br>
+          <%= form_with model: @japan_area, url: admin_japan_area_path(@japan_area.id), method: :patch do |f| %>
+            <%= f.label :"エリア名" %></br>
+            <%= f.label :"日本語表記" %>&emsp;
+            <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
+            <%= f.label :"英語表記" %>&emsp;&emsp;
+            <%= f.text_field :name_english, autofocus: true, id:"inputname", placeholder:""%></br>&emsp;&emsp;&emsp;&emsp;&emsp;
+            <%= f.submit "変更を保存", class: "btn btn-success" %>
+          <% end %>
+      </div>
+    </div>
+  </div>
 </main>

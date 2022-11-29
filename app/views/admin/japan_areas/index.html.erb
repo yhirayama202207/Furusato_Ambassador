@@ -32,4 +32,38 @@
     </tbody>
   </table>
 </div>
+</div></br>
+<h5>&emsp;日本エリア一覧・追加</h5>
+</br>
+
+<%= form_with model: @japan_area, url: admin_japan_areas_path, method: :post do |f| %>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label>日本エリア追加</label></br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;日本語表記&emsp;<%= f.text_field :name %>&emsp;英語表記&emsp;<%= f.text_field :name_english %>&emsp;
+<%= f.submit "新規登録", class: "btn btn-success" %></br>
+<% end %>
+</br>
+
+<div style="text-align:center;">
+<div class= "col-md-8 offset-md-1">
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr>
+        <th>エリア名（日本語表記）</th>
+        <th>エリア名（英語表記）</th>
+        <th colspan="3"></th>
+      </tr>
+    </thread>
+    <tbody>
+      <% @japan_areas.each do |japan_area| %>
+      <tr>
+        <td><%= japan_area.name %></td>
+        <td><%= japan_area.name_english %></td>
+        <td>
+          <%= link_to "編集する", edit_admin_japan_area_path(japan_area.id), class: "btn btn-success" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 </div>
