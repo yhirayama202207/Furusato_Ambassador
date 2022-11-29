@@ -33,7 +33,7 @@ class Admin::JapanAreasController < ApplicationController
   private
 
   def japan_area_params
-    params.require(:japan_area).permit(:name)
+    params.require(:japan_area).permit(:name, :name_english)
   end
 
 end

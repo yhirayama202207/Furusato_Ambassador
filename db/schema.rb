@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2022_10_25_120022) do
 
   create_table "japan_areas", force: :cascade do |t|
     t.string "name", null: false
+    t.string "name_english", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 2022_10_25_120022) do
   create_table "japan_prefectures", force: :cascade do |t|
     t.integer "japan_area_id", null: false
     t.string "name", null: false
+    t.string "name_english", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
