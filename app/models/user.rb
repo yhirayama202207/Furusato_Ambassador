@@ -21,9 +21,15 @@ class User < ApplicationRecord
   #フォロワー一覧用
   has_many :followers, through: :reverse_of_relationships, source: :following
 
-  # フォローしているか判定
+  #フォローしているか判定
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
+  end
+
+  #ユーザー検索機能
+  def self.search(search)
+    return User.all unless search
+    User.where('text LIKE(?)', "%#{search}%")
   end
 
 end

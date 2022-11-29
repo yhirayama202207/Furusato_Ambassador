@@ -39,6 +39,9 @@ Rails.application.routes.draw do
       get :likes, on: :member
       get :foot_prints, on: :member
       get :clips, on: :member
+      collection do
+        get "search"
+      end
     end
     resources :articles, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
       resources :comments, only: [:create, :edit, :update, :index, :destroy]

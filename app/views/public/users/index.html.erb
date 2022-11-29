@@ -1,6 +1,14 @@
 </br>
 <h5>&emsp;ユーザー一覧</h5>
 </br>
+
+<label>&emsp;ユーザー検索</label>
+<%= form_with(url: search_users_path, local: true, method: :get, class: "XXXX") do |form| %>
+&emsp;<%= form.text_field :keyword, placeholder: "ユーザー名を入力", class: "YYYY" %>
+<%= form.submit "検索", class: "ZZZZ" %>
+<% end %>
+</br>
+
 <div class= "col-md-8 offset-md-1">
   <div style="text-align:center;">
   <table class="table table-hover table-inverse">

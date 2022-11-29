@@ -46,6 +46,10 @@ class Public::UsersController < ApplicationController
     @clip_articles = Article.find(clips)
   end
 
+  def search
+    @users = User.search(params[:keyword])
+  end
+
   def show
     @user = User.find(params[:id])
     @user_articles = @user.articles.where(is_active: true)
