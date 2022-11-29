@@ -24,6 +24,7 @@ class Public::ArticlesController < ApplicationController
   end
 
   def show
+    @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @user = @article.user
     @comment = @article.comments.build

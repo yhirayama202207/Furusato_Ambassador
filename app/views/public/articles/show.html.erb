@@ -1,8 +1,27 @@
+<div class= "row">
+<div class= "col-2">
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
+      </tr>
+    </thread>
+    <tbody>
+        <% @japan_prefectures.each do |japan_prefecture| %>
+        <tr>
+        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %></td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class= "col-8">
 </br>
-<h5>記事詳細</h5>
+<h5>&emsp;記事詳細</h5>
 </br>
-<h4>&emsp;<%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>）</h4>
-<h6>&emsp;<i class="fas fa-pencil-alt"></i><%= @article.created_at %>&emsp;by
+<h4>&emsp;<%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）</h4>
+<h6>&emsp;&emsp;<i class="fas fa-pencil-alt"></i>
 <%= link_to user_path(@article.user.id) do %>
 <% if @article.user.image.attached? %>
   <%= image_tag @article.user.image, size: "30x30" %>
@@ -10,7 +29,11 @@
   <%= image_tag 'no_image.jpg', size: "30x30" %>
 <% end %>
 <%= @article.user.user_name %>
-<% end %></h6>
+<% end %>
+&emsp;<%= @article.created_at %>
+</h6>
+</br>
+<h5>&emsp;<%= @article.body %></h5>
 </br>
 &emsp;
 <% if @article.image.attached? %>
@@ -20,11 +43,7 @@
 <% end %>
 </br>
 </br>
-<label>本文</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= @article.body %></br>
-<label>場所／物の名前</label>&emsp;&emsp;<%= @article.name %></br>
-</br>
-</br>
-
+&emsp;
 <% if @article.liked_by?(current_user) %>
     <label>
       <%= link_to article_likes_path(@article), method: :delete do %>
@@ -109,7 +128,9 @@
 <%= comment.comment %>
 </br>
 <% if comment.image.attached? %>
+  </br>
   <%= image_tag comment.image, size: "200x200" %>
+  </br>
 <% end %>
 </br>
 <% if comment.user == current_user %>
@@ -120,3 +141,4 @@
 🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎
 </br>
 <% end %>
+</div>
