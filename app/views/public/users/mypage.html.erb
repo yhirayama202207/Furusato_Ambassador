@@ -62,7 +62,7 @@
 <% end %>
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
 </br>
 <% if article.is_active %>
   <label class="text-success">公開中</label>
@@ -96,7 +96,15 @@
 <% end %>
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
+<% if article.user.image.attached? %>
+  <%= image_tag article.user.image, size: "20x20" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "20x20" %>
+<% end %>
+ <%= link_to user_path(article.user.id) do %>
+    <%= article.user.user_name %>
+  <% end %>
 </div>
 <% end %>
 </div>
@@ -122,7 +130,7 @@
 <% end %>
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
 </div>
 <% end %>
 </div>
@@ -148,7 +156,7 @@
 <% end %>
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
 </div>
 <% end %>
 </div>
