@@ -19,14 +19,14 @@
       <div class="carousel-caption d-none d-md-block">
         <h1>特別じゃなくていい。</h1>
         </br>
-        <h4>すぐ近くにある、地域の魅力を発信しよう。</h4>
+        <h4>すぐ近くにある、地域の魅力を発信しよう</h4>
         </br>
       </div>
     </div>
     <div class="carousel-item">
       <%= image_tag 'inasanohama_shimane1.jpeg', class: "d-block w-100", alt: "南会津写真" %>
       <div class="carousel-caption d-none d-md-block">
-        <h1>それが、誰かの特別になるかもしれない。</h1>
+        <h1>それが、誰かの特別になるかもしれない</h1>
         </br>
         <h4>みんなのちからで街を、日本を、興そう。</h4>
         </br>
@@ -71,17 +71,6 @@
 <% @all_ranks.each do |article| %>
 <div class= "col-3">
 
-<%= link_to article_path(article.id) do %>
-<% if article.image.attached? %>
-  <%= image_tag article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
-<% end %>
-<% end %>
-
-<%= article.title %>
-</br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
 <%= link_to user_path(article.user.id) do %>
   <% if article.user.image.attached? %>
     <%= image_tag article.user.image, size: "20x20" %>
@@ -90,6 +79,51 @@
   <% end %>
   <%= article.user.user_name %>
 <% end %>
+</br>
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "200x200" %>
+<% end %>
+<% end %>
+
+</br>
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
+
+<% if article.liked_by?(current_user) %>
+    <label>
+      <%= link_to article_likes_path(article), method: :delete do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_likes_path(article), method: :post do %>
+        <i class="far fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+  <% end %>
+  <% if article.foot_printed_by?(current_user) %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :delete do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :post do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+  <% end %>
 
 
 </div>
@@ -104,6 +138,16 @@
 <% @articles.last(30).each do |article| %>
 <div class= "col-3">
 
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
+  <%= article.user.user_name %>
+<% end %>
+</br>
+
 <%= link_to article_path(article.id) do %>
 <% if article.image.attached? %>
   <%= image_tag article.image, size: "200x200" %>
@@ -114,15 +158,39 @@
 
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
-<%= link_to user_path(article.user.id) do %>
-  <% if article.user.image.attached? %>
-    <%= image_tag article.user.image, size: "20x20" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "20x20" %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+</br>
+
+<% if article.liked_by?(current_user) %>
+    <label>
+      <%= link_to article_likes_path(article), method: :delete do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_likes_path(article), method: :post do %>
+        <i class="far fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
   <% end %>
-  <%= article.user.user_name %>
-<% end %>
+  <% if article.foot_printed_by?(current_user) %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :delete do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :post do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+  <% end %>
 
 </div>
 <% end %>
