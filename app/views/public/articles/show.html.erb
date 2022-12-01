@@ -118,13 +118,14 @@
 <% @comments.each do |comment| %>
 <%= link_to user_path(comment.user_id) do %>
 <% if comment.user.image.attached? %>
-  <%= image_tag comment.user.image, size: "80x80" %>
+  <%= image_tag comment.user.image, size: "30x30" %>
 <% else %>
-  <%= image_tag 'no_image.jpg', size: "80x80" %>
+  <%= image_tag 'no_image.jpg', size: "30x30" %>
 <% end %>
-</br>
 <%= comment.user.user_name %>
 <% end %>&emsp;
+<%= comment.created_at %>
+</br>
 <%= comment.comment %>
 </br>
 <% if comment.image.attached? %>
