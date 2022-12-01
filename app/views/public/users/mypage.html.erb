@@ -43,6 +43,11 @@
 </div>
 </div>
 <label>&emsp;
+  <% if @user.image.attached? %>
+    <%= image_tag @user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
   <%= link_to user_articles_path(@user.id) do %>
     <%= @user.user_name %>さんの記事（全<%= @user_articles.count %>件）
   <% end %>
