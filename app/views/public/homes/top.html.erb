@@ -81,7 +81,16 @@
 
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
+  <%= article.user.user_name %>
+<% end %>
+
 
 </div>
 <% end %>
@@ -105,7 +114,15 @@
 
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
+  <%= article.user.user_name %>
+<% end %>
 
 </div>
 <% end %>
