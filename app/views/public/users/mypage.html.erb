@@ -1,5 +1,5 @@
 </br>
-<h5>マイページ</h5>
+<h5>&emsp;マイページ</h5>
 <div class= "col-1 mt-2">
 </div>
  <div class= "col-md-8 offset-md-1">
@@ -68,8 +68,9 @@
   <label class="text-success">公開中</label>
 <% else %>
   <label class="text-secondary">非公開</label>
-<% end %>&emsp;&emsp;&emsp;&emsp;
+<% end %>
 <%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+<%= link_to "削除", article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
 </div>
 <% end %>
 </div>
@@ -97,14 +98,14 @@
 <%= article.title %>
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
-<% if article.user.image.attached? %>
-  <%= image_tag article.user.image, size: "20x20" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "20x20" %>
-<% end %>
- <%= link_to user_path(article.user.id) do %>
-    <%= article.user.user_name %>
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
   <% end %>
+  <%= article.user.user_name %>
+<% end %>
 </div>
 <% end %>
 </div>
@@ -131,14 +132,14 @@
 <%= article.title %>
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
-<% if article.user.image.attached? %>
-  <%= image_tag article.user.image, size: "20x20" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "20x20" %>
-<% end %>
- <%= link_to user_path(article.user.id) do %>
-    <%= article.user.user_name %>
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
   <% end %>
+  <%= article.user.user_name %>
+<% end %>
 </div>
 <% end %>
 </div>
@@ -165,14 +166,14 @@
 <%= article.title %>
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
-<% if article.user.image.attached? %>
-  <%= image_tag article.user.image, size: "20x20" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "20x20" %>
-<% end %>
- <%= link_to user_path(article.user.id) do %>
-    <%= article.user.user_name %>
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
   <% end %>
+  <%= article.user.user_name %>
+<% end %>
 </div>
 <% end %>
 </div>
