@@ -26,7 +26,7 @@
     <div class="carousel-item">
       <%= image_tag 'inasanohama_shimane1.jpeg', class: "d-block w-100", alt: "南会津写真" %>
       <div class="carousel-caption d-none d-md-block">
-        <h1>それが、誰かの特別になるかもしれない</h1>
+        <h1>それは、誰かの特別になるかもしれない</h1>
         </br>
         <h4>みんなのちからで街を、日本を、興そう。</h4>
         </br>
@@ -87,10 +87,10 @@
 <% else %>
   <%= image_tag 'no_image.jpg', size: "200x200" %>
 <% end %>
-<% end %>
 
 </br>
 <%= article.title %>
+<% end %>
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
 
@@ -154,9 +154,9 @@
 <% else %>
   <%= image_tag 'no_image.jpg', size: "200x200" %>
 <% end %>
-<% end %>
 
 <%= article.title %>
+<% end %>
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
 </br>
