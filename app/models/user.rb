@@ -29,6 +29,18 @@ class User < ApplicationRecord
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
 
+  #フォロー通知機能
+  def create_nortification_follow!(current_user
+    temp = Nortification.where(["sender_id = ? and receiver_id = ? and action = ? ",current_user.id, id, "follow"])
+    if temp.blank?
+      nortification = current_user.active_nortifications.new(
+        receiver_id: id,
+        action: "follow"
+      )
+      nortification.save if nortification.valid?
+    end
+  end
+
   #ユーザー検索機能
   def self.search(search)
     if search != ""
