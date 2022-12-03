@@ -11,8 +11,8 @@ class User < ApplicationRecord
   has_many :foot_prints, dependent: :destroy
   has_many :clips, dependent: :destroy
 
-  has_many :active_nortifications, class_name: "Nortification", foreign_key: "sender_id", dependent: :destroy
-  has_many :passive_nortifications, class_name: "Nortification", foreign_key: "receiver_id", dependent: :destroy
+  has_many :active_notifications, class_name: "Notification", foreign_key: "sender_id", dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification", foreign_key: "receiver_id", dependent: :destroy
 
   # フォローする
   has_many :relationships, foreign_key: :following_id, dependent: :destroy
@@ -30,14 +30,14 @@ class User < ApplicationRecord
   end
 
   #フォロー通知機能
-  def create_nortification_follow!(current_user)
-    temp = Nortification.where(["sender_id = ? and receiver_id = ? and action = ? ",current_user.id, id, "follow"])
+  def create_notification_follow!(current_user)
+    temp = Notification.where(["sender_id = ? and receiver_id = ? and action = ? ",current_user.id, id, "follow"])
     if temp.blank?
-      nortification = current_user.active_nortifications.new(
+      notification = current_user.active_notifications.new(
         receiver_id: id,
         action: "follow"
       )
-      nortification.save if nortification.valid?
+      notification.save if notification.valid?
     end
   end
 
