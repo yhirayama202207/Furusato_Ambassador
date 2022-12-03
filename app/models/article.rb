@@ -6,7 +6,7 @@ class Article < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :foot_prints, dependent: :destroy
   has_many :clips, dependent: :destroy
-  has_many :nortifications, dependent: :destroy
+  #has_many :nortifications, dependent: :destroy
 
   def liked_by?(user)
     likes.exists?(user_id: user.id)

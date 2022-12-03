@@ -30,7 +30,7 @@ class User < ApplicationRecord
   end
 
   #フォロー通知機能
-  def create_nortification_follow!(current_user
+  def create_nortification_follow!(current_user)
     temp = Nortification.where(["sender_id = ? and receiver_id = ? and action = ? ",current_user.id, id, "follow"])
     if temp.blank?
       nortification = current_user.active_nortifications.new(
