@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_25_120022) do
+ActiveRecord::Schema.define(version: 2022_12_03_095005) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -128,6 +128,21 @@ ActiveRecord::Schema.define(version: 2022_10_25_120022) do
     t.integer "article_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "nortifications", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.integer "article_id"
+    t.integer "comment_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_nortifications_on_article_id"
+    t.index ["comment_id"], name: "index_nortifications_on_comment_id"
+    t.index ["receiver_id"], name: "index_nortifications_on_receiver_id"
+    t.index ["sender_id"], name: "index_nortifications_on_sender_id"
   end
 
   create_table "relationships", force: :cascade do |t|
