@@ -6,7 +6,7 @@ class CreateNortifications < ActiveRecord::Migration[6.1]
       t.integer :article_id
       t.integer :comment_id
       t.string :action, default: "", null: false
-      t.boolean :checked, default: false, null: false
+      t.boolean :is_checked, default: false, null: false
 
       t.timestamps
     end

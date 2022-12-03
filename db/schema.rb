@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2022_12_03_095005) do
     t.integer "article_id"
     t.integer "comment_id"
     t.string "action", default: "", null: false
-    t.boolean "checked", default: false, null: false
+    t.boolean "is_checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["article_id"], name: "index_nortifications_on_article_id"
