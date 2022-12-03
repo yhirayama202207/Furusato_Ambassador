@@ -1,0 +1,2 @@
+class Nortification < ApplicationRecord
+end
