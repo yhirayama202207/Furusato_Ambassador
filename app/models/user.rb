@@ -11,6 +11,9 @@ class User < ApplicationRecord
   has_many :foot_prints, dependent: :destroy
   has_many :clips, dependent: :destroy
 
+  has_many :active_nortifications, class_name: "Nortification", foreign_key: "sender_id", dependent: :destroy
+  has_many :passive_nortifications, class_name: "Nortification", foreign_key: "receiver_id", dependent: :destroy
+
   # フォローする
   has_many :relationships, foreign_key: :following_id, dependent: :destroy
   #フォロー一覧用
