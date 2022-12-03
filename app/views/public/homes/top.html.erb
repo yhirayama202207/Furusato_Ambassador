@@ -176,6 +176,7 @@
       <%= article.likes.count %>いいね
     </label>
   <% end %>
+
   <% if article.foot_printed_by?(current_user) %>
     <label>
       <%= link_to article_foot_prints_path(article), method: :delete do %>
