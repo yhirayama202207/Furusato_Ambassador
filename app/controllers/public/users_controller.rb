@@ -48,6 +48,7 @@ class Public::UsersController < ApplicationController
 
   def search
     @users = User.search(params[:keyword])
+    @users_page = User.all.page(params[:page])
   end
 
   def show

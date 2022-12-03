@@ -1,5 +1,62 @@
-<div class="AAAA">
-  <% @users.each do |user| %>
-    <%= render partial: "user", locals: { user: user } %>
-  <% end %>
-</div>
+</br>
+<h5>&emsp;ユーザー一覧</h5>
+</br>
+
+<label>&emsp;ユーザー検索</label>
+<%= form_with(url: search_users_path, local: true, method: :get, class: "search-form") do |form| %>
+&emsp;<%= form.text_field :keyword, placeholder: "ユーザー名を入力", class: "search-input" %>
+<%= form.submit "検索", class: "search-btn" %>
+<% end %>
+</br>
+
+<div class= "col-md-8 offset-md-1">
+  <div style="text-align:center;">
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ユーザーネーム</th>
+        <th>出身地</th>
+        <th></th>
+        <th colspan="4"></th>
+      </tr>
+    </thread>
+    <tbody>
+        <% @users.each do |user| %>
+        <tr>
+        <td>
+          <%= link_to user_path(user.id) do %>
+          <% if user.image.attached? %>
+            <%= image_tag user.image, size: "80x80" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "80x80" %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to user_path(user.id) do %>
+          <%= user.user_name %>
+          <% end %>
+        </td>
+        <td>
+          <%= user.hometown %>
+        </td>
+        <td>
+          <% if user == current_user %>
+          <p></p>
+          <% else %>
+            <% if user.is_followed_by?(current_user) %>
+              <%= link_to "フォロー解除", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
+            <% else %>
+              <%= link_to "フォロー", user_relationships_path(user), method: :post, class: "btn btn-info" %>
+            <% end %>
+          <% end %>
+        </td>
+        </tr>
+        <% end %>
+        <% end %>
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <%= paginate @users_page %>

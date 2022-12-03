@@ -28,8 +28,11 @@ class User < ApplicationRecord
 
   #ユーザー検索機能
   def self.search(search)
-    return User.all unless search
-    User.where('text LIKE(?)', "%#{search}%")
+    if search != ""
+      User.where(["user_name LIKE(?) OR email LIKE(?) OR home LIKE(?) OR hometown LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
+    else
+      User.includes(:user).order("created_at DESC")
+    end
   end
 
 end
