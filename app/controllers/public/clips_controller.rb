@@ -4,6 +4,7 @@ class Public::ClipsController < ApplicationController
     article = Article.find(params[:article_id])
     clip = current_user.clips.new(article_id: article.id)
     clip.save
+    article.create_notification_clip!(current_user)
     redirect_to request.referer || article_path(article)
   end
 
