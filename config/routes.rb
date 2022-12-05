@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       resource :likes, only: [:create, :destroy]
       resource :foot_prints, only: [:create, :destroy]
       resource :clips, only: [:create, :destroy]
+    resources :notifications, only: [:index]
     end
   end
 
