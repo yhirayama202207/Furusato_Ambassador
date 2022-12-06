@@ -75,7 +75,8 @@ class Article < ApplicationRecord
     if temp.blank?
       notification = current_user.active_notifications.new(
         article_id: id,
-        sender_id: user_id,
+        sender_id: current_user.id,
+        receiver_id: user_id,
         action: "clip"
       )
       #自分の投稿に対するクリップの場合は、通知済みとする
@@ -100,9 +101,10 @@ class Article < ApplicationRecord
   def save_notification_comment!(current_user, comment_id, receiver_id)
     #コメントは複数回することが考えられるため、1つの投稿に複数回通知する
     notification = current_user.active_notifications.new(
-      post_id: id,
+      article_id: id,
       comment_id: comment_id,
-      receiver_id: receiver_id,
+      sender_id: current_user.id,
+      receiver_id: user_id,
       action: "comment"
     )
     #自分の投稿に対するコメントの場合は、通知済みとする

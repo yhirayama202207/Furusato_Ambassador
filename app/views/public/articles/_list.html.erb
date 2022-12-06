@@ -1,0 +1,26 @@
+<%#「記事を書く」と「都道府県から記事を探す」の部分テンプレート %>
+
+<div class= "col-2">
+</br>
+  <div style="text-align:center;">
+  <%= link_to new_article_path, class: 'nav-link text-dark' do %>
+  <h5>
+    投稿する<i class="fas fa-edit"></i>
+  </h5>
+  <% end %>
+  </div>
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
+      </tr>
+    </thread>
+    <tbody>
+        <% @japan_prefectures.each do |japan_prefecture| %>
+        <tr>
+        <td><%= link_to japan_prefecture.name+'　'+ japan_prefecture.name_english, articles_prefecture_index_path(japan_prefecture.id) %></td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>

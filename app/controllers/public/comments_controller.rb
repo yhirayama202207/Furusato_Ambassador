@@ -40,8 +40,11 @@ class Public::CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:article_id])
-    @comment.destroy
-    redirect_to article_path(@comment.article.id)
+    if @comment.destroy
+      redirect_to article_path(@comment.article.id)
+    else
+      redirect_to article_path(@comment.article.id)
+    end
   end
 
   # 投稿データのストロングパラメータ
