@@ -30,11 +30,19 @@
         &emsp;&emsp;
       </li>
 
-      <% if unchecked_notifications.any? %>
-        <i class="fa fa-circle" style="color: gold;"></i>
-      <% end %>
       <li>
-        <%= link_to "NOTICE", notifications_path, class: "btn-default" %>
+      <%= link_to new_article_path, class: 'nav-link text-light' do %>
+        <i class="fas fa-edit"></i>
+      <% end %>
+      </li>
+
+      <li>
+        <%= link_to notifications_path, class: 'nav-link text-light' do %>
+          <i class="fas fa-bell"></i>
+          <% if unchecked_notifications.any? %>
+            <i class="fa fa-circle" style="color: gold;"></i>
+          <% end %>
+        <% end %>
       </li>
 
       <li>
