@@ -55,12 +55,14 @@
 </br>
 <%= article.japan_prefecture.name %>
 </br>
+<% if article.user_id == current_user.id %>
 <% if article.is_active %>
   <label class="text-success">公開中</label>
 <% else %>
   <label class="text-secondary">非公開</label>
 <% end %>&emsp;&emsp;&emsp;&emsp;
 <%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+<% end %>
 
 </div>
 <% end %>
