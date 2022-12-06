@@ -102,7 +102,7 @@
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
 
-#ユーザーがログイン済みの時のいいね／行った！の表示
+<%# ユーザーがログイン済みの時のいいね／行った！の表示 %>
 <% if user_signed_in? %>
   <% if article.liked_by?(current_user) %>
     <label>
@@ -136,7 +136,7 @@
     </label>
   <% end %>
 </div>
-#ログインしていない時のいいね／行った！の表示
+<%# ログインしていない時のいいね／行った！の表示 %>
 <% else %>
   <label>
     <i class="fas fa-heart"></i>
@@ -185,7 +185,7 @@
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
 </br>
 
-#ユーザーがログイン済みの時のいいね／行った！の表示
+<%# ユーザーがログイン済みの時のいいね／行った！の表示 %>
 <% if user_signed_in? %>
   <% if article.liked_by?(current_user) %>
     <label>
@@ -219,7 +219,7 @@
     </label>
   <% end %>
 </div>
-#ログインしていない時のいいね／行った！の表示
+<%# ログインしていない時のいいね／行った！の表示 %>
 <% else %>
   <label>
     <i class="fas fa-heart"></i>
