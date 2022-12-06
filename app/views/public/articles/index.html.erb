@@ -42,8 +42,39 @@
     <%= image_tag 'no_image.jpg', size: "20x20" %>
   <% end %>
   <%= article.user.user_name %>
-<% end %>
 
+<% if article.liked_by?(current_user) %>
+    <label>
+      <%= link_to article_likes_path(article), method: :delete do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+  <% else %>
+    <label>
+      <%= link_to article_likes_path(article), method: :post do %>
+        <i class="far fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+  <% end %>
+  <% if article.foot_printed_by?(current_user) %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :delete do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :post do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+  <% end %>
+
+<% end %>
 </div>
 <% end %>
 </div>
