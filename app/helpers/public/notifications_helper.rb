@@ -10,16 +10,16 @@ module Public::NotificationsHelper
 	  case notification.action
 
 	    when "follow" then
-	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"があなたをフォローしました"
+	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんがあなたをフォローしました"
 	    when "like" then
-	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"が"+tag.a('あなたの投稿', href:article_path(notification.article_id), style:"font-weight: bold;")+"にいいねしました"
+	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんが"+tag.a('あなたの投稿'+"「"+notification.article.title+"」", href:article_path(notification.article_id), style:"font-weight: bold;")+"にいいねしました"
 	    when "foot_print" then
-	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"が"+tag.a('あなたの投稿', href:article_path(notification.article_id), style:"font-weight: bold;")+"に行った！しました"
+	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんが"+tag.a('あなたの投稿'+"「"+notification.article.title+"」", href:article_path(notification.article_id), style:"font-weight: bold;")+"に行った！しました"
 	    when "clip" then
-	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"が"+tag.a('あなたの投稿', href:article_path(notification.article_id), style:"font-weight: bold;")+"をクリップしました"
+	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんが"+tag.a('あなたの投稿'+"「"+notification.article.title+"」", href:article_path(notification.article_id), style:"font-weight: bold;")+"をクリップしました"
 	    when "comment" then
 	    	@comment = Comment.find_by(id: @sender_comment)&.content
-	    	tag.a(@sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"が"+tag.a('あなたの投稿', href:article_path(notification.article_id), style:"font-weight: bold;")+"にコメントしました"
+	    	tag.a(@sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんが"+tag.a('あなたの投稿'+"「"+notification.article.title+"」", href:article_path(notification.article_id), style:"font-weight: bold;")+"にコメントしました"
 	  end
   end
 
