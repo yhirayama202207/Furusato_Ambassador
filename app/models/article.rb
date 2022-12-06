@@ -37,12 +37,13 @@ class Article < ApplicationRecord
     if temp.blank?
       notification = current_user.active_notifications.new(
         article_id: id,
-        sender_id: user_id,
+        sender_id: current_user.id,
+        receiver_id: user_id,
         action: "like"
       )
       #自分の投稿に対するいいねの場合は、通知済みとする
       if notification.sender_id == notification.receiver_id
-        notification.checked = true
+        notification.is_checked = true
       end
       notification.save if notification.valid?
     end

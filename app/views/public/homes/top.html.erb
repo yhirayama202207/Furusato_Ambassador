@@ -94,6 +94,7 @@
 </br>
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
 
+#ユーザーがログイン済みの時のいいね／行った！の表示
 <% if user_signed_in? %>
   <% if article.liked_by?(current_user) %>
     <label>
@@ -127,6 +128,7 @@
     </label>
   <% end %>
 </div>
+#ログインしていない時のいいね／行った！の表示
 <% else %>
   <label>
     <i class="fas fa-heart"></i>
@@ -141,7 +143,9 @@
 </div>
 <% end %>
 </div>
+</div>
 
+<div class= "col-8">
 </br>
 
 <h5>みんなの投稿（全<%= @articles.count %>件）</h5>
@@ -173,14 +177,16 @@
 <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
 </br>
 
-<% if article.liked_by?(current_user) %>
+#ユーザーがログイン済みの時のいいね／行った！の表示
+<% if user_signed_in? %>
+  <% if article.liked_by?(current_user) %>
     <label>
       <%= link_to article_likes_path(article), method: :delete do %>
         <i class="fas fa-heart"></i>
       <% end %>
       <%= article.likes.count %>いいね
     </label>
-    <% else %>
+  <% else %>
     <label>
       <%= link_to article_likes_path(article), method: :post do %>
         <i class="far fa-heart"></i>
@@ -196,7 +202,7 @@
       <% end %>
       <%= article.foot_prints.count %>行った！
     </label>
-    <% else %>
+  <% else %>
     <label>
       <%= link_to article_foot_prints_path(article), method: :post do %>
         <i class="fas fa-paw"></i>
@@ -204,10 +210,23 @@
       <%= article.foot_prints.count %>行った！
     </label>
   <% end %>
+</div>
+#ログインしていない時のいいね／行った！の表示
+<% else %>
+  <label>
+    <i class="fas fa-heart"></i>
+    <%= article.likes.count %>いいね
+  </label>
 
+  <label>
+      <i class="fas fa-paw"></i>
+    <%= article.foot_prints.count %>行った！
+  </label>
 </div>
 <% end %>
 </div>
 </div>
+</div>
+<% end %>
 </div>
 </div>
