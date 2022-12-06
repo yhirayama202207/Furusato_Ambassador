@@ -29,6 +29,14 @@
       <li>
         &emsp;&emsp;
       </li>
+
+      <% if unchecked_notifications.any? %>
+        <i class="fa fa-circle" style="color: gold;"></i>
+      <% end %>
+      <li>
+        <%= link_to "NOTICE", notifications_path, class: "btn-default" %>
+      </li>
+
       <li>
         <%= link_to users_mypage_path(current_user.id), class: 'nav-link text-light' do %>
         マイページ

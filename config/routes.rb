@@ -48,8 +48,9 @@ Rails.application.routes.draw do
       resource :likes, only: [:create, :destroy]
       resource :foot_prints, only: [:create, :destroy]
       resource :clips, only: [:create, :destroy]
-    resources :notifications, only: [:index]
     end
+    resources :notifications, only: [:index]
+    delete :notifications, to: 'notifications#destroy_all', as: "destroy_all_notifications"
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
