@@ -3,7 +3,12 @@
 
 <div class="user-view clearfix ">
   <%= link_to user_path(notification.sender) do %>
-    <%= attachment_image_tag sender, :image, :fill,100,100, format: "jpeg", fallback: "no_image.jpg", size: "50x50", class:"profile-img-circle" %>
+    <% if notification.sender.image.attached? %>
+    <%= image_tag notification.sender.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
+    <%#= attachment_image_tag sender, :image, :fill,100,100, format: "jpeg", fallback: "no_image.jpg", size: "50x50", class:"profile-img-circle" %>
   <% end %>
   <%= notification_form(notification) %><span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)} 前)" %></span>
   <br>

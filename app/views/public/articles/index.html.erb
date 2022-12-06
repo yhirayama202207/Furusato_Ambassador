@@ -24,6 +24,15 @@
 <% @articles.each do |article| %>
 <div class= "col-3">
 
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
+  <%= article.user.user_name %>
+<% end %>
+
 <%= link_to article_path(article.id) do %>
 <% if article.image.attached? %>
   <%= image_tag article.image, size: "200x200" %>
@@ -34,14 +43,8 @@
 
 <%= article.title %>
 </br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
-<%= link_to user_path(article.user.id) do %>
-  <% if article.user.image.attached? %>
-    <%= image_tag article.user.image, size: "20x20" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "20x20" %>
-  <% end %>
-  <%= article.user.user_name %>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+</br>
 
 <% if article.liked_by?(current_user) %>
     <label>
@@ -74,7 +77,6 @@
     </label>
   <% end %>
 
-<% end %>
 </div>
 <% end %>
 </div>

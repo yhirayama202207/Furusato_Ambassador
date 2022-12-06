@@ -9,15 +9,24 @@ class Article < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   def liked_by?(user)
-    likes.exists?(user_id: user.id)
+    if user.present?
+      return likes.exists?(user_id: user.id)
+    end
+    return false
   end
 
   def foot_printed_by?(user)
-    foot_prints.exists?(user_id: user.id)
+    if user.present?
+      return foot_prints.exists?(user_id: user.id)
+    end
+    return false
   end
 
   def clipped_by?(user)
-    clips.exists?(user_id: user.id)
+    if user.present?
+      return clips.exists?(user_id: user.id)
+    end
+    return false
   end
 
   #通知機能（いいね／行った！／クリップ）
@@ -46,12 +55,13 @@ class Article < ApplicationRecord
     if temp.blank?
       notification = current_user.active_notifications.new(
         article_id: id,
-        sender_id: user_id,
+        sender_id: current_user.id,
+        receiver_id: user_id,
         action: "foot_print"
       )
       #自分の投稿に対する行った！の場合は、通知済みとする
       if notification.sender_id == notification.receiver_id
-        notification.checked = true
+        notification.is_checked = true
       end
       notification.save if notification.valid?
     end

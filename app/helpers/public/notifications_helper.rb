@@ -3,7 +3,7 @@ module Public::NotificationsHelper
   def notification_form(notification)
 	  @sender = notification.sender
 	  @comment = nil
-	  @your_article = link_to 'あなたの投稿', users_article_path(notification), style:"font-weight: bold;"
+	  @your_article = link_to 'あなたの投稿', article_path(notification), style:"font-weight: bold;"
 	  @sender_comment = notification.comment_id
 
 	  #notification.actionがfollowかlikeかfoot_printかclipかcommentか
