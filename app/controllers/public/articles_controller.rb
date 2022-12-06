@@ -23,6 +23,12 @@ class Public::ArticlesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
   end
 
+  def prefecture_index
+    @japan_prefectures = JapanPrefecture.all
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @articles = @japan_prefecture.articles.where(is_active: true)
+  end
+
   def show
     @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
