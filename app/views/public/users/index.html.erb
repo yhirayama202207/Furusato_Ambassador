@@ -1,40 +1,46 @@
+<div class= "row">
+<%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
+
+<div class= "col-8">
 </br>
+
 <h5>&emsp;ユーザー一覧</h5>
 </br>
 
 <label>&emsp;ユーザー検索</label>
-<%= form_with(url: search_users_path, local: true, method: :get, class: "search-form") do |form| %>
-&emsp;<%= form.text_field :keyword, placeholder: "ユーザー名を入力", class: "search-input" %>
-<%= form.submit "検索", class: "search-btn" %>
+<%= form_with(url: search_users_path, local: true, method: :get, class: "search-form") do |form| %>&emsp;
+  <%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
+  <%= form.submit "検索", class: "search-btn" %>
 <% end %>
 </br>
 
-<div class= "col-md-8 offset-md-1">
+<div class= "col-md-9 offset-md-1">
   <div style="text-align:center;">
-  <table class="table table-hover table-inverse">
-    <thead>
-      <tr>
-        <th></th>
-        <th>ユーザーネーム</th>
-        <th>出身地</th>
-        <th></th>
-        <th colspan="4"></th>
-      </tr>
-    </thread>
-    <tbody>
+    <table class="table table-hover table-inverse">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ユーザーネーム</th>
+          <th>出身地</th>
+          <th></th>
+          <th colspan="4"></th>
+        </tr>
+      </thread>
+      <tbody>
         <% @users.each do |user| %>
         <tr>
         <td>
           <%= link_to user_path(user.id) do %>
-          <% if user.image.attached? %>
-            <%= image_tag user.image, size: "80x80" %>
-          <% else %>
-            <%= image_tag 'no_image.jpg', size: "80x80" %>
+            <% if user.image.attached? %>
+              <%= image_tag user.image, size: "80x80" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "80x80" %>
+            <% end %>
           <% end %>
         </td>
         <td>
           <%= link_to user_path(user.id) do %>
-          <%= user.user_name %>
+            <%= user.user_name %>
           <% end %>
         </td>
         <td>
@@ -42,7 +48,7 @@
         </td>
         <td>
           <% if user == current_user %>
-          <p></p>
+            <p></p>
           <% else %>
             <% if user.is_followed_by?(current_user) %>
               <%= link_to "フォロー解除", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
@@ -53,9 +59,10 @@
         </td>
         </tr>
         <% end %>
-        <% end %>
     </tbody>
   </table>
+    </div>
+  </div>
   </div>
   </div>
 

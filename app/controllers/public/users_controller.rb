@@ -5,6 +5,7 @@ class Public::UsersController < ApplicationController
   # 全ユーザー一覧
   def index
     @users = User.all.page(params[:page])
+    @japan_prefectures = JapanPrefecture.all
   end
 
   # フォローしているユーザー一覧
