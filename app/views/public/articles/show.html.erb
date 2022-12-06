@@ -99,6 +99,13 @@
 <%= link_to "削除する", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
 <% end %>
 </br>
+
+SNSでシェア
+<%= link_to "http://twitter.com/share?url=#{request.url}/&text=ふるさとアンバサダーで地域の魅力を発信しよう&hashtags=ふるさとSNS",{class:"footer-icon_1"} do %>
+  <i class="fab fa-twitter"></i>
+<% end %>
+<div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="http://ここにURLを入力" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+<script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 </br>
 </br>
 
