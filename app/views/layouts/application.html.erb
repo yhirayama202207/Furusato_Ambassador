@@ -116,14 +116,12 @@
         </ul>
         </div>
       </div>
-      <!--<%#= form_tag(search_items_path,:method => 'get') do %>-->
+
         <div class="d-flex form-control search_box">
-          <input class="search-invalid" type="search" placeholder="Search" v-model="keyword">
+          <input class="search-invalid" type="search" placeholder="検索 Search" v-model="keyword">
           <i class="fas fa-search"></i>
         </div>
-      <!--  <%#= submit_tag 'Search', :name => nil %>-->
-      <!--  <%# end %>-->
-      <!--  <i class="far fa-search"></i>-->
+
     </nav>
     </header>
     <%= yield %>
