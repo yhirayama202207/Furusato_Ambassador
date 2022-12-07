@@ -24,12 +24,22 @@ class Public::ArticlesController < ApplicationController
   end
 
   def prefecture_index
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @japan_prefecture = JapanPrefecture.find(params[:id])
     @articles = @japan_prefecture.articles.where(is_active: true)
   end
 
+  def area_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @japan_area = JapanArea.find(params[:id])
+    @articles = @japan_area.japan_prefectures.articles.where(is_active: true)
+  end
+
   def search
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @articles = Article.search(params[:keyword])
     @articles_page = Article.all.page(params[:page])
