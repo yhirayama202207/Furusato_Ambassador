@@ -29,6 +29,12 @@ class Public::ArticlesController < ApplicationController
     @articles = @japan_prefecture.articles.where(is_active: true)
   end
 
+  def search
+    @japan_prefectures = JapanPrefecture.all
+    @articles = Article.search(params[:keyword])
+    @articles_page = Article.all.page(params[:page])
+  end
+
   def show
     @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])

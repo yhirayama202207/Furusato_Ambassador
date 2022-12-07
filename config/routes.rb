@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
 
+  devise_scope :user do
+    post 'sessions/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
   namespace :admin do
     get "/" => "homes#top"
     resources :japan_areas, only: [:index, :create, :edit, :update]
@@ -31,7 +35,6 @@ Rails.application.routes.draw do
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
-    post 'sessions/guest_sign_in', to: 'sessions#guest_sign_in'
     resources :users, only: [:show, :edit, :update, :index] do
       resource :relationships, only: [:create, :destroy]
       #memberとすることでidを取得できる
@@ -49,6 +52,9 @@ Rails.application.routes.draw do
       resource :likes, only: [:create, :destroy]
       resource :foot_prints, only: [:create, :destroy]
       resource :clips, only: [:create, :destroy]
+      collection do
+        get 'search'
+      end
     end
     resources :notifications, only: [:index]
     delete :notifications, to: 'notifications#destroy_all', as: "destroy_all_notifications"

@@ -122,6 +122,11 @@
           <i class="fas fa-search"></i>
         </div>
 
+        <%= form_with(url: search_articles_path, local: true, method: :get, class: "search-form") do |form| %>&emsp;
+          <%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
+          <%= form.submit "検索", class: "search-btn" %>
+        <% end %>
+
     </nav>
     </header>
     <%= yield %>

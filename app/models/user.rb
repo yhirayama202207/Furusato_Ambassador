@@ -29,24 +29,11 @@ class User < ApplicationRecord
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
 
-  #フォロー通知機能
-  def create_notification_follow!(current_user)
-    temp = Notification.where(["sender_id = ? and receiver_id = ? and action = ? ",current_user.id, id, "follow"])
-    if temp.blank?
-      notification = current_user.active_notifications.new(
-        receiver_id: id,
-        action: "follow"
-      )
-      notification.save if notification.valid?
-    end
-  end
-
   #ユーザー検索機能
   def self.search(search)
     if search != ""
+      return Article.all unless search
       User.where(["user_name LIKE(?) OR email LIKE(?) OR home LIKE(?) OR hometown LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
-    else
-      User.includes(:user).order("created_at DESC")
     end
   end
 

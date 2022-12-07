@@ -1,0 +1,82 @@
+<div class= "row">
+<%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
+
+<div class= "col-9">
+</br>
+
+<h5>記事一覧（全<%= @articles.count %>件）</h5>
+</br>
+
+<label>&emsp;記事検索</label>
+<%= form_with(url: search_articles_path, local: true, method: :get, class: "search-form") do |form| %>
+&emsp;<%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
+<%= form.submit "検索", class: "search-btn" %>
+<% end %>
+</br>
+
+<div class= "row">
+<% @articles.each do |article| %>
+<div class= "col-3">
+
+<%= link_to user_path(article.user.id) do %>
+  <% if article.user.image.attached? %>
+    <%= image_tag article.user.image, size: "20x20" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "20x20" %>
+  <% end %>
+  <%= article.user.user_name %>
+<% end %>
+
+<%= link_to article_path(article.id) do %>
+<% if article.image.attached? %>
+  <%= image_tag article.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "200x200" %>
+<% end %>
+<% end %>
+
+<%= article.title %>
+</br>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+</br>
+
+<% if article.liked_by?(current_user) %>
+    <label>
+      <%= link_to article_likes_path(article), method: :delete do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+  <% else %>
+    <label>
+      <%= link_to article_likes_path(article), method: :post do %>
+        <i class="far fa-heart"></i>
+      <% end %>
+      <%= article.likes.count %>いいね
+    </label>
+  <% end %>
+  <% if article.foot_printed_by?(current_user) %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :delete do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+    <% else %>
+    <label>
+      <%= link_to article_foot_prints_path(article), method: :post do %>
+        <i class="fas fa-paw"></i>
+      <% end %>
+      <%= article.foot_prints.count %>行った！
+    </label>
+  <% end %>
+
+</div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<%= paginate @articles_page %>

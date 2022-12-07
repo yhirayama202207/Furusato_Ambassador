@@ -125,8 +125,8 @@ SNSでシェア
 <% end %>
 </br>
 <% if comment.user == current_user %>
-<%= link_to "編集", edit_article_comment_path(comment.id), class: "btn btn-success" %>&emsp;
-<%= link_to "削除", article_comment_path(comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+<%= link_to "編集", edit_article_comment_path(@article.id, comment.id), class: "btn btn-success" %>&emsp;
+<%= link_to "削除", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
 <% end %>
 </br>
 🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎
