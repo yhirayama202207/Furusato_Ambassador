@@ -31,10 +31,9 @@ class User < ApplicationRecord
 
   #ユーザー検索機能
   def self.search(search)
-    if search != ""
-      return Article.all unless search
-      User.where(["user_name LIKE(?) OR email LIKE(?) OR home LIKE(?) OR hometown LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
-    end
+      return User.all unless search
+        User.where(["user_name LIKE(?) OR email LIKE(?) OR home LIKE(?) OR hometown LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
+      end
   end
 
   #ゲストログイン機能

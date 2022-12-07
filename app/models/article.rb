@@ -116,10 +116,8 @@ class Article < ApplicationRecord
 
   #記事検索機能
   def self.search(search)
-    if search != ""
-      return Article.all unless search
-      Article.where(["title LIKE(?) OR body LIKE(?) OR region LIKE(?) OR name LIKE(?) OR address LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
-    end
+    return Article.all unless search
+    Article.where(["title LIKE(?) OR body LIKE(?) OR region LIKE(?) OR name LIKE(?) OR address LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
   end
 
 end

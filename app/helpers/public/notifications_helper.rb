@@ -18,7 +18,7 @@ module Public::NotificationsHelper
 	    when "clip" then
 	      tag.a(notification.sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんが"+tag.a('あなたの投稿'+"「"+notification.article.title+"」", href:article_path(notification.article_id), style:"font-weight: bold;")+"をクリップしました"
 	    when "comment" then
-	    	@comment = Comment.find_by(id: @sender_comment)&.content
+	    	@comment = Comment.find_by(id: @sender_comment)&.comment
 	    	tag.a(@sender.user_name, href:user_path(@sender), style:"font-weight: bold;")+"さんが"+tag.a('あなたの投稿'+"「"+notification.article.title+"」", href:article_path(notification.article_id), style:"font-weight: bold;")+"にコメントしました"
 	  end
   end
