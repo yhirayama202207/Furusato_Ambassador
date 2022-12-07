@@ -1,11 +1,14 @@
-<%# メインビジュアルカルーセル %>
+<%# メインビジュアルカルーセル ここから---------------------------------------------------%>
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
+
   <div class="carousel-inner">
+    <%# スライド1枚目 %>
     <div class="carousel-item active">
       <%= image_tag 'apples_top4.jpg', class: "d-block w-100", alt: "りんご写真" %>
       <div class="carousel-caption d-none d-md-block">
@@ -15,6 +18,8 @@
         </br>
       </div>
     </div>
+
+    <%# スライド2枚目 %>
     <div class="carousel-item">
       <%= image_tag 'mountain1.jpeg', class: "d-block w-100", alt: "稲佐の浜写真" %>
       <div class="carousel-caption d-none d-md-block">
@@ -24,6 +29,8 @@
         </br>
       </div>
     </div>
+
+    <%# スライド3枚目 %>
     <div class="carousel-item">
       <%= image_tag 'paddy_field1.jpg', class: "d-block w-100", alt: "南会津写真" %>
       <div class="carousel-caption d-none d-md-block">
@@ -33,186 +40,224 @@
         </br>
       </div>
     </div>
+
   </div>
+
+  <%# コントローラー（前のスライドへ） %>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
+
+  <%# コントローラー（次のスライドへ） %>
   <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
 </div>
+<%# メインビジュアルカルーセル ここまで---------------------------------------------------%>
 
+
+<%# トップページ下部（左右全体） ここから---------------------------------------------------%>
 
 <div class= "row">
+
 <%# 「投稿する＋都道府県から記事を検索する」の部分テンプレート（左側） %>
 <%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
 
+
 <%# 記事一覧（右側） %>
-<div class= "col-9">
-</br>
-<h5>人気投稿（💗いいねが多い順）</h5>
-<div class= "row">
-<% @all_ranks.each do |article| %>
-<div class= "col-3">
 
-<%= link_to user_path(article.user.id) do %>
-  <% if article.user.image.attached? %>
-    <%= image_tag article.user.image, size: "20x20" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "20x20" %>
-  <% end %>
-  <%= article.user.user_name %>
-<% end %>
+  <div class= "col-9">
+    </br>
 
-<%= link_to article_path(article.id) do %>
-  <% if article.image.attached? %>
-    <%= image_tag article.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "200x200" %>
-  <% end %>
-<% end %>
+<%# 人気投稿ここから---------------------------------------------------%>
 
-<%= article.title %>
-</br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
-</br>
+    <h5>人気投稿（💗いいねが多い順）</h5>
+    <div class= "row">
+      <% @all_ranks.each do |article| %>
+      <div class= "col-3">
 
-<%# ユーザーがログイン済みの時のいいね／行った！の表示 %>
-<% if user_signed_in? %>
-  <% if article.liked_by?(current_user) %>
-    <label>
-      <%= link_to article_likes_path(article), method: :delete do %>
-        <i class="fas fa-heart"></i>
+        <%# 記事を書いたユーザーの画像（人気投稿）%>
+        <%= link_to user_path(article.user.id) do %>
+          <% if article.user.image.attached? %>
+            <%= image_tag article.user.image, size: "20x20" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "20x20" %>
+          <% end %>
+          <%# 記事を書いたユーザーの名前（人気投稿）%>
+          <%= article.user.user_name %>
+        <% end %>
+
+        <%# 記事画像（人気投稿）%>
+        <%= link_to article_path(article.id) do %>
+          <% if article.image.attached? %>
+            <%= image_tag article.image, size: "200x200" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <% end %>
+          <%# 記事タイトル（人気投稿）%>
+          <%= article.title %>
+        <% end %>
+        </br>
+
+        <%# 記事都道府県名（日本語 英語）（人気投稿）%>
+        <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+        </br>
+
+        <%# いいね／行った！の表示（人気投稿）---------- %>
+
+        <%# ログイン済みの場合はいいね／行った！機能が使える（人気投稿）%>
+        <% if user_signed_in? %>
+
+          <% if article.liked_by?(current_user) %>
+            <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理（人気投稿）%>
+            <label>
+              <%= link_to article_likes_path(article), method: :delete do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+              <%= article.likes.count %>いいね
+            </label>
+          <% else %>
+            <%# まだいいねされていない時にクリックされたらいいねを付ける処理（人気投稿）%>
+            <label>
+              <%= link_to article_likes_path(article), method: :post do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+              <%= article.likes.count %>いいね
+            </label>
+          <% end %>
+
+          <% if article.foot_printed_by?(current_user) %>
+            <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理（人気投稿）%>
+            <label>
+              <%= link_to article_foot_prints_path(article), method: :delete do %>
+                <i class="fas fa-paw"></i>
+              <% end %>
+              <%= article.foot_prints.count %>行った！
+            </label>
+          <% else %>
+            <%# まだ行った！されていない時にクリックされたら行った！を付ける処理（人気投稿）%>
+            <label>
+              <%= link_to article_foot_prints_path(article), method: :post do %>
+                <i class="fas fa-paw"></i>
+              <% end %>
+              <%= article.foot_prints.count %>行った！
+            </label>
+          <% end %>
+
+        <% else %>
+          <%# ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示（人気投稿）%>
+          <label>
+            <i class="fas fa-heart"></i>
+            <%= article.likes.count %>いいね
+          </label>
+
+          <label>
+            <i class="fas fa-paw"></i>
+            <%= article.foot_prints.count %>行った！
+          </label>
+        <% end %>
+
+      </div>
       <% end %>
-      <%= article.likes.count %>いいね
-    </label>
-  <% else %>
-    <label>
-      <%= link_to article_likes_path(article), method: :post do %>
-        <i class="far fa-heart"></i>
-      <% end %>
-      <%= article.likes.count %>いいね
-    </label>
-  <% end %>
+  </div>
+<%# 人気投稿ここまで---------------------------------------------------%>
 
-  <% if article.foot_printed_by?(current_user) %>
-    <label>
-      <%= link_to article_foot_prints_path(article), method: :delete do %>
-        <i class="fas fa-paw"></i>
-      <% end %>
-      <%= article.foot_prints.count %>行った！
-    </label>
-  <% else %>
-    <label>
-      <%= link_to article_foot_prints_path(article), method: :post do %>
-        <i class="fas fa-paw"></i>
-      <% end %>
-      <%= article.foot_prints.count %>行った！
-    </label>
-  <% end %>
+
+<%# みんなの投稿ここから---------------------------------------------------%>
+    </br>
+    <h5>みんなの投稿（全<%= @articles.count %>件）</h5>
+    <div class= "row">
+      <% @articles.last(30).each do |article| %>
+      <div class= "col-3">
+
+        <%# 記事を書いたユーザーの画像（みんなの投稿）%>
+        <%= link_to user_path(article.user.id) do %>
+          <% if article.user.image.attached? %>
+            <%= image_tag article.user.image, size: "20x20" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "20x20" %>
+          <% end %>
+          <%# 記事を書いたユーザーの名前（みんなの投稿）%>
+          <%= article.user.user_name %>
+        <% end %>
+        </br>
+
+        <%# 記事画像（みんなの投稿）%>
+        <%= link_to article_path(article.id) do %>
+          <% if article.image.attached? %>
+            <%= image_tag article.image, size: "200x200" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <% end %>
+          <%# 記事タイトル（みんなの投稿）%>
+          <%= article.title %>
+        <% end %>
+        </br>
+
+        <%# 記事都道府県名（日本語 英語）（みんなの投稿）%>
+        <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+        </br>
+
+        <%# いいね／行った！の表示（みんなの投稿）---------- %>
+
+        <%# ログイン済みの場合はいいね／行った！機能が使える（みんなの投稿）%>
+        <% if user_signed_in? %>
+
+          <% if article.liked_by?(current_user) %>
+            <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理（みんなの投稿）%>
+            <label>
+                <%= link_to article_likes_path(article), method: :delete do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+                <%= article.likes.count %>いいね
+              </label>
+            <% else %>
+              <%# まだいいねされていない時にクリックされたらいいねを付ける処理（みんなの投稿）%>
+              <label>
+                <%= link_to article_likes_path(article), method: :post do %>
+                  <i class="far fa-heart"></i>
+                <% end %>
+                <%= article.likes.count %>いいね
+              </label>
+            <% end %>
+
+            <% if article.foot_printed_by?(current_user) %>
+              <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理（みんなの投稿）%>
+              <label>
+                <%= link_to article_foot_prints_path(article), method: :delete do %>
+                  <i class="fas fa-paw"></i>
+                <% end %>
+                <%= article.foot_prints.count %>行った！
+              </label>
+            <% else %>
+              <%# まだ行った！されていない時にクリックされたら行った！を付ける処理（みんなの投稿）%>
+              <label>
+                <%= link_to article_foot_prints_path(article), method: :post do %>
+                  <i class="fas fa-paw"></i>
+                <% end %>
+                <%= article.foot_prints.count %>行った！
+              </label>
+            <% end %>
+
+          <% else %>
+            <%# ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示（みんなの投稿）%>
+            <label>
+              <i class="fas fa-heart"></i>
+              <%= article.likes.count %>いいね
+            </label>
+
+            <label>
+              <i class="fas fa-paw"></i>
+              <%= article.foot_prints.count %>行った！
+            </label>
+          <% end %>
+
+        </div>
+        <% end %>
+    </div>
+<%# みんなの投稿ここまで---------------------------------------------------%>
+  </div>
 </div>
-<%# ログインしていない時のいいね／行った！の表示 %>
-<% else %>
-  <label>
-    <i class="fas fa-heart"></i>
-    <%= article.likes.count %>いいね
-  </label>
-
-  <label>
-      <i class="fas fa-paw"></i>
-    <%= article.foot_prints.count %>行った！
-  </label>
-<% end %>
-</div>
-<% end %>
-</div>
-</div>
-
-<div class= "col-9">
-</br>
-
-<h5>みんなの投稿（全<%= @articles.count %>件）</h5>
-
-<div class= "row">
-<% @articles.last(30).each do |article| %>
-<div class= "col-3">
-
-<%= link_to user_path(article.user.id) do %>
-  <% if article.user.image.attached? %>
-    <%= image_tag article.user.image, size: "20x20" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "20x20" %>
-  <% end %>
-  <%= article.user.user_name %>
-<% end %>
-</br>
-
-<%= link_to article_path(article.id) do %>
-<% if article.image.attached? %>
-  <%= image_tag article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
-<% end %>
-
-<%= article.title %>
-<% end %>
-</br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
-</br>
-
-<%# ユーザーがログイン済みの時のいいね／行った！の表示 %>
-<% if user_signed_in? %>
-  <% if article.liked_by?(current_user) %>
-    <label>
-      <%= link_to article_likes_path(article), method: :delete do %>
-        <i class="fas fa-heart"></i>
-      <% end %>
-      <%= article.likes.count %>いいね
-    </label>
-  <% else %>
-    <label>
-      <%= link_to article_likes_path(article), method: :post do %>
-        <i class="far fa-heart"></i>
-      <% end %>
-      <%= article.likes.count %>いいね
-    </label>
-  <% end %>
-
-  <% if article.foot_printed_by?(current_user) %>
-    <label>
-      <%= link_to article_foot_prints_path(article), method: :delete do %>
-        <i class="fas fa-paw"></i>
-      <% end %>
-      <%= article.foot_prints.count %>行った！
-    </label>
-  <% else %>
-    <label>
-      <%= link_to article_foot_prints_path(article), method: :post do %>
-        <i class="fas fa-paw"></i>
-      <% end %>
-      <%= article.foot_prints.count %>行った！
-    </label>
-  <% end %>
-</div>
-<%# ログインしていない時のいいね／行った！の表示 %>
-<% else %>
-  <label>
-    <i class="fas fa-heart"></i>
-    <%= article.likes.count %>いいね
-  </label>
-
-  <label>
-      <i class="fas fa-paw"></i>
-    <%= article.foot_prints.count %>行った！
-  </label>
-<% end %>
-
-</div>
-<% end %>
-</div>
-</div>
-</div>
-</div>
-</div>
+<%# トップページ下部（左右全体） ここまで---------------------------------------------------%>
