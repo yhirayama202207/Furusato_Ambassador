@@ -1,22 +1,7 @@
 <div class= "row">
-<div class= "col-2">
-  <table class="table table-hover table-bordered table-inverse">
-    <thead>
-      <tr>
-        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
-      </tr>
-    </thread>
-    <tbody>
-        <% @japan_prefectures.each do |japan_prefecture| %>
-        <tr>
-        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %></td>
-        </tr>
-        <% end %>
-    </tbody>
-  </table>
-</div>
+<%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
 
-<div class= "col-8">
+<div class= "col-9">
 </br>
 <h5><%= @japan_prefecture.name %>の記事（全<%= @japan_prefecture.articles.count %>件）</h5>
 
@@ -37,14 +22,14 @@
 <% if article.image.attached? %>
   <%= image_tag article.image, size: "200x200" %>
 <% else %>
-  <%= image_tag 'no_image.png', size: "200x200" %>
+  <%= image_tag 'no_image.jpg', size: "200x200" %>
 <% end %>
+<% end %>
+
 <%= article.title %>
-<% end %>
 </br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
-</div>
-</div>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+</br>
 
 <% if article.liked_by?(current_user) %>
     <label>
@@ -77,6 +62,10 @@
     </label>
   <% end %>
 
+</div>
 <% end %>
+</div>
+</div>
+</div>
 </div>
 </div>

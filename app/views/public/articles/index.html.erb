@@ -1,22 +1,7 @@
 <div class= "row">
-<div class= "col-2">
-  <table class="table table-hover table-bordered table-inverse">
-    <thead>
-      <tr>
-        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
-      </tr>
-    </thread>
-    <tbody>
-        <% @japan_prefectures.each do |japan_prefecture| %>
-        <tr>
-        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %></td>
-        </tr>
-        <% end %>
-    </tbody>
-  </table>
-</div>
+<%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
 
-<div class= "col-8">
+<div class= "col-9">
 </br>
 <h5>記事一覧（全<%= @articles.count %>件）</h5>
 
@@ -79,6 +64,7 @@
 
 </div>
 <% end %>
+</div>
 </div>
 </div>
 </div>

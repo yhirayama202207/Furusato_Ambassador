@@ -1,3 +1,4 @@
+<%# メインビジュアルカルーセル %>
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -43,34 +44,12 @@
   </a>
 </div>
 
+<%# 「投稿する＋都道府県から記事を検索する」の部分テンプレート（左側） %>
 <div class= "row">
-<div class= "col-2">
-</br>
-  <div style="text-align:center;">
-  <%= link_to new_article_path, class: 'nav-link text-dark' do %>
-  <h5>
-    投稿する<i class="fas fa-edit"></i>
-  </h5>
-  <% end %>
-  </div>
-  <table class="table table-hover table-bordered table-inverse">
-    <thead>
-      <tr>
-        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
-      </tr>
-    </thread>
-    <tbody>
-        <% @japan_prefectures.each do |japan_prefecture| %>
-        <tr>
-        <td><%= link_to japan_prefecture.name+'　'+ japan_prefecture.name_english, articles_prefecture_index_path(japan_prefecture.id) %></td>
-        </tr>
-        <% end %>
-    </tbody>
-  </table>
-</div>
+<%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
 
 
-<div class= "col-8">
+<div class= "col-9">
 </br>
 
 <h5>人気投稿（💗いいねが多い順）</h5>
@@ -87,20 +66,19 @@
   <% end %>
   <%= article.user.user_name %>
 <% end %>
-</br>
 
 <%= link_to article_path(article.id) do %>
-<% if article.image.attached? %>
-  <%= image_tag article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
+  <% if article.image.attached? %>
+    <%= image_tag article.image, size: "200x200" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "200x200" %>
+  <% end %>
 <% end %>
 
-</br>
 <%= article.title %>
-<% end %>
 </br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %></br>
+<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+</br>
 
 <%# ユーザーがログイン済みの時のいいね／行った！の表示 %>
 <% if user_signed_in? %>
@@ -230,11 +208,12 @@
       <i class="fas fa-paw"></i>
     <%= article.foot_prints.count %>行った！
   </label>
+<% end %>
+
 </div>
 <% end %>
 </div>
 </div>
 </div>
-<% end %>
 </div>
 </div>
