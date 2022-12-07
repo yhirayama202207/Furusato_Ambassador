@@ -20,6 +20,7 @@ class Public::ArticlesController < ApplicationController
 
   def index
     @articles = Article.where(is_active: true)
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
   end
 
@@ -46,6 +47,7 @@ class Public::ArticlesController < ApplicationController
   end
 
   def show
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @user = @article.user
