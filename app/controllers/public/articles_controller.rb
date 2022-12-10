@@ -36,7 +36,9 @@ class Public::ArticlesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @japan_prefecture = JapanPrefecture.find(params[:id])
     @japan_area = JapanArea.find(params[:id])
-    @articles = @japan_area.japan_prefectures.articles.where(is_active: true)
+    @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id))
+    #@Japan_area_prefectures = @japan_area.japan_prefectures
+    #@Japan_area_articles = @Japan_area_prefectures.Article.all.where(is_active: true)
   end
 
   def search
