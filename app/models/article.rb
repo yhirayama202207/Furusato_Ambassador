@@ -8,6 +8,11 @@ class Article < ApplicationRecord
   has_many :clips, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  has_many :article_tags, dependent: :destroy
+  has_many :tags, through: :article_tags
+  accepts_nested_attributes_for :article_tags, allow_destroy: true
+  accepts_nested_attributes_for :tags
+
   def liked_by?(user)
     if user.present?
       return likes.exists?(user_id: user.id)
