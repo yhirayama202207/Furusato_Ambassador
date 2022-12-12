@@ -2,7 +2,7 @@ class Article < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   belongs_to :japan_prefecture
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :foot_prints, dependent: :destroy
   has_many :clips, dependent: :destroy
@@ -10,7 +10,7 @@ class Article < ApplicationRecord
 
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags, dependent: :destroy
-  
+
   # has_many :article_tags, dependent: :destroy
   # has_many :tags, through: :article_tags
   #accepts_nested_attributes_for :article_tags, allow_destroy: true

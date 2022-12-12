@@ -2,10 +2,12 @@ class Public::ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @tags = Tag.all
   end
 
   def create
     @article = Article.new(article_params)
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @article.user_id = current_user.id
     @tag_list = params[:article][:tag_ids].split(",")
@@ -19,36 +21,6 @@ class Public::ArticlesController < ApplicationController
       @user = current_user
       render :index
     end
-  end
-
-  def index
-    @articles = Article.where(is_active: true)
-    @japan_areas = JapanArea.all
-    @japan_prefectures = JapanPrefecture.all
-  end
-
-  def prefecture_index
-    @japan_areas = JapanArea.all
-    @japan_prefectures = JapanPrefecture.all
-    @japan_prefecture = JapanPrefecture.find(params[:id])
-    @articles = @japan_prefecture.articles.where(is_active: true)
-  end
-
-  def area_index
-    @japan_areas = JapanArea.all
-    @japan_prefectures = JapanPrefecture.all
-    @japan_prefecture = JapanPrefecture.find(params[:id])
-    @japan_area = JapanArea.find(params[:id])
-    @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id))
-    #@Japan_area_prefectures = @japan_area.japan_prefectures
-    #@Japan_area_articles = @Japan_area_prefectures.Article.all.where(is_active: true)
-  end
-
-  def search
-    @japan_areas = JapanArea.all
-    @japan_prefectures = JapanPrefecture.all
-    @articles = Article.search(params[:keyword])
-    @articles_page = Article.all.page(params[:page])
   end
 
   def show
@@ -82,13 +54,44 @@ class Public::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
     redirect_to user_path(current_user.id)
+    #redirect_to request.referer
   end
+
+  def index
+    @articles = Article.where(is_active: true)
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+  end
+
+  def prefecture_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @articles = @japan_prefecture.articles.where(is_active: true)
+  end
+
+  def area_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @japan_area = JapanArea.find(params[:id])
+    @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id))
+  end
+
+  def search
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @articles = Article.search(params[:keyword])
+    @articles_page = Article.all.page(params[:page])
+  end
+
 
   # 投稿データのストロングパラメータ
   private
 
   def article_params
-    params.require(:article).permit(:user_id, :japan_prefecture_id, :region, :name, :title, :address, :latitude, :longitude, :body, :rate, :is_active, :image, tags_attributes: [:name], tag_ids: [])
+    params.require(:article).permit(:user_id, :japan_prefecture_id, :region, :title, :body, :rate,
+                          :name, :address, :latitude, :longitude, :is_active, :image, tags_attributes: [:name], tag_ids: [])
   end
 
 end
