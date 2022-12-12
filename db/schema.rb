@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2022_12_11_113517) do
   create_table "articles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "japan_prefecture_id", null: false
+    t.integer "tag_id"
     t.string "region"
     t.string "name"
     t.string "title", null: false

@@ -8,7 +8,10 @@ class Public::ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @japan_prefectures = JapanPrefecture.all
     @article.user_id = current_user.id
+    @tag_list = params[:article][:tag_ids].split(",")
     if @article.save
+      @article.save_tag(@tag_list)
+
       flash[:notice] = "新規記事投稿が完了しました。"
       redirect_to article_path(@article.id)
     else

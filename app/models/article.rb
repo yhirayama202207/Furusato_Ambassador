@@ -9,9 +9,12 @@ class Article < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   has_many :article_tags, dependent: :destroy
-  has_many :tags, through: :article_tags
-  accepts_nested_attributes_for :article_tags, allow_destroy: true
-  accepts_nested_attributes_for :tags
+  has_many :tags, through: :article_tags, dependent: :destroy
+  
+  # has_many :article_tags, dependent: :destroy
+  # has_many :tags, through: :article_tags
+  #accepts_nested_attributes_for :article_tags, allow_destroy: true
+  #accepts_nested_attributes_for :tags
 
   def liked_by?(user)
     if user.present?
@@ -125,20 +128,39 @@ class Article < ApplicationRecord
     Article.where(["title LIKE(?) OR body LIKE(?) OR region LIKE(?) OR name LIKE(?) OR address LIKE(?)", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
   end
 
-  # 検索タグ登録時の処理
-  def tags_attributes=(tag_attributes)
-    # 送られてきたタグパラメータの重複排除後、タグ追加の処理を行う
-    tag_attributes.values.uniq.each do |tag_params|
-      if tag_params["name"].present?
-        # DBに入る値を全て小文字にして統一(jAva、JAVaなどの乱立を防ぐため。)
-        tag_params["name"] = tag_params["name"].humanize(capitalize: false)
-        # DBに重複がない場合は作成、重複している場合は既に登録されているデータを使用
-        tag = Tag.find_or_create_by(tag_params)
+  def save_tag(sent_tags)
+  # タグが存在していれば、タグの名前を配列として全て取得
+    current_tags = self.tags.pluck(:name) unless self.tags.nil?
+    # 現在取得したタグから送られてきたタグを除いてoldtagとする
+    old_tags = current_tags - sent_tags
+    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
+    new_tags = sent_tags - current_tags
 
-        # 募集に同じタグが紐づいていない場合、募集とタグを紐付け。(複合ユニークキー制約)
-        self.tags << tag if self.tags.where(name: tag["name"]).blank?
-      end
+    # 古いタグを消す
+    old_tags.each do |old|
+      self.tags.delete　Tag.find_by(name: old)
     end
-  end
+
+    # 新しいタグを保存
+    new_tags.each do |new|
+      new_post_tag = Tag.find_or_create_by(name: new)
+      self.tags << new_post_tag
+   end
+end
+  # # 検索タグ登録時の処理
+  # def tags_attributes=(tag_attributes)
+  #   # 送られてきたタグパラメータの重複排除後、タグ追加の処理を行う
+  #   tag_attributes.values.uniq.each do |tag_params|
+  #     if tag_params["name"].present?
+  #       # DBに入る値を全て小文字にして統一(jAva、JAVaなどの乱立を防ぐため。)
+  #       tag_params["name"] = tag_params["name"].humanize(capitalize: false)
+  #       # DBに重複がない場合は作成、重複している場合は既に登録されているデータを使用
+  #       tag = Tag.find_or_create_by(tag_params)
+
+  #       # 募集に同じタグが紐づいていない場合、募集とタグを紐付け。(複合ユニークキー制約)
+  #       self.tags << tag if self.tags.where(name: tag["name"]).blank?
+  #     end
+  #   end
+  # end
 
 end

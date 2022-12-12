@@ -6,7 +6,7 @@
 <h5>&emsp;記事詳細</h5>
 </br>
 <h4>&emsp;<%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）</h4>
-<h6>&emsp;&emsp;<i class="fas fa-pencil-alt"></i>
+<h6>&emsp;
 <%= link_to user_path(@article.user.id) do %>
 <% if @article.user.image.attached? %>
   <%= image_tag @article.user.image, size: "30x30" %>
@@ -17,6 +17,10 @@
 <% end %>
 &emsp;<%= @article.created_at %>
 </h6>
+&emsp;
+<% @article.tags.each do |tag| %>
+  <i class="fas fa-tags"></i><%= tag.name %>
+<% end %>
 </br>
 <h5>&emsp;<%= @article.body %></h5>
 </br>

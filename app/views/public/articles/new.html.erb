@@ -16,12 +16,13 @@
     <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
     <label>市区町村（任意）</label><%= f.text_field :region, placeholder: "市区町村" %></br>
     <label>場所／物の名前</label><%= f.text_field :name %></br>
-    <label>タグ追加</label>
-    <%= f.collection_check_boxes(:tag_ids, @article.tags, :id, :name) do |tag| %>
-      <%= tag.label do %>
-        <%= tag.check_box + tag.text%>
-      <% end %>
-    <% end %>
+    <label>タグ追加</label><%= f.text_field :tag_ids, placeholder: "レ点を追加ください" %></br>
+    <!--<if tagが存在する場合>-->
+    <%#= f.collection_check_boxes(:tag_ids, @article.tags, :id, :name) do |tag| %>
+      <%#= tag.label do %>
+        <%#= tag.check_box + tag.text%>
+      <%# end %>
+    <%# end %>
     </br>
     <label>記事を公開しますか？</label>
       <%= f.radio_button :is_active, :true %>
