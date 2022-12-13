@@ -114,7 +114,7 @@
             <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理（人気投稿）%>
             <label>
               <%= link_to article_likes_path(article), method: :delete do %>
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart" style="color: #ff6347;"></i>
               <% end %>
               <%= article.likes.count %>いいね
             </label>
@@ -122,7 +122,7 @@
             <%# まだいいねされていない時にクリックされたらいいねを付ける処理（人気投稿）%>
             <label>
               <%= link_to article_likes_path(article), method: :post do %>
-                <i class="far fa-heart"></i>
+                <i class="fas fa-heart" style="color: #dcdcdc;"></i>
               <% end %>
               <%= article.likes.count %>いいね
             </label>
@@ -132,7 +132,7 @@
             <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理（人気投稿）%>
             <label>
               <%= link_to article_foot_prints_path(article), method: :delete do %>
-                <i class="fas fa-paw"></i>
+                <i class="fas fa-paw" style="color: #a0522d;"></i>
               <% end %>
               <%= article.foot_prints.count %>行った！
             </label>
@@ -140,7 +140,7 @@
             <%# まだ行った！されていない時にクリックされたら行った！を付ける処理（人気投稿）%>
             <label>
               <%= link_to article_foot_prints_path(article), method: :post do %>
-                <i class="fas fa-paw"></i>
+                <i class="fas fa-paw" style="color: #dcdcdc;"></i>
               <% end %>
               <%= article.foot_prints.count %>行った！
             </label>
@@ -209,7 +209,7 @@
             <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理（みんなの投稿）%>
             <label>
                 <%= link_to article_likes_path(article), method: :delete do %>
-                  <i class="fas fa-heart"></i>
+                  <i class="fas fa-heart" style="color: #ff6347;"></i>
                 <% end %>
                 <%= article.likes.count %>いいね
               </label>
@@ -217,7 +217,7 @@
               <%# まだいいねされていない時にクリックされたらいいねを付ける処理（みんなの投稿）%>
               <label>
                 <%= link_to article_likes_path(article), method: :post do %>
-                  <i class="far fa-heart"></i>
+                  <i class="fas fa-heart" style="color: #d3d3d3;"></i>
                 <% end %>
                 <%= article.likes.count %>いいね
               </label>
@@ -227,7 +227,7 @@
               <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理（みんなの投稿）%>
               <label>
                 <%= link_to article_foot_prints_path(article), method: :delete do %>
-                  <i class="fas fa-paw"></i>
+                  <i class="fas fa-paw" style="color: #a0522d;"></i>
                 <% end %>
                 <%= article.foot_prints.count %>行った！
               </label>
@@ -235,7 +235,7 @@
               <%# まだ行った！されていない時にクリックされたら行った！を付ける処理（みんなの投稿）%>
               <label>
                 <%= link_to article_foot_prints_path(article), method: :post do %>
-                  <i class="fas fa-paw"></i>
+                  <i class="fas fa-paw" style="color: #d3d3d3;"></i>
                 <% end %>
                 <%= article.foot_prints.count %>行った！
               </label>
