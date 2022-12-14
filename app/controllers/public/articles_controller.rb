@@ -10,7 +10,7 @@ class Public::ArticlesController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @article.user_id = current_user.id
-    @tag_list = params[:article][:tag_ids].split(",")
+    @tag_list = params[:article][:tag_ids].split("、")
     if @article.save
       @article.save_tag(@tag_list)
 

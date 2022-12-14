@@ -1,31 +1,42 @@
-<h5>新規記事登録</h5>
+</br>
+<h5>&emsp;新規記事登録</h5>
 
-<div style="text-align:center;">
+<div class="container">
+  <div style="text-align:center;">
+  <div class="container">
   <% @article.errors.full_messages.each do | msg | %>
     <%= msg %>
   <% end %>
 
   <%= form_with model: @article, url: articles_path, method: :post do |f| %>
-  
-    <label>画像</label>
+
+    <label>画像</label></br>
       <%= f.file_field :image, accept: "image/*" %></br>
       </br>
-      
-    <label>タイトル</label>
+
+    <label>タイトル（必須）</label></br>
       <%= f.text_field :title, placeholder: "タイトル" %></br>
-      
-    <label>本文</label>
+
+    <label>本文（必須）</label></br>
       <%= f.text_area :body, placeholder: "ここに本文を記述します" %></br>
-    </br>
-    
-    <label>都道府県</label>
+
+    <label>都道府県（必須）</label></br>
       <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
-    
-    <label>市区町村（任意）</label>
-      <%= f.text_field :region, placeholder: "市区町村" %></br>
-    
-    <label>タグ追加</label>
-      <%= f.text_field :tag_ids, placeholder: "レ点を追加ください" %></br>
+      </br>
+    </div>
+    <div class="container">
+      <div style="text-align:center;">
+      ～以下は任意項目です～</br>
+      </br>
+    <label>市区町村</label></br>
+      <%= f.text_field :region, placeholder: "市区町村名（例：青森市）" %></br>
+
+    <label>場所／お店の名前</label></br>
+    <%= f.text_field :name %></br>
+    </br>
+
+    <label>タグを付ける</label></br>
+      <%= f.text_field :tag_ids, placeholder: "複数の場合は、で区切る" %></br>
         <%# if @tags.present? %>
           <%#= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
             <%#= tag.label do %>
@@ -34,19 +45,15 @@
             <%# end %>
           <%# end %>
         <%# end %>
-    <label>場所／お店の名前</label>
-    <%= f.text_field :name %></br>
     </br>
 
     <div style="text-align:center;">
     <h5>地図を追加する</h5>
     <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
-    <%#= f.text_field :latitude,:value =>"緯度", id: :lat %>
     <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
-    <%#= f.text_field :longitude,:value =>"経度", id: :lng %>
 
 <!--Google Maps APIの表示 ここから-->
-<input id="address" type="textbox" value="">
+<input id="address" type="textbox" value="" placeholder="検索して地図を追加">
 <input type="button" value="検索" onclick="codeAddress()">
 <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
 <div id='map'></div>
@@ -114,6 +121,8 @@ function codeAddress(){
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
 <!--Google Maps APIの表示 ここまで-->
+</div>
+</div>
 
     </br>
     <label>記事を公開しますか？</label>
@@ -123,4 +132,5 @@ function codeAddress(){
       <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
     <%= f.submit "新規登録", class: "btn btn-success" %></br>
   <% end %>
+  </div>
   </div>

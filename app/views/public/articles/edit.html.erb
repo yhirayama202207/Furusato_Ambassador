@@ -1,39 +1,55 @@
 <h5>記事編集</h5>
 </br>
 
-<div style="text-align:center;">
+<div class="container">
+  <div style="text-align:center;">
+  <div class="container">
 <%= form_with model: @article, url: article_path(@article.id), method: :patch do |f| %>
 
-  <label>画像</label>&emsp;
-  <%= f.file_field :image, accept: "image/*" %>
-  </br>
+    <label>画像</label></br>
+      <%= f.file_field :image, accept: "image/*" %></br>
+      </br>
 
-  <label>タイトル</label>&emsp;
-  <%= f.text_field :title, autofocus: true, id:"inputtitle", placeholder:"" %>&emsp;&emsp;&emsp;&emsp;&emsp;
-  </br>
+    <label>タイトル（必須）</label></br>
+      <%= f.text_field :title, placeholder: "タイトル" %></br>
 
-  <label>本文</label>&emsp;
-  <%= f.text_area :body, autofocus: true, id:"inputbody" %>&emsp;&emsp;&emsp;&emsp;
-  </br>
+    <label>本文（必須）</label></br>
+      <%= f.text_area :body, placeholder: "ここに本文を記述します" %></br>
 
-  <label>都道府県</label>
-  <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "選択してください", class: "form-control col-sm-8" %>
-  </br>
+    <label>都道府県（必須）</label></br>
+      <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
+      </br>
+    </div>
+    <div class="container">
+      <div style="text-align:center;">
+      ～以下は任意項目です～</br>
+      </br>
+    <label>市区町村</label></br>
+      <%= f.text_field :region, placeholder: "市区町村名（例：青森市）" %></br>
 
-  <label>市区町村（任意）</label>
-  <%= f.text_field :region, autofocus: true, id:"inputregion", placeholder:"" %>
-  </br>
-
-    <h5>地図を追加する</h5>
-
-    <label>場所／物の名前</label>
+    <label>場所／お店の名前</label></br>
     <%= f.text_field :name %></br>
-    <label>緯度</label>
-    <%= f.text_field :latitude,:value =>"緯度", id: :lat %></br>
-    <label>経度</label>
-    <%= f.text_field :longitude,:value =>"経度", id: :lng %></br>
+    </br>
 
-<input id="address" type="textbox" value="GeekSalon">
+    <label>タグを付ける</label></br>
+      <%= f.text_field :tag_ids, placeholder: "複数の場合は、で区切る" %></br>
+        <%# if @tags.present? %>
+          <%#= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
+            <%#= tag.label do %>
+              <%#= tag.check_box %>
+              <%#= tag.text%>
+            <%# end %>
+          <%# end %>
+        <%# end %>
+    </br>
+
+    <div style="text-align:center;">
+    <h5>地図を追加する</h5>
+    <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
+    <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
+
+<!--Google Maps APIの表示 ここから-->
+<input id="address" type="textbox" value="" placeholder="検索して地図を追加">
 <input type="button" value="検索" onclick="codeAddress()">
 <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
 <div id='map'></div>
@@ -100,14 +116,16 @@ function codeAddress(){
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
-</br>
+<!--Google Maps APIの表示 ここまで-->
+</div>
+</div>
 
-  <label>記事を公開しますか？</label>
-    <%= f.radio_button :is_active, :true %>
-    <%= f.label :is_active, "公開中", {value: :true, checked: true, style: "display: inline-block;"} %>
-    <%= f.radio_button :is_active, :false %>
-    <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %>
     </br>
+    <label>記事を公開しますか？</label>
+      <%= f.radio_button :is_active, :true %>
+      <%= f.label :is_active, "公開", {value: :true, checked: true, style: "display: inline-block;"} %>
+      <%= f.radio_button :is_active, :false %>
+      <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
     <%= f.submit "変更を保存", class: "btn btn-success" %>
 <% end %>
 </div>

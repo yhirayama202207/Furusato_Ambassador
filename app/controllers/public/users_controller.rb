@@ -60,6 +60,8 @@ class Public::UsersController < ApplicationController
   end
 
   def mypage
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @user = current_user
     @user_articles = @user.articles.all
     likes= Like.where(user_id: @user.id).pluck(:article_id)
