@@ -19,8 +19,9 @@
 </h6>
 &emsp;
 <% @article.tags.each do |tag| %>
-  <%= link_to articles_tag_index_path do %>
-    <i class="fas fa-tags"></i><%= tag.name %>
+  <i class="fas fa-tags" style="color:#690DFF;"></i>
+  <%= link_to articles_tag_index_path(tag.id) do %>
+    <%= tag.name %>
   <% end %>
 <% end %>
 </br>
