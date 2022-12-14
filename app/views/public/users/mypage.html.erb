@@ -86,7 +86,7 @@
               <% if article.image.attached? %>
                 <%= image_tag article.image, size: "200x200" %>
               <% else %>
-                <%= image_tag 'no_image.png', size: "200x200" %>
+                <%= image_tag 'no_image.jpg', size: "200x200" %>
               <% end %>
               <%= article.title %>
             <% end %>
@@ -128,14 +128,14 @@
     <div class= "col-10">
       <div class="row">
       <% @like_articles.last(4).each do |article| %>
-        <div class= "col-3 md-3">
+        <div class= "col-3 mb-3">
 
         <%# 記事画像（いいねした記事）%>
         <%= link_to article_path(article.id) do %>
           <% if article.image.attached? %>
             <%= image_tag article.image, size: "200x200" %>
           <% else %>
-            <%= image_tag 'no_image.png', size: "200x200" %>
+            <%= image_tag 'no_image.jpg', size: "200x200" %>
           <% end %>
           <%# 記事タイトル（いいねした記事）%>
           <%= article.title %>
@@ -164,108 +164,116 @@
   <%# いいねした記事 ここまで---------------------------------------------------%>
   </br>
 
-<%# 行った！した記事 ここから---------------------------------------------------%>
-<div class="row">
-  <div class="col-1">
+  <%# 行った！した記事 ここから---------------------------------------------------%>
+  <div class="row">
+    <div class="col-1">
+    </div>
+    <div class= "col-md-10 mb-1">
+    <label>
+      <i class="fas fa-paw" style="color: #f39800;"></i>
+      <%= link_to foot_prints_user_path(@user.id) do %>
+        行った！した記事（全<%= @foot_print_articles.count %>件）をすべて見る
+      <% end %>
+    </label>
+    </div>
   </div>
-  <div class= "col-md-10 mb-1">
-  <label>
-    <i class="fas fa-paw" style="color: #f39800;"></i>
-    <%= link_to foot_prints_user_path(@user.id) do %>
-    行った！した記事（全<%= @foot_print_articles.count %>件）をすべて見る
-    <% end %>
-  </label>
-  </div>
-</div>
 
-<div class= "col-8">
-</br>
   <div class= "row">
-  <% @foot_print_articles.last(4).each do |article| %>
-    <div class= "col-3">
-
-    <%# 記事画像（行った！した記事）%>
-    <%= link_to article_path(article.id) do %>
-      <% if article.image.attached? %>
-        <%= image_tag article.image, size: "200x200" %>
-      <% else %>
-        <%= image_tag 'no_image.png', size: "200x200" %>
-      <% end %>
-      <%# 記事タイトル（行った！した記事）%>
-      <%= article.title %>
-    <% end %>
-    </br>
-
-    <%# 記事都道府県名（日本語 英語）（行った！した記事）%>
-    <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
-    </br>
-
-    <%# 記事を書いたユーザーの画像（行った！した記事）%>
-    <%= link_to user_path(article.user.id) do %>
-      <% if article.user.image.attached? %>
-        <%= image_tag article.user.image, size: "20x20" %>
-      <% else %>
-        <%= image_tag 'no_image.jpg', size: "20x20" %>
-      <% end %>
-      <%# 記事を書いたユーザーの名前（行った！した記事）%>
-      <%= article.user.user_name %>
-    <% end %>
+    <div class="col-1">
     </div>
-  <% end %>
-  </div>
-</div>
-<%# 行った！した記事 ここまで---------------------------------------------------%>
+    <div class= "col-10">
+      <div class="row">
+      <% @foot_print_articles.last(4).each do |article| %>
+        <div class= "col-3 mb-3">
+        <%# 記事画像（行った！した記事）%>
+        <%= link_to article_path(article.id) do %>
+          <% if article.image.attached? %>
+            <%= image_tag article.image, size: "200x200" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <% end %>
+          <%# 記事タイトル（行った！した記事）%>
+          <%= article.title %>
+        <% end %>
+        </br>
 
-</br>
+        <%# 記事都道府県名（日本語 英語）（行った！した記事）%>
+        <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+        </br>
 
-<%# クリップした記事 ここから---------------------------------------------------%>
-<label>&emsp;📎
-  <%= link_to clips_user_path(@user.id) do %>
-    クリップした記事（全<%= @clip_articles.count %>件）をすべて見る
-  <% end %>
-</label>
-
-<div class= "col-8">
-</br>
-　<div class= "row">
-  <% @clip_articles.last(4).each do |article| %>
-    <div class= "col-3">
-
-    <%# 記事画像（クリップした記事）%>
-    <%= link_to article_path(article.id) do %>
-      <% if article.image.attached? %>
-        <%= image_tag article.image, size: "200x200" %>
-      <% else %>
-        <%= image_tag 'no_image.png', size: "200x200" %>
+        <%# 記事を書いたユーザーの画像（行った！した記事）%>
+        <%= link_to user_path(article.user.id) do %>
+          <% if article.user.image.attached? %>
+            <%= image_tag article.user.image, size: "20x20" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "20x20" %>
+          <% end %>
+          <%# 記事を書いたユーザーの名前（行った！した記事）%>
+          <%= article.user.user_name %>
+        <% end %>
+        </div>
       <% end %>
-      <%# 記事タイトル（クリップした記事）%>
-      <%= article.title %>
-    <% end %>
-    </br>
-
-    <%# 記事都道府県名（日本語 英語）（クリップした記事）%>
-    <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
-    </br>
-
-    <%# 記事を書いたユーザーの画像（クリップした記事）%>
-    <%= link_to user_path(article.user.id) do %>
-      <% if article.user.image.attached? %>
-        <%= image_tag article.user.image, size: "20x20" %>
-      <% else %>
-        <%= image_tag 'no_image.jpg', size: "20x20" %>
-      <% end %>
-      <%# 記事を書いたユーザーの名前（行った！した記事）%>
-      <%= article.user.user_name %>
-    <% end %>
+      </div>
     </div>
-  <% end %>
   </div>
-</div>
-<%# クリップした記事 ここまで---------------------------------------------------%>
-</div>
-</div>
-</div>
+  <%# 行った！した記事 ここまで---------------------------------------------------%>
+  </br>
 
+  <%# クリップした記事 ここから---------------------------------------------------%>
+  <div class="row">
+    <div class="col-1">
+    </div>
+    <div class= "col-md-10 mb-1">
+    <label>
+      <i class="fas fa-paperclip" style="color: #2ca9e1;"></i>
+      <%= link_to clips_user_path(@user.id) do %>
+        クリップした記事（全<%= @clip_articles.count %>件）をすべて見る
+      <% end %>
+    </label>
+    </div>
+  </div>
+
+  <div class= "row">
+    <div class="col-1">
+    </div>
+    <div class= "col-10">
+      <div class="row">
+      <% @clip_articles.last(4).each do |article| %>
+        <div class= "col-3">
+        <%# 記事画像（クリップした記事）%>
+        <%= link_to article_path(article.id) do %>
+          <% if article.image.attached? %>
+            <%= image_tag article.image, size: "200x200" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <% end %>
+          <%# 記事タイトル（クリップした記事）%>
+          <%= article.title %>
+        <% end %>
+        </br>
+
+        <%# 記事都道府県名（日本語 英語）（クリップした記事）%>
+        <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+        </br>
+
+        <%# 記事を書いたユーザーの画像（クリップした記事）%>
+        <%= link_to user_path(article.user.id) do %>
+          <% if article.user.image.attached? %>
+            <%= image_tag article.user.image, size: "20x20" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "20x20" %>
+          <% end %>
+          <%# 記事を書いたユーザーの名前（行った！した記事）%>
+          <%= article.user.user_name %>
+        <% end %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <%# クリップした記事 ここまで---------------------------------------------------%>
+
+</div>
 <!--（右側全体）ここまで------------>
 
 </div>
