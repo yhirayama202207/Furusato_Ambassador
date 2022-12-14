@@ -1,7 +1,7 @@
 <div class= "row">
 <%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
 
-  <div class= "col-9">
+  <div class= "col-10">
   </br>
   <h5><%= @japan_prefecture.name %>の記事（全<%= @japan_prefecture.articles.count %>件）</h5>
 
@@ -15,6 +15,4 @@
     <% end %>
     </div>
   </div>
-</div>
-</div>
 </div>
