@@ -73,11 +73,10 @@
 
 <%# 人気投稿ここから---------------------------------------------------%>
 
-    <h5>人気投稿（💗いいねが多い順）</h5>
+    <h5>人気投稿（<i class="fas fa-heart" style="color: #ff4500;"></i>いいねが多い順）</h5>
     <div class= "row">
       <% @all_ranks.each do |article| %>
       <div class= "col-3">
-
         <%# 記事を書いたユーザーの画像（人気投稿）%>
         <%= link_to user_path(article.user.id) do %>
           <% if article.user.image.attached? %>
@@ -192,6 +191,7 @@
           <% else %>
             <%= image_tag 'no_image.jpg', size: "200x200" %>
           <% end %>
+          </br>
           <%# 記事タイトル（みんなの投稿）%>
           <%= article.title %>
         <% end %>
