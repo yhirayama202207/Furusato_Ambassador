@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
+    get "articles/tags/:id" => "articles#tag_index", as: "articles_tag_index"
     resources :users, only: [:show, :edit, :update, :index] do
       resource :relationships, only: [:create, :destroy]
       #memberとすることでidを取得できる

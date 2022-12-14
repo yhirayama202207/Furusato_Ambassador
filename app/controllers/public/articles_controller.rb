@@ -78,6 +78,13 @@ class Public::ArticlesController < ApplicationController
     @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id))
   end
 
+  def tag_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @tag = Tag.find(params[:id])
+    @articles = @tag.articles.where(is_active: true)
+  end
+
   def search
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
