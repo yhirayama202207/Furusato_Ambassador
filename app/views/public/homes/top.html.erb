@@ -73,7 +73,10 @@
 
 <%# 人気投稿ここから---------------------------------------------------%>
 
-    <h5>人気投稿（<i class="fas fa-heart" style="color: #ff4500;"></i>いいねが多い順）</h5>
+    <h5>
+      <i class="fas fa-crown" style="color: #ffcc00;"></i>
+      人気投稿（<i class="fas fa-heart" style="color: #ff4500;"></i>いいねが多い順）
+    </h5>
     <div class= "row">
       <% @all_ranks.each do |article| %>
       <div class= "col-3">
@@ -167,7 +170,10 @@
 
 <%# みんなの投稿ここから---------------------------------------------------%>
     </br>
-    <h5>みんなの投稿（全<%= @articles.count %>件）</h5>
+    <h5>
+      <i class="fas fa-child" style="color: #ff9900;"></i>
+      みんなの投稿（全<%= @articles.count %>件）
+    </h5>
     <div class= "row">
       <% @articles.last(30).each do |article| %>
       <div class= "col-3">
