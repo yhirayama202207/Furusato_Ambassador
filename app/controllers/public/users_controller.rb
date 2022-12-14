@@ -10,6 +10,25 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
   end
 
+  def show
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @user = User.find(params[:id])
+    @user_articles = @user.articles.where(is_active: true)
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:notice] = "会員情報の更新が完了しました"
+      redirect_to user_path(@user.id)
+    end
+  end
+
   # フォローしているユーザー一覧
   def followings
     @user = User.find(params[:id])
@@ -42,6 +61,7 @@ class Public::UsersController < ApplicationController
   end
 
   def foot_prints
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     foot_prints= FootPrint.where(user_id: @user.id).pluck(:article_id)
@@ -49,6 +69,7 @@ class Public::UsersController < ApplicationController
   end
 
   def clips
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     clips= Clip.where(user_id: @user.id).pluck(:article_id)
@@ -58,13 +79,6 @@ class Public::UsersController < ApplicationController
   def search
     @users = User.search(params[:keyword])
     @users_page = User.all.page(params[:page])
-  end
-
-  def show
-    @japan_areas = JapanArea.all
-    @japan_prefectures = JapanPrefecture.all
-    @user = User.find(params[:id])
-    @user_articles = @user.articles.where(is_active: true)
   end
 
   def mypage
@@ -78,18 +92,6 @@ class Public::UsersController < ApplicationController
     @foot_print_articles = Article.find(foot_prints)
     clips= Clip.where(user_id: @user.id).pluck(:article_id)
     @clip_articles = Article.find(clips)
-  end
-
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:notice] = "会員情報の更新が完了しました"
-      redirect_to user_path(@user.id)
-    end
   end
 
   #投稿データのストロングパラメータ
