@@ -3,7 +3,7 @@
 
 <div class= "col-9">
 </br>
-<h5><%= @tag.name %>の記事（全<%= @tag.articles.count %>件）</h5>
+<h5><i class="fas fa-tags" style="color:#690DFF;"></i><%= @tag.name %>の記事（全<%= @tag.articles.count %>件）</h5>
 
 <div class= "row">
 <% @articles.each do |article| %>
