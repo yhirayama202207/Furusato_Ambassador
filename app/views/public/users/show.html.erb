@@ -7,6 +7,7 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
     <h5 class= "m-2">プロフィール</h5>
 
     <!--ユーザー情報 ここから----------------------------------------------------->
@@ -21,7 +22,20 @@
       <% end %>
       <label><%= @user.user_name %></label>
       </br>
-      <label class="text-small"><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー&emsp;<%=link_to @user.followers.count, followers_user_path(@user) %>フォロワー</label>
+      <label class="text-small mb-3"><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー&emsp;<%=link_to @user.followers.count, followers_user_path(@user) %>フォロワー</label>
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      <% if @user == current_user %>
+        <% if @user.user_name != "ゲスト" %>
+          &emsp;&emsp;&emsp;&emsp;
+          <%= link_to "編集", edit_user_path(current_user), class: "btn btn-success" %>
+        <% end %>
+      <% else %>
+        <% if @user.is_followed_by?(current_user) %>
+          <%= link_to "フォロー解除", user_relationships_path(@user), method: :delete, class: "btn btn-danger" %>
+        <% else %>
+          <%= link_to "フォロー", user_relationships_path(@user), method: :post, class: "btn btn-info" %>
+        <% end %>
+      <% end %>
       </br>
       <table class="table table-hover table-bordered table-inverse">
         <tbody>
@@ -70,8 +84,64 @@
 
             <%= article.title %>
             </br>
-            <%= article.japan_prefecture.name %>
+            <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
             </br>
+
+            <%# いいね／行った！の表示 ---------- %>
+
+            <%# ログイン済みの場合はいいね／行った！機能が使える %>
+            <% if user_signed_in? %>
+
+              <% if article.liked_by?(current_user) %>
+                <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理 %>
+                <label>
+                  <%= link_to article_likes_path(article), method: :delete do %>
+                    <i class="fas fa-heart" style="color: #ff4500;"></i>
+                  <% end %>
+                  <%= article.likes.count %>いいね
+                </label>
+              <% else %>
+                <%# まだいいねされていない時にクリックされたらいいねを付ける処理 %>
+                <label>
+                  <%= link_to article_likes_path(article), method: :post do %>
+                    <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+                  <% end %>
+                  <%= article.likes.count %>いいね
+                </label>
+              <% end %>
+
+              <% if article.foot_printed_by?(current_user) %>
+                <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理 %>
+                <label>
+                  <%= link_to article_foot_prints_path(article), method: :delete do %>
+                    <i class="fas fa-paw" style="color: #f39800;"></i>
+                  <% end %>
+                  <%= article.foot_prints.count %>行った！
+                </label>
+              <% else %>
+                <%# まだ行った！されていない時にクリックされたら行った！を付ける処理 %>
+                <label>
+                  <%= link_to article_foot_prints_path(article), method: :post do %>
+                    <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+                  <% end %>
+                  <%= article.foot_prints.count %>行った！
+                </label>
+              <% end %>
+
+            <% else %>
+              <%# ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示 %>
+              <label>
+                <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+                <%= article.likes.count %>いいね
+              </label>
+
+              <label>
+                <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+                <%= article.foot_prints.count %>行った！
+              </label>
+            <% end %>
+
+
             <% if article.user_id == current_user.id %>
               <% if article.is_active %>
                 <label class="text-success">公開中</label>
