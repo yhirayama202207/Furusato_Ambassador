@@ -1,52 +1,108 @@
 <div class= "row">
-<div class= "col-2">
-  <table class="table table-hover table-bordered table-inverse">
-    <thead>
-      <tr>
-        <th>都道府県から</br>記事を検索する</br>Search by prefecture</th>
-      </tr>
-    </thread>
-    <tbody>
-        <% @japan_prefectures.each do |japan_prefecture| %>
-        <tr>
-        <td><%= link_to japan_prefecture.name, articles_prefecture_index_path(japan_prefecture.id) %></td>
-        </tr>
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+    <h5 class= "m-2">
+      <% if @user.image.attached? %>
+        <%= image_tag @user.image, size: "30x30" %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', size: "30x30" %>
+      <% end %>
+      <%= @user.user_name %>さんの記事（全<%= @user_articles.count %>件）
+    </h5>
+
+    <div class= "row">
+      <% @user_articles.each do |article| %>
+      <div class= "col-3 mb-3">
+        <%= link_to article_path(article.id) do %>
+          <% if article.image.attached? %>
+            <%= image_tag article.image, size: "200x200" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <% end %>
+          </br>
+          <%= article.title %>
         <% end %>
-    </tbody>
-  </table>
-</div>
+        </br>
+        <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+        </br>
 
-<div class= "col-8">
-</br>
-<h5><%= @user.user_name %>さんの記事一覧（全<%= @user_articles.count %>件）</h5>
+        <!--いいね／行った！の表示 ここから------------>
 
-<div class= "row">
-<% @user_articles.each do |article| %>
-<div class= "col-3">
+        <!--ログイン済みの場合はいいね／行った！機能が使える-->
+        <% if user_signed_in? %>
 
-<%= link_to article_path(article.id) do %>
-<% if article.image.attached? %>
-  <%= image_tag article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
-<% end %>
-<% end %>
+          <% if article.liked_by?(current_user) %>
+            <!--既にいいねされている場合にはクリックされたらいいねを取り消す処理-->
+            <label>
+              <%= link_to article_likes_path(article), method: :delete do %>
+                <i class="fas fa-heart" style="color: #ff4500;"></i>
+              <% end %>
+              <%= article.likes.count %>いいね
+            </label>
+          <% else %>
+            <!--まだいいねされていない時にクリックされたらいいねを付ける処理-->
+            <label>
+              <%= link_to article_likes_path(article), method: :post do %>
+                <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+              <% end %>
+              <%= article.likes.count %>いいね
+            </label>
+          <% end %>
 
-<%= article.title %>
-</br>
-<%= article.japan_prefecture.name %>
+          <% if article.foot_printed_by?(current_user) %>
+            <!--既に行った！されている場合にはクリックされたら行った！を取り消す処理-->
+            <label>
+              <%= link_to article_foot_prints_path(article), method: :delete do %>
+                <i class="fas fa-paw" style="color: #f39800;"></i>
+              <% end %>
+              <%= article.foot_prints.count %>行った！
+            </label>
+          <% else %>
+            <!--まだ行った！されていない時にクリックされたら行った！を付ける処理-->
+            <label>
+              <%= link_to article_foot_prints_path(article), method: :post do %>
+                <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+              <% end %>
+              <%= article.foot_prints.count %>行った！
+            </label>
+          <% end %>
 
-</br>
-<% if article.is_active %>
-  <label class="text-success">公開中</label>
-<% else %>
-  <label class="text-secondary">非公開</label>
-<% end %>&emsp;&emsp;&emsp;&emsp;
-<%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+        <% else %>
+          <!--ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示-->
+          <label>
+            <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+            <%= article.likes.count %>いいね
+          </label>
 
-</div>
-<% end %>
-</div>
-</div>
-</div>
+          <label>
+            <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+            <%= article.foot_prints.count %>行った！
+          </label>
+        <% end %>
+        <!--いいね／行った！の表示ここまで ------------>
+        </br>
+
+        <% if article.user_id == current_user.id %>
+          <% if article.is_active %>
+            <label class="text-success">公開中</label>
+          <% else %>
+            <label class="text-secondary">非公開</label>
+          <% end %>
+          <%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+          <%= link_to "削除", article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <!--（右側全体）ここまで------------>
+
 </div>

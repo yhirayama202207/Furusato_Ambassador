@@ -23,9 +23,14 @@ class Public::UsersController < ApplicationController
   end
 
   def user_articles
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = current_user
-    @user_articles = @user.articles.all
+    if @user = current_user
+      @user_articles = @user.articles.all
+    else
+      @user_articles = @user.articles.where(is_active: true)
+    end
   end
 
   def likes

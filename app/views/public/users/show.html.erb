@@ -63,7 +63,9 @@
       <div class="col-1">
       </div>
       <div class= "col-md-10 mb-1">
-      <label>記事履歴（全<%= @user_articles.count %>件）</label>
+        <%= link_to user_articles_path(@user.id) do %>
+          <label>記事履歴（全<%= @user_articles.count %>件）</label>
+        <% end %>
       </div>
     </div>
 
@@ -87,7 +89,7 @@
             <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
             </br>
 
-            <%# いいね／行った！の表示 ---------- %>
+            <%# いいね／行った！の表示 ここから---------- %>
 
             <%# ログイン済みの場合はいいね／行った！機能が使える %>
             <% if user_signed_in? %>
@@ -140,6 +142,7 @@
                 <%= article.foot_prints.count %>行った！
               </label>
             <% end %>
+            <%# いいね／行った！の表示 ここまで---------- %>
 
 
             <% if article.user_id == current_user.id %>
@@ -147,8 +150,9 @@
                 <label class="text-success">公開中</label>
               <% else %>
                 <label class="text-secondary">非公開</label>
-              <% end %>&emsp;&emsp;&emsp;&emsp;
+              <% end %>
               <%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
+              <%= link_to "削除", article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
             <% end %>
           </div>
         <% end %>
