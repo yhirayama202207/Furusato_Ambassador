@@ -5,15 +5,15 @@
   <%= link_to user_path(notification.sender) do %>
     &emsp;
     <% if notification.sender.image.attached? %>
-      <%= image_tag notification.sender.image, size: "20x20" %>
+      <%= image_tag notification.sender.image, size: "30x30" %>
     <% else %>
-      <%= image_tag 'no_image.jpg', size: "20x20" %>
+      <%= image_tag 'no_image.jpg', size: "30x30" %>
     <% end %>
   <% end %>
 
   <%= notification_form(notification) %><span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)} 前)" %></span>
   <br>
   <% if !@comment.nil? %>
-    <p class="moderate-font text-center" style="color: #C0C0C0;"><%= @comment %></p>
+    <label class="moderate-font text-center" style="color: #C0C0C0;"></label>&emsp;&emsp;「<%= @comment %>」
   <% end %>
 </div>

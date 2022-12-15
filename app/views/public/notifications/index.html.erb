@@ -1,19 +1,43 @@
-</br>
-<h5>&emsp;通知一覧</h5>
+<div class= "row">
 
-&emsp;
-<%= link_to destroy_all_notifications_path, method: :delete do %>
-  <i class="fas fa-trash" style="color: black;"></i>
-  <h7 style="color: black;">すべての通知を削除</h7>
-<% end %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
 
-</br>
-</br>
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
 
-<% if @notifications.exists? %>
-  <div class="users-index">
-    <%= render @notifications %>
+    <!--通知一覧 ここから----------------------------------------------------->
+    <h5 class= "m-2">通知一覧</h5>
+    </br>
+    <div class="row">
+      <div class= "col-1">
+      </div>
+      <div class= "col-10">
+
+        <%= link_to destroy_all_notifications_path, method: :delete do %>
+          <i class="fas fa-trash" style="color: black;"></i>
+          <h7 style="color: black;">すべての通知を削除</h7>
+        <% end %>
+
+        </br>
+        </br>
+
+        <% if @notifications.exists? %>
+          <div class="users-index">
+            <%= render @notifications %>
+          </div>
+        <% else %>
+          <p>&emsp;通知はありません</p>
+        <% end %>
+
+      </div>
+    </div>
+      <!--通知一覧 ここまで----------------------------------------------------->
+
   </div>
-<% else %>
-  <p>&emsp;通知はありません</p>
-<% end %>
+  <!--（右側全体）ここまで------------>
+
+</div>
