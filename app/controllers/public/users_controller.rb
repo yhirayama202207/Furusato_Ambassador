@@ -77,8 +77,10 @@ class Public::UsersController < ApplicationController
   end
 
   def search
-    @users = User.search(params[:keyword])
-    @users_page = User.all.page(params[:page])
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @users = User.search(params[:keyword]).page(params[:page])
+    #@users_page = User.all.page(params[:page])
   end
 
   def mypage
