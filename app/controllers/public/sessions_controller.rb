@@ -11,6 +11,12 @@ class Public::SessionsController < Devise::SessionsController
     redirect_to user_path(user), notice: 'ゲストでログインしました。'
   end
 
+  def new
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    super
+  end
+
   # GET /resource/sign_in
   # def new
   #   super
