@@ -15,7 +15,7 @@
 <% end %>
 <%= @article.user.user_name %>
 <% end %>
-&emsp;<%= @article.created_at %>
+&emsp;<%= @article.created_at.strftime("%Y-%m-%d %H:%M") %>
 </h6>
 &emsp;
 <% @article.tags.each do |tag| %>
