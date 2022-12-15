@@ -36,7 +36,7 @@
       </tr>
     </thread>
     <tbody>
-      <% @japan_areas.each do |japan_area| %>
+      <% japan_areas.each do |japan_area| %>
         <tr>
           <td><%= link_to japan_area.name+'　'+ japan_area.name_english, articles_area_index_path(japan_area.id) %></td>
         </tr>
@@ -50,7 +50,7 @@
       </tr>
     </thread>
     <tbody>
-      <% @japan_prefectures.each do |japan_prefecture| %>
+      <% japan_prefectures.each do |japan_prefecture| %>
         <tr>
           <td><%= link_to japan_prefecture.name+'　'+ japan_prefecture.name_english, articles_prefecture_index_path(japan_prefecture.id) %></td>
         </tr>

@@ -8,6 +8,18 @@ class Public::RegistrationsController < Devise::RegistrationsController
     user_path(current_user.id)
   end
 
+  def new
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    super
+    # byebug
+  end
+
+  # def create
+  #   super
+  #   # byebug
+  # end
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -46,7 +58,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_name, :home, :hometown])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_name, :home, :hometown, :image])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

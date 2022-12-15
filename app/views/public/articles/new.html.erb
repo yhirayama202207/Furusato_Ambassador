@@ -51,11 +51,17 @@
     <h5>地図を追加する</h5>
     <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
     <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
+    <%= f.hidden_field :address,:value =>"住所", id: :addr %>
 
 <!--Google Maps APIの表示 ここから-->
 <input id="address" type="textbox" value="" placeholder="検索して地図を追加">
 <input type="button" value="検索" onclick="codeAddress()">
 <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+
+<div class= "row">
+  <div class= "col-2">
+  </div>
+  <div class= "col-8">
 <div id='map'></div>
 
 <style>
@@ -111,6 +117,16 @@ function codeAddress(){
             // イベントの引数evの、プロパティ.latLngが緯度経度
             document.getElementById('lat').value = ev.latLng.lat();
             document.getElementById('lng').value = ev.latLng.lng();
+            geocoder.geocode({latLng:ev.latLng, language:"ja"}, function(results, status) {
+			        if (status == google.maps.GeocoderStatus.OK) {
+				        if (results[0].geometry) {
+					        console.log(results);
+					        document.getElementById('addr').value = results[0].formatted_address;
+
+				          }
+			          }
+		          });
+
         });
     } else {
       alert('該当する結果がありませんでした：' + status);
@@ -121,6 +137,8 @@ function codeAddress(){
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
 <!--Google Maps APIの表示 ここまで-->
+</div>
+</div>
 </div>
 </div>
 
