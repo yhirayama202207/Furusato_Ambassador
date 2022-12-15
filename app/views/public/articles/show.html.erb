@@ -146,7 +146,10 @@ SNSでシェア
 </br>
 
 <h5>コメント一覧</h5>
-🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎
+<% 20.times do  %>
+  <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
+  <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+<% end %>
 </br>
 <% @comments.each do |comment| %>
 <%= link_to user_path(comment.user_id) do %>
@@ -157,7 +160,7 @@ SNSでシェア
 <% end %>
 <%= comment.user.user_name %>
 <% end %>&emsp;
-<%= comment.created_at %>
+<%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>
 </br>
 <%= comment.comment %>
 </br>
@@ -172,7 +175,10 @@ SNSでシェア
 <%= link_to "削除", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
 <% end %>
 </br>
-🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎🍏🍎
+<% 20.times do  %>
+  <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
+  <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+<% end %>
 </br>
 <% end %>
 </div>
