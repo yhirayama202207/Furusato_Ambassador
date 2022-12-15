@@ -17,81 +17,92 @@
     <h5 class= "m-2">新規ユーザー登録／Sign up</h5>
     </br>
 
+    <!--（入力部分全体）ここから------------>
     <div class= "row">
       <div class= "col-12">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "public/shared/error_messages", resource: resource %>
 
-        <div class= "row">
-          <div class= "col-6">
-            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <%= render "public/shared/error_messages", resource: resource %>
+            <!--必須項目＆任意項目の大枠 ここから------------>
+            <div class= "row">
 
-              <h5>必須項目（required）</h5>
-              <%= f.label "※ユーザーネームは他のユーザーに表示されます" %>
-              </br>
-              </br>
+              <!--必須項目ここから------------>
+              <div class= "col-6">
 
-              <div class="field">
-                <%= f.label "ユーザーネーム／Username" %></br>
-                <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name" %>
+                <h5>必須項目（required）</h5>
+                <%= f.label "※ユーザーネームは他のユーザーに表示されます" %>
+                </br>
+                </br>
+
+                <div class="field">
+                  <%= f.label "ユーザーネーム／Username" %></br>
+                  <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name" %>
+                </div>
+                </br>
+
+                <div class="field">
+                  <%= f.label "メールアドレス／E-mail" %><br />
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                </div>
+                </br>
+                <div class="field">
+                  <%= f.label "パスワード" %>
+                  <% if @minimum_password_length %>
+                    <label>（<%= @minimum_password_length %>文字以上）／password（minimum <%= @minimum_password_length %>characters）</label>
+                  <% end %>
+                  <br/>
+                  <%= f.password_field :password, autocomplete: "new-password" %>
+                </div>
+                </br>
+
+                <div class="field">
+                  <%= f.label "パスワード（確認用）／Password（confirm）" %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+                </div>
+                </br>
+                </br>
               </div>
-              </br>
+              <!--必須項目ここまで------------>
 
-              <div class="field">
-                <%= f.label "メールアドレス／E-mail" %><br />
-                <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              <!--任意項目ここから------------>
+
+              <div class= "col-6">
+                <h5>任意項目（optional）</h5>
+                <%= f.label "※下記は他のユーザーに表示されます" %></br>
+                </br>
+
+                <div class="field">
+                  <%= f.label "居住地 例：東京都文京区／Home ex)Tokyo, Japan" %></br>
+                  <%= f.text_field :home, autofocus: true, autocomplete: "home" %>
+                </div>
+                </br>
+
+                <div class="field">
+                  <%= f.label "出身地 例：北海道札幌市／Hometown ex)Taipei, Taiwan" %></br>
+                  <%= f.text_field :hometown, autofocus: true, autocomplete: "hometown" %>
+                </div>
+                </br>
+
+                <div class="field">
+                  <%= f.label "プロフィール画像／Profile picture"  %></br>
+                  <%= f.file_field :image, accept: "image/*" %></br>
+                </div>
+                </br>
+                </br>
               </div>
-              </br>
-              <div class="field">
-                <%= f.label "パスワード" %>
-                <% if @minimum_password_length %>
-                  <label>（<%= @minimum_password_length %>文字以上）／password（minimum <%= @minimum_password_length %>characters）</label>
-                <% end %>
-                <br/>
-                <%= f.password_field :password, autocomplete: "new-password" %>
-              </div>
-              </br>
+              <!--任意項目ここまで------------>
 
-              <div class="field">
-                <%= f.label "パスワード（確認用）／Password（confirm）" %><br />
-                <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-              </div>
-              </br>
-              </br>
-          </div>
-
-          <div class= "col-6">
-            <h5>任意項目（optional）</h5>
-            <%= f.label "※下記は他のユーザーに表示されます" %></br>
-            </br>
-
-            <div class="field">
-              <%= f.label "居住地 例：東京都文京区／Home ex)Tokyo, Japan" %></br>
-              <%= f.text_field :home, autofocus: true, autocomplete: "home" %>
             </div>
-            </br>
+            <!--必須項目＆任意項目の大枠 ここまで------------>
 
-            <div class="field">
-              <%= f.label "出身地 例：北海道札幌市／Hometown ex)Taipei, Taiwan" %></br>
-              <%= f.text_field :hometown, autofocus: true, autocomplete: "hometown" %>
+            <div class="actions">
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              <%= f.submit "登録／Sign up", class: "btn btn-success" %>
             </div>
-            </br>
-
-            <div class="field">
-              <%= f.label "プロフィール画像／Profile picture"  %></br>
-              <%= f.file_field :image, accept: "image/*" %></br>
-            </div>
-            </br>
-            </br>
-          </div>
-        </div>
-
-          <div class="actions">
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            <%= f.submit "登録／Sign up", class: "btn btn-success" %>
-          </div>
         <% end %>
       </div>
     </div>
+    <!--（入力部分全体）ここまで------------>
   </div>
   <!--（右側全体）ここまで------------>
 
