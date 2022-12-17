@@ -8,18 +8,17 @@
   <div class= "col-10">
   </br>
   <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  <h5 class= "m-2">記事詳細</h5>
   </br>
 
   <!--記事内容ここから------------>
-  <h4>
+  <h5 class= "mt-2">
     <%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）
     &emsp;
     <% if @article.user == current_user %>
       <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
       <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
     <% end %>
-  </h4>
+  </h5>
 
   <h6>
   <%= link_to user_path(@article.user.id) do %>
