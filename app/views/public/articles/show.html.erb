@@ -1,23 +1,40 @@
 <div class= "row">
-<%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
 
-<div class= "col-8">
-</br>
-<h5>&emsp;記事詳細</h5>
-</br>
-<h4>&emsp;<%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）</h4>
-<h6>&emsp;
-<%= link_to user_path(@article.user.id) do %>
-<% if @article.user.image.attached? %>
-  <%= image_tag @article.user.image, size: "30x30" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "30x30" %>
-<% end %>
-<%= @article.user.user_name %>
-<% end %>
-&emsp;<%= @article.created_at.strftime("%Y-%m-%d %H:%M") %>
-</h6>
-&emsp;
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+  </br>
+  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+  <h5 class= "m-2">記事詳細</h5>
+  </br>
+
+  <!--記事内容ここから------------>
+  <h4>
+    <%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）
+    &emsp;
+    <% if @article.user == current_user %>
+      <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
+      <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+    <% end %>
+  </h4>
+
+  <h6>
+  <%= link_to user_path(@article.user.id) do %>
+  <% if @article.user.image.attached? %>
+    <%= image_tag @article.user.image, size: "30x30" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "30x30" %>
+  <% end %>
+  <%= @article.user.user_name %>
+  <% end %>
+  &emsp;
+  <%= @article.created_at.strftime("%Y-%m-%d %H:%M") %>
+  </h6>
+
+
 <% @article.tags.each do |tag| %>
   <i class="fas fa-tags" style="color:#690DFF;"></i>
   <%= link_to articles_tag_index_path(tag.id) do %>
@@ -25,24 +42,37 @@
   <% end %>
 <% end %>
 </br>
-<h5>&emsp;<%= @article.body %></h5>
-</br>
-&emsp;
-<% if @article.image.attached? %>
-  <%= image_tag @article.image, size: "300x300" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "300x300" %>
-<% end %>
-</br>
 </br>
 
+<div class= "row">
+
+<!--（記事の左側）ここから------------>
+
+<div class= "col-6">
+  <p><%= @article.body %></p>
+
+  <% if @article.image.attached? %>
+    <%= image_tag @article.image, size: "400x400" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "400x400" %>
+  <% end %>
+</div>
+<!--（記事の左側）ここまで------------>
+
+<!--（記事の右側）ここから------------>
+<div class= "col-6">
+<label>～Information～</label></br>
+<%= @article.name %></br>
+<%= @article.address %>
+
 <% if @article.latitude %>
+<!--Google Maps APIの表示 ここから-->
 <div id='map'></div>
 
 <style>
 #map {
   height: 300px;
-  width: 600px;
+  width: 400px;
 }
 </style>
 
@@ -67,10 +97,15 @@ function initMap(){
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
 <% end %>
+<!--Google Maps APIの表示 ここまで-->
+
+</div>
+<!--（記事の右側）ここまで------------>
+
+</div>
 
 </br>
 
-&emsp;
 <% if @article.liked_by?(current_user) %>
     <label>
       <%= link_to article_likes_path(@article), method: :delete do %>
@@ -119,16 +154,8 @@ function initMap(){
     </label>
   <% end %>
 
-</br>
-
-&emsp;&emsp;
-<% if @article.user == current_user %>
-<%= link_to "編集する", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
-<%= link_to "削除する", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
-<% end %>
-</br>
-
-SNSでシェア
+&emsp;
+Twitterでシェア
 <%= link_to "http://twitter.com/share?url=#{request.url}/&text=ふるさとアンバサダーで地域の魅力を発信しよう&hashtags=ふるさとSNS",{class:"footer-icon_1"} do %>
   <i class="fab fa-twitter"></i>
 <% end %>
