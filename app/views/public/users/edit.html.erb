@@ -1,23 +1,58 @@
-<h5>会員情報編集</h5>
-</br>
-<%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
-    &emsp;&emsp;&emsp;
-    <label>ユーザー名</label>&emsp;&emsp;&emsp;
-        <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %></br>
-    &emsp;&emsp;&emsp;
-    <label>メールアドレス</label>&emsp;
-        <%= f.text_field :email, autofocus: true, id:"inputemail", placeholder:"" %></br>
-    &emsp;&emsp;&emsp;
-    <label>居住地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
-        <%= f.text_field :home, autofocus: true, id:"inputhome", placeholder:"" %></br>
-    &emsp;&emsp;&emsp;
-    <label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
-        <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %></br>
-    &emsp;&emsp;&emsp;
-    <label>プロフィール画像</label>
-        <%= f.file_field :image, accept: "image/*" %></br>
-    &emsp;&emsp;&emsp;
-    <%= f.submit "編集内容を保存", class: "btn btn-success" %>
-    &emsp;&emsp;&emsp;&emsp;&emsp;
-    <%= link_to "退会する", users_confirm_path, class: "btn btn-danger" %>
-<% end %>
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+    <h5 class= "m-2">会員情報編集</h5>
+    </br>
+
+    <!--（入力部分）ここから------------>
+    <div class= "row">
+      <div class= "col-6">
+        <%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
+          <label>ユーザーネーム／Username</label></br>
+          <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %>
+          </br>
+          </br>
+          <label>メールアドレス／E-mail</label></br>
+          <%= f.text_field :email, autofocus: true, id:"inputemail", placeholder:"" %>
+          </br>
+          </br>
+
+          <label>居住地 例：東京都文京区／Home ex)Tokyo, Japan</label></br>
+          <%= f.text_field :home, autofocus: true, id:"inputhome", placeholder:"" %>
+          </br>
+          </br>
+
+          <label>出身地 例：北海道札幌市／Hometown ex)Taipei, Taiwan</label>&emsp;&emsp;&emsp;&emsp;&emsp;
+          <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %>
+          </br>
+          </br>
+
+          <label>プロフィール画像／Profile picture</label></br>
+          <%= f.file_field :image, accept: "image/*" %>
+          </br>
+          </br>
+          <%= f.submit "保存／Update", class: "btn btn-success" %>
+          </br>
+          </br>
+          </br>
+          </br>
+          </br>
+          </br>
+          <%= link_to "退会はこちら／Unsubscribe", users_confirm_path %>
+        <% end %>
+      </div>
+    </div>
+    <!--（入力部分）ここまで------------>
+
+  </div>
+  <!--（右側全体）ここまで------------>
+
+</div>
