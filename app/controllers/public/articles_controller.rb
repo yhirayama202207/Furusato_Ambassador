@@ -3,6 +3,8 @@ class Public::ArticlesController < ApplicationController
   def new
     @article = Article.new
     @tags = Tag.all
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 
   def create

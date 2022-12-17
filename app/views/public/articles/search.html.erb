@@ -1,82 +1,36 @@
 <div class= "row">
-<%= render 'public/articles/list', japan_areas: @japan_areas, japan_prefectures: @japan_prefectures %>
 
-<div class= "col-9">
-</br>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
 
-<h5>記事一覧（全<%= @articles.count %>件）</h5>
-</br>
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">記事検索結果一覧（全<%= @articles.count %>件）</h5>
+    </br>
 
-<label>&emsp;記事検索</label>
-<%= form_with(url: search_articles_path, local: true, method: :get, class: "search-form") do |form| %>
-&emsp;<%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
-<%= form.submit "検索", class: "search-btn" %>
-<% end %>
-</br>
+    <!--記事検索・一覧 ここから----------------------------------------------------->
+    <label>記事検索</label>
+    <%= form_with(url: search_articles_path, local: true, method: :get, class: "search-form") do |form| %>
+      <%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
+      <%= form.submit "検索", class: "search-btn" %>
+    <% end %>
+    </br>
 
-<div class= "row">
-<% @articles.each do |article| %>
-<div class= "col-3">
+    <div class= "row">
+      <% @articles.each do |article| %>
+        <div class= "col-3">
+          <%= render 'public/articles/article_part', article: article %>
+        </div>
+    　<% end %>
+    </div>
+    <!--記事検索・一覧 ここまで----------------------------------------------------->
 
-<%= link_to user_path(article.user.id) do %>
-  <% if article.user.image.attached? %>
-    <%= image_tag article.user.image, size: "20x20" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "20x20" %>
-  <% end %>
-  <%= article.user.user_name %>
-<% end %>
+  </div>
+  <!--（右側全体）ここまで------------>
 
-<%= link_to article_path(article.id) do %>
-<% if article.image.attached? %>
-  <%= image_tag article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
-<% end %>
-<% end %>
-
-<%= article.title %>
-</br>
-<%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
-</br>
-
-<% if article.liked_by?(current_user) %>
-    <label>
-      <%= link_to article_likes_path(article), method: :delete do %>
-        <i class="fas fa-heart"></i>
-      <% end %>
-      <%= article.likes.count %>いいね
-    </label>
-  <% else %>
-    <label>
-      <%= link_to article_likes_path(article), method: :post do %>
-        <i class="far fa-heart"></i>
-      <% end %>
-      <%= article.likes.count %>いいね
-    </label>
-  <% end %>
-  <% if article.foot_printed_by?(current_user) %>
-    <label>
-      <%= link_to article_foot_prints_path(article), method: :delete do %>
-        <i class="fas fa-paw"></i>
-      <% end %>
-      <%= article.foot_prints.count %>行った！
-    </label>
-    <% else %>
-    <label>
-      <%= link_to article_foot_prints_path(article), method: :post do %>
-        <i class="fas fa-paw"></i>
-      <% end %>
-      <%= article.foot_prints.count %>行った！
-    </label>
-  <% end %>
-
-</div>
-<% end %>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 <%= paginate @articles_page %>

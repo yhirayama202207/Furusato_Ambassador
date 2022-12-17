@@ -1,154 +1,179 @@
-</br>
-<h5>&emsp;新規記事登録</h5>
-
-<div class="container">
-  <div style="text-align:center;">
-  <div class="container">
-  <% @article.errors.full_messages.each do | msg | %>
-    <%= msg %>
-  <% end %>
-
-  <%= form_with model: @article, url: articles_path, method: :post do |f| %>
-
-    <label>画像</label></br>
-      <%= f.file_field :image, accept: "image/*" %></br>
-      </br>
-
-    <label>タイトル（必須）</label></br>
-      <%= f.text_field :title, placeholder: "タイトル" %></br>
-
-    <label>本文（必須）</label></br>
-      <%= f.text_area :body, placeholder: "ここに本文を記述します" %></br>
-
-    <label>都道府県（必須）</label></br>
-      <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
-      </br>
-    </div>
-    <div class="container">
-      <div style="text-align:center;">
-      ～以下は任意項目です～</br>
-      </br>
-    <label>市区町村</label></br>
-      <%= f.text_field :region, placeholder: "市区町村名（例：青森市）" %></br>
-
-    <label>場所／お店の名前</label></br>
-    <%= f.text_field :name %></br>
-    </br>
-
-    <label>タグを付ける</label></br>
-      <%= f.text_field :tag_ids, placeholder: "複数の場合は、で区切る" %></br>
-        <%# if @tags.present? %>
-          <%#= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
-            <%#= tag.label do %>
-              <%#= tag.check_box %>
-              <%#= tag.text%>
-            <%# end %>
-          <%# end %>
-        <%# end %>
-    </br>
-
-    <div style="text-align:center;">
-    <h5>地図を追加する</h5>
-    <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
-    <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
-    <%= f.hidden_field :address,:value =>"住所", id: :addr %>
-
-<!--Google Maps APIの表示 ここから-->
-<input id="address" type="textbox" value="" placeholder="検索して地図を追加">
-<input type="button" value="検索" onclick="codeAddress()">
-<p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
-
 <div class= "row">
-  <div class= "col-2">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+  </br>
+  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+  <h5 class= "m-2">新規投稿</h5>
+  </br>
+
+  <!--（入力部分全体）ここから------------>
+  <div class= "row">
+      <div class= "col-1">
+      </div>
+      <div class= "col-10">
+        <% @article.errors.full_messages.each do | msg | %>
+          <%= msg %>
+        <% end %>
+        <%= form_with model: @article, url: articles_path, method: :post do |f| %>
+
+        <!--基本項目＆追加項目の大枠 ここから------------>
+        <div class= "row">
+
+          <!--基本項目（左側）ここから------------>
+          <div class= "col-6">
+
+            <h5>基本項目（Basic Infomation）</h5>
+            </br>
+
+            <label>タイトル（必須）／title（required）</label></br>
+              <%= f.text_field :title, placeholder: "タイトル" %></br>
+
+            <label>本文（必須）／body（required）</label></br>
+              <%= f.text_area :body, placeholder: "ここに本文を記述します" %></br>
+
+            </br>
+
+            <label>都道府県（必須）／prefecture（required）</label></br>
+              <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
+
+            <label>市区町村／city</label></br>
+              <%= f.text_field :region, placeholder: "市区町村名（例：青森市）" %></br>
+            </br>
+
+            <label>画像／image</label></br>
+              <%= f.file_field :image, accept: "image/*" %></br>
+            </br>
+
+            <label>記事を公開しますか？</label></br>
+              <%= f.radio_button :is_active, :true %>
+              <%= f.label :is_active, "公開", {value: :true, checked: true, style: "display: inline-block;"} %>
+              <%= f.radio_button :is_active, :false %>
+              <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
+          </div>
+          <!--基本項目（左側）ここまで------------>
+
+          <!--追加項目（右側）ここから------------>
+          <div class= "col-6">
+            <h5>追加項目（Additional Information）</h5>
+            </br>
+
+            <label>タグを付ける</label></br>
+            <%= f.text_field :tag_ids, placeholder: "複数の場合は、で区切る" %></br>
+            </br>
+
+            <label>場所／お店の名前</label></br>
+            <%= f.text_field :name %></br>
+            </br>
+
+            <label>地図を追加する</label></br>
+            <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
+            <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
+            <%= f.hidden_field :address,:value =>"住所", id: :addr %>
+
+            <!--Google Maps APIの表示 ここから-->
+            <input id="address" type="textbox" value="" placeholder="検索して地図を追加">
+            <input type="button" value="検索" onclick="codeAddress()">
+            <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+
+            <div id='map'></div>
+
+            <style>
+            #map {
+              height: 300px;
+              width: 400px;
+            }
+            </style>
+
+            <script>
+            //初期マップの設定
+            let map
+            let marker
+            function initMap(){
+              geocoder = new google.maps.Geocoder()
+
+              map = new google.maps.Map(document.getElementById('map'), {
+                center:  {lat: 35.6803997, lng:139.7690174},  //東京
+                zoom: 15,
+
+              });
+            }
+
+            //検索後のマップ作成
+            let geocoder
+            let aft
+            function codeAddress(){
+              let inputAddress = document.getElementById('address').value;
+              geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+                if (status == 'OK') {
+                    //マーカーが複数できないようにする
+                    if (aft == true){
+                        marker.setMap(null);
+                    }
+
+                    //新しくマーカーを作成する
+                    map.setCenter(results[0].geometry.location);
+                        marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        draggable: true	// ドラッグ可能にする
+                    });
+
+                    //二度目以降か判断
+                    aft = true
+
+                    //検索した時に緯度経度を入力する
+                    document.getElementById('lat').value = results[0].geometry.location.lat();
+                    document.getElementById('lng').value = results[0].geometry.location.lng();
+
+                    // マーカーのドロップ（ドラッグ終了）時のイベント
+                    google.maps.event.addListener( marker, 'dragend', function(ev){
+                        // イベントの引数evの、プロパティ.latLngが緯度経度
+                        document.getElementById('lat').value = ev.latLng.lat();
+                        document.getElementById('lng').value = ev.latLng.lng();
+                        geocoder.geocode({latLng:ev.latLng, language:"ja"}, function(results, status) {
+            			        if (status == google.maps.GeocoderStatus.OK) {
+            				        if (results[0].geometry) {
+            					        console.log(results);
+            					        document.getElementById('addr').value = results[0].formatted_address;
+
+            				          }
+            			          }
+            		          });
+
+                    });
+                } else {
+                  alert('該当する結果がありませんでした：' + status);
+                }
+              });
+            }
+
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+            <!--Google Maps APIの表示 ここまで-->
+
+          </div>
+          <!--追加項目（右側）ここまで------------>
+
+        </div>
+        <!--基本項目＆追加項目の大枠 ここまで------------>
+
+        <!--投稿するボタン ここから------------>
+        <div style="text-align:center;">
+          </br>
+          <%= f.submit "投稿する", class: "btn btn-success" %>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</br>
+          <% end %>
+        </div>
+        <!--投稿するボタン ここまで------------>
+
+      </div>
+    </div>
+    <!--（入力部分全体）ここまで------------>
+
   </div>
-  <div class= "col-8">
-<div id='map'></div>
-
-<style>
-#map {
-  height: 300px;
-  width: 600px;
-}
-</style>
-
-<script>
-//初期マップの設定
-let map
-let marker
-function initMap(){
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center:  {lat: 35.6803997, lng:139.7690174},  //東京
-    zoom: 15,
-
-  });
-}
-
-//検索後のマップ作成
-let geocoder
-let aft
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-        //マーカーが複数できないようにする
-        if (aft == true){
-            marker.setMap(null);
-        }
-
-        //新しくマーカーを作成する
-        map.setCenter(results[0].geometry.location);
-            marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            draggable: true	// ドラッグ可能にする
-        });
-
-        //二度目以降か判断
-        aft = true
-
-        //検索した時に緯度経度を入力する
-        document.getElementById('lat').value = results[0].geometry.location.lat();
-        document.getElementById('lng').value = results[0].geometry.location.lng();
-
-        // マーカーのドロップ（ドラッグ終了）時のイベント
-        google.maps.event.addListener( marker, 'dragend', function(ev){
-            // イベントの引数evの、プロパティ.latLngが緯度経度
-            document.getElementById('lat').value = ev.latLng.lat();
-            document.getElementById('lng').value = ev.latLng.lng();
-            geocoder.geocode({latLng:ev.latLng, language:"ja"}, function(results, status) {
-			        if (status == google.maps.GeocoderStatus.OK) {
-				        if (results[0].geometry) {
-					        console.log(results);
-					        document.getElementById('addr').value = results[0].formatted_address;
-
-				          }
-			          }
-		          });
-
-        });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });
-}
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
-<!--Google Maps APIの表示 ここまで-->
+  <!--（右側全体）ここまで------------>
 </div>
-</div>
-</div>
-</div>
-
-    </br>
-    <label>記事を公開しますか？</label>
-      <%= f.radio_button :is_active, :true %>
-      <%= f.label :is_active, "公開", {value: :true, checked: true, style: "display: inline-block;"} %>
-      <%= f.radio_button :is_active, :false %>
-      <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
-    <%= f.submit "新規登録", class: "btn btn-success" %></br>
-  <% end %>
-  </div>
-  </div>
