@@ -7,5 +7,7 @@ class Public::HomesController < ApplicationController
   end
 
   def about
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 end
