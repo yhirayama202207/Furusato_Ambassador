@@ -1,37 +1,30 @@
-<main>
-  </br>
-  <h5>&emsp;日本エリア編集</h5>
-  <div class= "container">
-    <div class= "row">
-      <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-        </br>
+<div class= "row">
+
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">日本エリア編集</h5>
+    </br>
+    <div class= "container">
+      <div class= "row">
+        <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
           <%= form_with model: @japan_area, url: admin_japan_area_path(@japan_area.id), method: :patch do |f| %>
             <%= f.label :"エリア名" %></br>
             <%= f.label :"日本語表記" %>&emsp;
             <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
             <%= f.label :"英語表記" %>&emsp;&emsp;
-            <%= f.text_field :name_english, autofocus: true, id:"inputname", placeholder:""%></br>&emsp;&emsp;&emsp;&emsp;&emsp;
+            <%= f.text_field :name_english, autofocus: true, id:"inputname", placeholder:""%></br>
+            </br>&emsp;&emsp;&emsp;&emsp;&emsp;
             <%= f.submit "変更を保存", class: "btn btn-success" %>
           <% end %>
+        </div>
       </div>
     </div>
   </div>
-</main><main>
-  </br>
-  <h5>&emsp;日本エリア編集</h5>
-  <div class= "container">
-    <div class= "row">
-      <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-        </br>
-          <%= form_with model: @japan_area, url: admin_japan_area_path(@japan_area.id), method: :patch do |f| %>
-            <%= f.label :"エリア名" %></br>
-            <%= f.label :"日本語表記" %>&emsp;
-            <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
-            <%= f.label :"英語表記" %>&emsp;&emsp;
-            <%= f.text_field :name_english, autofocus: true, id:"inputname", placeholder:""%></br>&emsp;&emsp;&emsp;&emsp;&emsp;
-            <%= f.submit "変更を保存", class: "btn btn-success" %>
-          <% end %>
-      </div>
-    </div>
-  </div>
-</main>
+  <!--（右側全体）ここまで------------>
+</div>

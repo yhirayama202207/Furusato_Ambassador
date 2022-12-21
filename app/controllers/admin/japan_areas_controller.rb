@@ -5,10 +5,13 @@ class Admin::JapanAreasController < ApplicationController
   def index
     @japan_area = JapanArea.new
     @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 
   def create
-    @japan_area = JapanArea.new(japan_area_params)
+    @japan_area = JapanArea.new
+    @japan_areas = JapanArea.all
+    @japan_area_new = JapanArea.new(japan_area_params)
     if @japan_area.save
       flash[:notice] = "日本エリア登録が完了しました"
       redirect_to admin_japan_areas_path
@@ -17,6 +20,8 @@ class Admin::JapanAreasController < ApplicationController
 
   def edit
     @japan_area = JapanArea.find(params[:id])
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 
   def update
