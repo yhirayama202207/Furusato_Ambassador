@@ -16,6 +16,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
   end
 
@@ -31,6 +33,13 @@ class Admin::UsersController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @users = User.search(params[:keyword]).page(params[:page])
+  end
+
+  def user_articles
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @user = User.find(params[:id])
+    @user_articles = @user.articles.all
   end
 
   #投稿データのストロングパラメータ

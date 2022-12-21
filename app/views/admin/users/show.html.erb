@@ -15,30 +15,27 @@
       <div class= "col-md-2">
       </div>
       <div class= "col-md-8">
-        <% if @user.image.attached? %>
-          <%= image_tag @user.image, size: "100x100" %>
-        <% else %>
-          <%= image_tag 'no_image.jpg', size: "100x100" %>
-        <% end %>
-        <label><%= @user.user_name %></label>
-        &emsp;
-          <% if @user.is_deleted %>
-            <label class="text-secondary">退会</label>
-          <% else %>
-            <label class="text-success">会員（有効）</label>
-          <% end %>
-          </br>
-          </br>
-          <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
-          <label>会員ステータスを変更する</label>&emsp;
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>&emsp;
-            <%= f.radio_button :is_deleted, :true %>
-            <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %>&emsp;
-            <%= f.submit "変更を保存", class: "btn btn-success" %>
-          <% end %>
-          </br>
-          <table class="table table-hover table-bordered table-inverse">
+        <div class="row">
+          <div class= "col-md-9">
+            <% if @user.image.attached? %>
+              <%= image_tag @user.image, size: "100x100" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "100x100" %>
+            <% end %>
+            <label><%= @user.user_name %></label>
+            &emsp;
+            <% if @user.is_deleted %>
+              <label class="text-secondary">退会</label>
+            <% else %>
+              <label class="text-success">会員（有効）</label>
+            <% end %>
+          </div>
+          <div class= "col-md-3">
+            </br>
+            <%= link_to "会員情報編集", edit_admin_user_path(@user), class: "btn btn-info" %>
+          </div>
+        </div>
+        <table class="table table-hover table-bordered table-inverse">
         <tbody>
           <tr>
             <th class="table-secondary">ID</th>
@@ -76,7 +73,7 @@
       <div class="col-1">
       </div>
       <div class= "col-md-10 mb-1">
-        <%= link_to user_articles_path(@user.id) do %>
+        <%= link_to admin_admin_user_articles_path(@user.id) do %>
           <label><%= @user.user_name %>さんの 記事一覧（全<%= @user_articles.count %>件）</label>
         <% end %>
       </div>

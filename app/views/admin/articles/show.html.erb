@@ -28,7 +28,7 @@
         <% else %>
           <label class="text-secondary">非公開</label>
         <% end %>&emsp;
-        <%= link_to "×記事を削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+        <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
     </h5>
     </label>
 

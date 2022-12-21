@@ -1,21 +1,51 @@
-<h5>
-  <%= @user.user_name %>さんの会員情報編集
-</h5>
+<div class= "row">
 
-<%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
-            <label>ユーザーID</label><%= @user.id %></br>
-            <label>ユーザーネーム</label>
-            <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %></br>
-            <label>メールアドレス</label>
-            <%= f.text_field :email, autofocus: true, id:"inpute-mail", placeholder:"" %></br>
-            <label>居住地</label>
-            <%= f.text_field :home, autofocus: true, id:"inputhome", placeholder:"" %></br>
-            <label>出身地</label>
-            <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %></br>
-            <label>会員ステータス</label>
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>
-            <%= f.radio_button :is_deleted, :true %>
-            <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %></br>
-            <%= f.submit "変更を保存", class: "btn btn-success" %>
-          <% end %>
+<!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+<%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+<!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2"><%= @user.user_name %>さんの会員情報編集</h5>
+    </br>
+
+    <!--（入力部分）ここから------------>
+    <div class= "row">
+      <div class= "col-4">
+      <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
+        <label>ユーザーID</label>&emsp;&emsp;&emsp;<%= @user.id %></br>
+        <label>ユーザーネーム</label>&emsp;
+        <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %></br>
+        </br>
+        <label>メールアドレス</label>&emsp;
+        <%= f.text_field :email, autofocus: true, id:"inpute-mail", placeholder:"" %></br>
+        </br>
+        <label>居住地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
+        <%= f.text_field :home, autofocus: true, id:"inputhome", placeholder:"" %></br>
+        <label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
+        <%= f.text_field :hometown, autofocus: true, id:"inputhometown", placeholder:"" %></br>
+        </br>
+        <label>プロフィール画像／profile picture</label></br>
+          <%= f.file_field :image, accept: "image/*" %>
+        </br>
+        </br>
+        <label>会員ステータス</label>&emsp;&emsp;
+        <%= f.radio_button :is_deleted, :false %>
+        <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>&emsp;
+        <%= f.radio_button :is_deleted, :true %>
+        <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %></br>
+        </br>
+        <div style="text-align:center;">
+        <%= f.submit "変更を保存", class: "btn btn-success" %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+    <!--（入力部分）ここまで------------>
+
+  </div>
+  <!--（右側全体）ここまで------------>
+
+</div>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/" => "homes#top"
+    get "/admin/users/:id/user_articles" => "users#user_articles", as: "admin_user_articles"
     resources :japan_areas, only: [:index, :create, :edit, :update]
     resources :japan_prefectures, only: [:index, :create, :edit, :update]
     resources :users, only: [:show, :edit, :update, :index] do
