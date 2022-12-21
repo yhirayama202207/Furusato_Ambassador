@@ -3,7 +3,7 @@ class Admin::ArticlesController < ApplicationController
   def index
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
-    @articles = Article.where(is_active: true)
+    @articles = Article.all
   end
 
   def show
