@@ -1,74 +1,176 @@
-</br>
-<h5><%= @user.user_name %>さんの 会員詳細</h5>
-<% if @user.image.attached? %>
-  <%= image_tag @user.image, size: "100x100" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "100x100" %>
-<% end %>
-</br>
-</br>
-<label>会員ＩＤ</label>&emsp;&emsp;&emsp;&emsp;
-<%= @user.id %>
-</br>
-
-<label>ユーザーネーム</label>&emsp;
-<%= @user.user_name %>
-</br>
-
-<label>メールアドレス</label>&emsp;
-<%= @user.email %>
-</br>
-
-<label>居住地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
-<%= @user.home %>
-</br>
-
-<label>出身地</label>&emsp;&emsp;&emsp;&emsp;&emsp;
-<%= @user.hometown %>
-</br>
-
-<label>会員ステータス</label>&emsp;
-<% if @user.is_deleted %>
-  <label class="text-secondary">退会</label>
-<% else %>
-  <label class="text-success">有効</label>
-<% end %>
-</br>
-</br>
-
-<%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
-<label>会員ステータスを変更する</label>
-</br>
-  <%= f.radio_button :is_deleted, :false %>
-  <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>&emsp;
-  <%= f.radio_button :is_deleted, :true %>
-  <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %></br>
-  <%= f.submit "変更を保存", class: "btn btn-success" %>
-<% end %>
-</br>
-<div class= "col-8">
-</br>
-<h5><%= @user.user_name %>さんの 投稿一覧（全<%= @user_articles.count %>件）</h5>
 <div class= "row">
-<% @user_articles.each do |article| %>
-<div class= "col-3">
 
-<%= link_to admin_article_path(article.id) do %>
-<% if article.image.attached? %>
-  <%= image_tag article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.png', size: "200x200" %>
-<% end %>
-<% end %>
+<!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+<%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+<!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
 
-<%= article.title %>
-</br>
-<%= article.japan_prefecture.name %>
-<%= link_to "×", admin_article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2"><%= @user.user_name %>さんの 会員詳細</h5>
 
-</div>
-<% end %>
-</div>
-</div>
-</div>
+    <!--ユーザー情報 ここから----------------------------------------------------->
+    <div class="row">
+      <div class= "col-md-2">
+      </div>
+      <div class= "col-md-8">
+        <% if @user.image.attached? %>
+          <%= image_tag @user.image, size: "100x100" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "100x100" %>
+        <% end %>
+        <label><%= @user.user_name %></label>
+        &emsp;
+          <% if @user.is_deleted %>
+            <label class="text-secondary">退会</label>
+          <% else %>
+            <label class="text-success">会員（有効）</label>
+          <% end %>
+          </br>
+          </br>
+          <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
+          <label>会員ステータスを変更する</label>&emsp;
+            <%= f.radio_button :is_deleted, :false %>
+            <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>&emsp;
+            <%= f.radio_button :is_deleted, :true %>
+            <%= f.label :is_deleted, "退会", {value: :true, style: "display: inline-block;"} %>&emsp;
+            <%= f.submit "変更を保存", class: "btn btn-success" %>
+          <% end %>
+          </br>
+          <table class="table table-hover table-bordered table-inverse">
+        <tbody>
+          <tr>
+            <th class="table-secondary">ID</th>
+            <td>
+              <%= @user.id %>
+            </td>
+          </tr>
+          <tr>
+            <th class="table-secondary">メールアドレス</th>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
+          <tr>
+            <th class="table-secondary">居住地</th>
+            <td>
+              <%= @user.home %>
+            </td>
+          </tr>
+          <tr>
+            <th class="table-secondary">出身地</th>
+            <td>
+              <%= @user.hometown %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </br>
+      </div>
+    </div>
+    <!--ユーザー情報 ここまで----------------------------------------------------->
+
+    <!--ユーザーの記事 ここから----------------------------------------------------->
+    <div class="row">
+      <div class="col-1">
+      </div>
+      <div class= "col-md-10 mb-1">
+        <%= link_to user_articles_path(@user.id) do %>
+          <label><%= @user.user_name %>さんの 記事一覧（全<%= @user_articles.count %>件）</label>
+        <% end %>
+      </div>
+    </div>
+
+    <div class= "row">
+      <div class="col-1">
+      </div>
+      <div class= "col-10">
+        <div class="row">
+          <% @user_articles.each do |article| %>
+          <div class= "col-3 mb-3">
+            <%= link_to admin_article_path(article.id) do %>
+              <% if article.image.attached? %>
+                <%= image_tag article.image, size: "200x200" %>
+              <% else %>
+                <%= image_tag 'no_image.png', size: "200x200" %>
+              <% end %>
+            <% end %>
+
+            <%= article.title %></br>
+            <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
+            </br>
+
+            <%# いいね／行った！の表示 ここから---------- %>
+
+              <%# ログイン済みの場合はいいね／行った！機能が使える %>
+              <% if user_signed_in? %>
+
+                <% if article.liked_by?(current_user) %>
+                  <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理 %>
+                  <label>
+                    <%= link_to article_likes_path(article), method: :delete do %>
+                      <i class="fas fa-heart" style="color: #ff4500;"></i>
+                    <% end %>
+                    <%= article.likes.count %>いいね
+                  </label>
+                <% else %>
+                  <%# まだいいねされていない時にクリックされたらいいねを付ける処理 %>
+                  <label>
+                    <%= link_to article_likes_path(article), method: :post do %>
+                      <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+                    <% end %>
+                    <%= article.likes.count %>いいね
+                  </label>
+                <% end %>
+
+                <% if article.foot_printed_by?(current_user) %>
+                  <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理 %>
+                  <label>
+                    <%= link_to article_foot_prints_path(article), method: :delete do %>
+                      <i class="fas fa-paw" style="color: #f39800;"></i>
+                    <% end %>
+                    <%= article.foot_prints.count %>行った！
+                  </label>
+                <% else %>
+                  <%# まだ行った！されていない時にクリックされたら行った！を付ける処理 %>
+                  <label>
+                    <%= link_to article_foot_prints_path(article), method: :post do %>
+                      <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+                    <% end %>
+                    <%= article.foot_prints.count %>行った！
+                  </label>
+                <% end %>
+
+              <% else %>
+                <%# ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示 %>
+                <label>
+                  <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+                  <%= article.likes.count %>いいね
+                </label>
+
+                <label>
+                  <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+                  <%= article.foot_prints.count %>行った！
+                </label>
+              <% end %>
+              <%# いいね／行った！の表示 ここまで---------- %>
+
+              <% if article.is_active %>
+                <label class="text-success">公開中</label>
+              <% else %>
+                <label class="text-secondary">非公開</label>
+              <% end %>
+              &emsp;&emsp;&emsp;&emsp;
+              <%= link_to "×削除", admin_article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    <!--ユーザーの記事 ここまで----------------------------------------------------->
+
+  </div>
+  <!--（右側全体）ここまで------------>
+
 </div>
