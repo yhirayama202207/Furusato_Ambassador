@@ -1,0 +1,61 @@
+<!--管理者ページ左側の部分テンプレート-->
+
+<div class= "col-2">
+</br>
+
+  <div style="text-align:center;">
+  </div>
+
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>管理メニュー</th>
+      </tr>
+      <td>
+        <label>記事</label></br>
+        <%= link_to "全投稿一覧", admin_japan_areas_path %></br>
+        </br>
+        <label>コメント</label></br>
+        <%= link_to "全コメント一覧", admin_japan_areas_path %></br>
+        </br>
+        <label>ユーザー</label></br>
+        <%= link_to "ユーザー一覧", admin_japan_areas_path %></br>
+        </br>
+        <label>エリア・地域</label></br>
+        <%= link_to "エリア追加／管理", admin_japan_areas_path %></br>
+        <%= link_to "都道府県追加／管理", admin_japan_prefectures_path %></br>
+      </td>
+    </thread>
+    <tbody>
+    </tbody>
+  </table>
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>エリアから</br>記事を検索する</th>
+      </tr>
+    </thread>
+    <tbody>
+      <% japan_areas.each do |japan_area| %>
+        <tr>
+          <td><%= link_to japan_area.name+'　'+ japan_area.name_english, articles_area_index_path(japan_area.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <table class="table table-hover table-bordered table-inverse">
+    <thead>
+      <tr>
+        <th>都道府県から</br>記事を検索する</th>
+      </tr>
+    </thread>
+    <tbody>
+      <% japan_prefectures.each do |japan_prefecture| %>
+        <tr>
+          <td><%= link_to japan_prefecture.name+'　'+ japan_prefecture.name_english, articles_prefecture_index_path(japan_prefecture.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

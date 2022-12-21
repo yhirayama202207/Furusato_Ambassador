@@ -7,6 +7,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     @user_articles = @user.articles.all
   end

@@ -1,12 +1,18 @@
 class Admin::ArticlesController < ApplicationController
 
   def index
+    @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @articles = Article.where(is_active: true)
   end
 
   def show
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
+    @user = @article.user
+    @comment = @article.comments.build
+    @comments = @article.comments.all
   end
 
   def update

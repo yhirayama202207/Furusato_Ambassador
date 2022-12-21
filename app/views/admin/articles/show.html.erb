@@ -1,34 +1,231 @@
-</br>
-<h5>記事詳細</h5>
-<% if @article.image.attached? %>
-  <%= image_tag @article.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "200x200" %>
-<% end %>
-</br>
-</br>
-<label>タイトル</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= @article.title %></br>
-<label>本文</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= @article.body %></br>
-<label>都道府県</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= @article.japan_prefecture.name %></br>
-<label>市区町村</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= @article.region %></br>
-<label>場所／物の名前</label>&emsp;&emsp;&emsp;&emsp;<%= @article.name %></br>
-<label>現在の公開ステータス</label>&emsp;
-<% if @article.is_active %>
-  <label class="text-success">公開中</label>
-<% else %>
-  <label class="text-secondary">非公開</label>
-<% end %>
-</br>
-</br>
-<%= form_with model: @article, url: admin_article_path(@article.id), method: :patch do |f| %>
-<label>公開ステータスを変更する</label>
-</br>
-    <%= f.radio_button :is_active, :true %>
-    <%= f.label :is_active, "公開中", {value: :true, checked: true, style: "display: inline-block;"} %>
-    <%= f.radio_button :is_active, :false %>
-    <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
+<div class= "row">
 
-<%= f.submit "変更を保存", class: "btn btn-success" %>
-<% end %>
-</br>
-<%= link_to "記事を削除する", admin_article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+    </br>
+
+    <!--記事内容ここから------------>
+    <%= form_with model: @article, url: admin_article_path(@article.id), method: :patch do |f| %>
+    <label>公開ステータスの変更：</label>
+    <%= f.radio_button :is_active, :true %>
+    <%= f.label :is_active, "公開", {value: :true, checked: true, style: "display: inline-block;"} %>
+    <%= f.radio_button :is_active, :false %>
+    <%= f.label :is_active, "非公開（下書きに戻す）", {value: :false, style: "display: inline-block;"} %>
+    <%= f.submit "公開ステータスを保存", class: "btn btn-info" %>
+    <% end %>
+    </br>
+    <h5 class= "mt-2">
+      <%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）
+        <% if @article.is_active %>
+          <label class="text-success">公開中</label>
+        <% else %>
+          <label class="text-secondary">非公開</label>
+        <% end %>&emsp;
+        <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
+        <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+    </h5>
+    </label>
+
+    <h6>
+    <%= link_to user_path(@article.user.id) do %>
+    <% if @article.user.image.attached? %>
+      <%= image_tag @article.user.image, size: "30x30" %>
+    <% else %>
+      <%= image_tag 'no_image.jpg', size: "30x30" %>
+    <% end %>
+    <%= @article.user.user_name %>
+    <% end %>
+    &emsp;
+    <%= @article.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </h6>
+
+
+    <% @article.tags.each do |tag| %>
+      <i class="fas fa-tags" style="color:#690DFF;"></i>
+      <%= link_to articles_tag_index_path(tag.id) do %>
+        <%= tag.name %>
+      <% end %>
+    <% end %>
+    </br>
+    </br>
+
+    <div class= "row">
+
+      <!--（記事の左側）ここから------------>
+      <div class= "col-6">
+        <p><%= @article.body %></p>
+
+        <% if @article.image.attached? %>
+          <%= image_tag @article.image, size: "400x400" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "400x400" %>
+        <% end %>
+        </br>
+        </br>
+      </div>
+      <!--（記事の左側）ここまで------------>
+
+      <!--（記事の右側）ここから------------>
+      <div class= "col-6">
+        <label>～Information～</label></br>
+        <%= @article.name %></br>
+        <%= @article.address %>
+
+        <% if @article.latitude %>
+        <!--Google Maps APIの表示 ここから-->
+        <div id='map'></div>
+
+        <style>
+        #map {
+          height: 300px;
+          width: 400px;
+        }
+        </style>
+
+        <!-- js部分 -->
+        <script>
+        //初期マップの設定
+        let map
+        let marker
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
+
+          map = new google.maps.Map(document.getElementById('map'), {
+            center:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},
+            zoom: 15,
+          });
+
+           marker = new google.maps.Marker({
+            position:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},
+            map: map
+          });
+        }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+        <% end %>
+        <!--Google Maps APIの表示 ここまで-->
+
+      </div>
+      <!--（記事の右側）ここまで------------>
+
+    </div>
+    <!--記事内容ここまで------------>
+
+    <!--いいね／行った！／クリップの表示 ここから ------------>
+    <% if @article.liked_by?(current_user) %>
+      <label>
+        <%= link_to article_likes_path(@article), method: :delete do %>
+          <i class="fas fa-heart" style="color: #ff4500;"></i>
+        <% end %>
+        <%= @article.likes.count %> いいね済み
+      </label>
+    <% else %>
+      <label>
+        <%= link_to article_likes_path(@article), method: :post do %>
+          <i class="fas fa-heart" style="color: #d3d3d3;"></i>
+        <% end %>
+        <%= @article.likes.count %> いいね
+      </label>
+    <% end %>
+    &emsp;
+    <% if @article.foot_printed_by?(current_user) %>
+      <label>
+        <%= link_to article_foot_prints_path(@article), method: :delete do %>
+          <i class="fas fa-paw" style="color: #f39800;"></i>
+        <% end %>
+        <%= @article.foot_prints.count %> 行った！済み
+      </label>
+    <% else %>
+      <label>
+        <%= link_to article_foot_prints_path(@article), method: :post do %>
+          <i class="fas fa-paw" style="color: #d3d3d3;"></i>
+        <% end %>
+        <%= @article.foot_prints.count %> 行った
+      </label>
+    <% end %>
+    &emsp;
+    <% if @article.clipped_by?(current_user) %>
+      <label>
+        <%= link_to article_clips_path(@article), method: :delete do %>
+          <i class="fas fa-paperclip" style="color: #2ca9e1;"></i>
+        <% end %>
+        <%= @article.clips.count %> クリップ済み
+      </label>
+    <% else %>
+      <label>
+        <%= link_to article_clips_path(@article), method: :post do %>
+          <i class="fas fa-paperclip" style="color: #d3d3d3;"></i>
+        <% end %>
+        <%= @article.clips.count %> クリップ
+      </label>
+    <% end %>
+    <!--いいね／行った！／クリップの表示 ここまで ------------>
+
+    <!--SNSシェア ここから ------------>
+    &emsp;
+    Twitterでシェア
+    <%= link_to "http://twitter.com/share?url=#{request.url}/&text=ふるさとアンバサダーで地域の魅力を発信しよう&hashtags=ふるさとSNS",{class:"footer-icon_1"} do %>
+      <i class="fab fa-twitter"></i>
+    <% end %>
+    <!--SNSシェア ここまで ------------>
+    </br>
+    </br>
+
+    <!--コメント ここから ------------>
+    <h5>この記事にコメントする<i class="far fa-comment-dots"></i></h5>
+    <%= form_with model: @comment, url: article_comments_path(@comment.article_id), method: :post do |f| %>
+        <%= f.text_field :comment, placeholder: "コメント" %>&emsp;
+        <label>画像</label>
+        <%= f.file_field :image, accept: "image/*" %></br>
+        <%= f.submit "新規登録", class: "btn btn-success" %></br>
+    <% end %>
+    </br>
+    </br>
+
+    <h5>コメント一覧</h5>
+    <% 20.times do  %>
+      <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
+      <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+    <% end %>
+    </br>
+    <% @comments.each do |comment| %>
+    <%= link_to user_path(comment.user_id) do %>
+    <% if comment.user.image.attached? %>
+      <%= image_tag comment.user.image, size: "30x30" %>
+    <% else %>
+      <%= image_tag 'no_image.jpg', size: "30x30" %>
+    <% end %>
+    <%= comment.user.user_name %>
+    <% end %>&emsp;
+    <%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </br>
+    <%= comment.comment %>
+    </br>
+    <% if comment.image.attached? %>
+      </br>
+      <%= image_tag comment.image, size: "200x200" %>
+      </br>
+    <% end %>
+    </br>
+    <% if comment.user == current_user %>
+    <%= link_to "編集", edit_article_comment_path(@article.id, comment.id), class: "btn btn-success" %>&emsp;
+    <%= link_to "削除", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+    <% end %>
+    </br>
+    <% 20.times do  %>
+      <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
+      <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+    <% end %>
+    </br>
+    <% end %>
+    <!--コメント ここまで ------------>
+    </div>
+     <!--（右側全体）ここまで------------>
+  </div>
