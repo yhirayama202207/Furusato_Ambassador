@@ -12,7 +12,6 @@ class Public::RegistrationsController < Devise::RegistrationsController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     super
-    # byebug
   end
 
   # def create

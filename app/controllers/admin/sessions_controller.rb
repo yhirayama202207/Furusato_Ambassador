@@ -5,6 +5,12 @@ class Admin::SessionsController < Devise::SessionsController
 
   before_action :configure_permitted_parameters , if: :devise_controller?
 
+  def new
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    super
+  end
+
   # GET /resource/sign_in
   # def new
   #   super
