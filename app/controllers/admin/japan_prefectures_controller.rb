@@ -5,6 +5,7 @@ class Admin::JapanPrefecturesController < ApplicationController
   def index
     @japan_prefecture = JapanPrefecture.new
     @japan_prefectures = JapanPrefecture.all
+    @japan_areas = JapanArea.all
   end
 
   def create
@@ -17,6 +18,8 @@ class Admin::JapanPrefecturesController < ApplicationController
 
   def edit
     @japan_prefecture = JapanPrefecture.find(params[:id])
+    @japan_prefectures = JapanPrefecture.all
+    @japan_areas = JapanArea.all
   end
 
   def update
