@@ -35,6 +35,8 @@ class Public::ArticlesController < ApplicationController
   end
 
   def edit
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @user = current_user
     unless @article.user == current_user

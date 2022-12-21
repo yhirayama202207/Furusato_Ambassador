@@ -6,22 +6,58 @@
 
   <!--（右側全体）ここから------------>
   <div class= "col-10">
-  </br>
-  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  </br>
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
 
     <div style="text-align:center;">
-    </br>
-    <p class="text-primary">特別じゃなくていい。</p>
-    <p class="text-primary">すぐ近くにある、地域の魅力を発信しよう。</p>
+      </br>
+      </br>
+      <p class="text-primary">ふるさとアンバサダーは</p>
+      <p class="text-primary">地域と日本の魅力を発信するSNSです。</p>
+      </br>
+      <%= image_tag 'apples_top4', size: "600x400" %>
+      </br>
+      </br>
+      </br>
+      <p class="text-primary">普段近所で目にしている当たり前のことが、地域を元気にするきっかけになるかもしれない。</p>
+      <p class="text-primary">そんな想いからこのSNSを作りました。</p>
+      <p class="text-primary">もしよかったら、ぜひ使ってみてください。</p>
+      </br>
+      <div class="btn-wrapper col-5 mx-auto">
+        <div class="row">
+          <%= link_to 'ゲストとして使ってみる（閲覧用）', sessions_guest_sign_in_path, class: "btn btn-danger btn-sm btn-block mb-3 sign_in", method: :post %>
+        </div>
+        <div class="row">
+          <%= link_to 'ログイン（登録済みの方）',new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+        </div>
+        <div class="row">
+          <%= link_to '新規登録',new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+        </div>
+      </div>
+      </br>
+      </br>
+      <%= image_tag 'apples_top4', size: "600x400" %>
+      </br>
+      </br>
+      </br>
+      <p class="text-primary">"Furusato" means "home(hometown)" of everyone's heart.</p>
+      <p class="text-primary">Furusato Ambassador was made for finding your favorite in Japan.</p>
+      <p class="text-primary">If you are living in Japan, enjoy sharing your favorites with everyone!</p>
+      </br>
 
-    <%= image_tag 'apples_top4', size: "600x400" %>
-    </br>
-    </br>
-    <p class="text-primary">それは 誰かにとっての特別になるかもしれない。</p>
-    <p class="text-primary">みんなのちからで街を、日本を、興そう。</p>
+      <div class="btn-wrapper col-5 mx-auto">
+        <div class="row">
+          <%= link_to 'Guest Login（for browsing）', sessions_guest_sign_in_path, class: "btn btn-danger btn-sm btn-block mb-3 sign_in", method: :post %>
+        </div>
+        <div class="row">
+          <%= link_to 'Log in',new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+        </div>
+        <div class="row">
+          <%= link_to 'Sign up',new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+        </div>
+      </div>
     </div>
-
   </div>
   <!--（右側全体）ここまで------------>
 

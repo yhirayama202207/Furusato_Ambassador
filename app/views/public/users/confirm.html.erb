@@ -1,13 +1,28 @@
-<div style="text-align:center;">
-</br>
-</br>
-</br>
-<h5>本当に退会しますか？</h5>
-</br>
-<p>退会すると、会員登録情報や</p>
-<p>これまでの投稿履歴が閲覧できなくなります。</p>
-<p>退会する場合は、「退会する」をクリックしてください。</p>
-</br>
-<%= link_to "退会しない", user_path(current_user), class: "btn btn-primary" %>&emsp;
-<%= link_to "退会する", users_unsubscribe_path(@user.id), method: :patch, class: "btn btn-danger", "data-confirm" => "本当に退会しますか？" %>
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+
+    <div style="text-align:center;">
+      </br>
+      </br>
+      <h5>本当に退会しますか？</h5>
+      </br>
+      <p>退会すると、会員登録情報や</p>
+      <p>これまでの投稿履歴が閲覧できなくなります。</p>
+      <p>退会する場合は、「退会する」をクリックしてください。</p>
+      </br>
+      <%= link_to "退会しない", user_path(current_user), class: "btn btn-primary" %>&emsp;
+      <%= link_to "退会する", users_unsubscribe_path(@user.id), method: :patch, class: "btn btn-danger", "data-confirm" => "本当に退会しますか？" %>
+    </div>
+  </div>
+    <!--（右側全体）ここまで------------>
+
 </div>

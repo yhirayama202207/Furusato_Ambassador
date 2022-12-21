@@ -15,6 +15,9 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     @user_articles = @user.articles.where(is_active: true)
+    if @user.id == current_user.id
+      @user_articles = @user.articles.all
+    end
   end
 
   def edit
@@ -46,11 +49,16 @@ class Public::UsersController < ApplicationController
   def user_articles
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
-    @user = current_user
-    if @user = current_user
+    # @user = current_user
+    # if @user = current_user
+    #   @user_articles = @user.articles.all
+    # else
+    #   @user_articles = @user.articles.where(is_active: true)
+    # end
+    @user = User.find(params[:id])
+    @user_articles = @user.articles.where(is_active: true)
+    if @user.id == current_user.id
       @user_articles = @user.articles.all
-    else
-      @user_articles = @user.articles.where(is_active: true)
     end
   end
 
@@ -96,6 +104,21 @@ class Public::UsersController < ApplicationController
     @foot_print_articles = Article.find(foot_prints)
     clips= Clip.where(user_id: @user.id).pluck(:article_id)
     @clip_articles = Article.find(clips)
+  end
+
+  def confirm
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @user = current_user
+  end
+
+  def unsubscribe
+    @user = current_user
+    if @user.update(is_deleted: true)
+      reset_session
+      #flash[:notice] = "退会が完了しました"
+      redirect_to homes_top_path
+    end
   end
 
   #投稿データのストロングパラメータ
