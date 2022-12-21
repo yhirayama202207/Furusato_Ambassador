@@ -21,7 +21,11 @@ Rails.application.routes.draw do
     get "/" => "homes#top"
     resources :japan_areas, only: [:index, :create, :edit, :update]
     resources :japan_prefectures, only: [:index, :create, :edit, :update]
-    resources :users, only: [:show, :edit, :update, :index]
+    resources :users, only: [:show, :edit, :update, :index] do
+      collection do
+        get "search"
+      end
+    end
     resources :articles, only: [:index, :show, :update, :destroy]
     resources :comments, only: [:index, :destroy]
   end
@@ -31,7 +35,7 @@ Rails.application.routes.draw do
     get "homes/about"
     get "users/confirm" => "users#confirm"
     get "users/mypage" => "users#mypage"
-    get "users/user_articles" => "users#user_articles", as: "user_articles"
+    get "users/:id/user_articles" => "users#user_articles", as: "user_articles"
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"

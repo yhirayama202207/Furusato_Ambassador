@@ -33,7 +33,7 @@
     </label>
 
     <h6>
-    <%= link_to user_path(@article.user.id) do %>
+    <%= link_to admin_user_path(@article.user.id) do %>
     <% if @article.user.image.attached? %>
       <%= image_tag @article.user.image, size: "30x30" %>
     <% else %>

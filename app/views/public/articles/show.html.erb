@@ -15,7 +15,7 @@
     <%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）
     &emsp;
     <% if @article.user == current_user %>
-      <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success" %>&emsp;
+      <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
       <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
     <% end %>
   </h5>

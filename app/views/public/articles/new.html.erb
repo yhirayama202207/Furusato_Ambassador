@@ -139,7 +139,9 @@
             			        if (status == google.maps.GeocoderStatus.OK) {
             				        if (results[0].geometry) {
             					        console.log(results);
-            					        document.getElementById('addr').value = results[0].formatted_address;
+
+            					        document.getElementById('addr').value = replace(/result[0].formatted_address/g, "日本、");
+                              // = results[0].formatted_address;
 
             				          }
             			          }
