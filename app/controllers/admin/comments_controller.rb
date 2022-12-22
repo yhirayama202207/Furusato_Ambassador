@@ -1,6 +1,8 @@
 class Admin::CommentsController < ApplicationController
   def index
-    @comments = Comment.all
+    @comments = Comment.all.order(created_at: :desc)
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 
   def destroy

@@ -48,7 +48,7 @@
 
     <% @article.tags.each do |tag| %>
       <i class="fas fa-tags" style="color:#690DFF;"></i>
-      <%= link_to articles_tag_index_path(tag.id) do %>
+      <%= link_to admin_articles_tag_index_path(tag.id) do %>
         <%= tag.name %>
       <% end %>
     <% end %>

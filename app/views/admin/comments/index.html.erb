@@ -1,0 +1,50 @@
+<div class= "row">
+
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">コメント一覧（全<%= @comments.count %>件）</h5>
+    </br>
+
+    <!--コメントここから------------>
+    <div class="row">
+      <div class= "col-12">
+        <% @comments.each do |comment| %>
+          <%= link_to admin_user_path(comment.user_id) do %>
+            <% if comment.user.image.attached? %>
+              <%= image_tag comment.user.image, size: "30x30" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "30x30" %>
+            <% end %>
+            <%= comment.user.user_name %>
+          <% end %>&emsp;
+          <%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>&emsp;
+          <%= link_to "×削除", admin_comment_path(comment.article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+          &emsp;&emsp;記事：
+          <%= link_to admin_article_path(comment.article_id) do %>
+          <%= comment.article.title %>
+          <% end %>
+          by <%= comment.article.user.user_name %>
+          </br>
+          <%= comment.comment %>
+          </br>
+          <% if comment.image.attached? %>
+            </br>
+            <%= image_tag comment.image, size: "200x200" %>
+            </br>
+          <% end %>
+          </br>
+        <% end %>
+      </div>
+    </div>
+    <!--コメントここまで------------>
+
+  </div>
+  <!--（右側全体）ここまで------------>
+
+</div>

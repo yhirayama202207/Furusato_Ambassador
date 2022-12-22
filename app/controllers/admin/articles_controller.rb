@@ -31,6 +31,28 @@ class Admin::ArticlesController < ApplicationController
     redirect_to admin_articles_path
   end
 
+  def prefecture_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @articles = @japan_prefecture.articles.where(is_active: true)
+  end
+
+  def area_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @japan_area = JapanArea.find(params[:id])
+    @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id))
+  end
+
+  def tag_index
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @tag = Tag.find(params[:id])
+    @articles = @tag.articles.where(is_active: true)
+  end
+
   # 投稿データのストロングパラメータ
   private
 
