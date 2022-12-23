@@ -126,15 +126,26 @@
           <%#= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
           <%#= form.submit "検索", class: "search-btn" %>
         <%# end %>
-
-        <%= form_with(url: search_articles_path, local: true, method: :get) do |form| %>
-          <div class="d-flex form-control search_box">
-            <%= form.text_field :keyword, class: "search-invalid", placeholder: "検索 Search", type: "search" %>
-            <%= button_tag type: "submit", class: "btn btn-default", style: "all: unset;" do %>
-              <i class="fas fa-search"></i>
-            <% end %>
-          </div>
+        <% if admin_signed_in? %>
+          <%= form_with(url: search_admin_articles_path, local: true, method: :get) do |form| %>
+            <div class="d-flex form-control search_box">
+              <%= form.text_field :keyword, class: "search-invalid", placeholder: "検索 Search", type: "search" %>
+              <%= button_tag type: "submit", class: "btn btn-default", style: "all: unset;" do %>
+                <i class="fas fa-search"></i>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= form_with(url: search_articles_path, local: true, method: :get) do |form| %>
+            <div class="d-flex form-control search_box">
+              <%= form.text_field :keyword, class: "search-invalid", placeholder: "検索 Search", type: "search" %>
+              <%= button_tag type: "submit", class: "btn btn-default", style: "all: unset;" do %>
+                <i class="fas fa-search"></i>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
+
 
     </nav>
     </header>

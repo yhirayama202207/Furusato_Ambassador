@@ -53,6 +53,13 @@ class Admin::ArticlesController < ApplicationController
     @articles = @tag.articles.where(is_active: true)
   end
 
+  def search
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @articles = Article.search(params[:keyword])
+    @articles_page = Article.all.page(params[:page])
+  end
+
   # 投稿データのストロングパラメータ
   private
 

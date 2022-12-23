@@ -31,7 +31,11 @@ Rails.application.routes.draw do
         get "search"
       end
     end
-    resources :articles, only: [:index, :show, :update, :destroy]
+    resources :articles, only: [:index, :show, :update, :destroy] do
+      collection do
+        get "search"
+      end
+    end
     resources :comments, only: [:index, :destroy]
   end
 

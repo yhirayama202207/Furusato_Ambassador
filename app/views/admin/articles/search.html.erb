@@ -1,0 +1,36 @@
+<div class= "row">
+
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">記事検索結果一覧（全<%= @articles.count %>件）</h5>
+    </br>
+
+    <!--記事検索・一覧 ここから----------------------------------------------------->
+    <label>記事検索</label>
+    <%= form_with(url: search_articles_path, local: true, method: :get, class: "search-form") do |form| %>
+      <%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
+      <%= form.submit "検索", class: "search-btn" %>
+    <% end %>
+    </br>
+
+    <div class= "row">
+      <% @articles.each do |article| %>
+        <div class= "col-3">
+          <%= render 'public/articles/article_part', article: article %>
+        </div>
+    　<% end %>
+    </div>
+    <!--記事検索・一覧 ここまで----------------------------------------------------->
+
+  </div>
+  <!--（右側全体）ここまで------------>
+
+</div>
+
+<%= paginate @articles_page %>
