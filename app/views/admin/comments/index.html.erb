@@ -24,7 +24,7 @@
             <%= comment.user.user_name %>
           <% end %>&emsp;
           <%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>&emsp;
-          <%= link_to "×削除", admin_comment_path(comment.article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+          <%= link_to "×削除", admin_comment_path(comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
           &emsp;&emsp;記事：
           <%= link_to admin_article_path(comment.article_id) do %>
           <%= comment.article.title %>

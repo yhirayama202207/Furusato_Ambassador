@@ -8,7 +8,7 @@ class Admin::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to admin_comment_path
+    redirect_to admin_comments_path
   end
 
   # 投稿データのストロングパラメータ
