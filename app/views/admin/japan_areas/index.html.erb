@@ -8,14 +8,20 @@
   <div class= "col-10">
     </br>
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">日本エリア追加・一覧</h5>
+    <h5 class= "m-2">エリア登録／一覧</h5>
     </br>
 
-    <%= form_with model: @japan_area_new, url: admin_japan_areas_path, method: :post do |f| %>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<label>日本エリア追加</label></br>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;日本語表記&emsp;<%= f.text_field :name %>&emsp;英語表記&emsp;<%= f.text_field :name_english %>&emsp;
-    <%= f.submit "新規登録", class: "btn btn-success" %></br>
-    <% end %>
+    <div class="row">
+      <div class= "col-2">
+      </div>
+      <div class= "col-10">
+        <%= form_with model: @japan_area, url: admin_japan_areas_path, method: :post do |f| %>
+        <label>エリア追加</label></br>
+        日本語表記&emsp;<%= f.text_field :name %>&emsp;英語表記&emsp;<%= f.text_field :name_english %>&emsp;
+        <%= f.submit "新規登録", class: "btn btn-success" %></br>
+        <% end %>
+      </div>
+    </div>
     </br>
 
     <div class="row">
@@ -36,7 +42,8 @@
               <td><%= japan_area.name %></td>
               <td><%= japan_area.name_english %></td>
               <td>
-                <%= link_to "編集", edit_admin_japan_area_path(japan_area.id), class: "btn btn-info" %>
+                <%= link_to "編集", edit_admin_japan_area_path(japan_area.id), class: "btn btn-info" %>&emsp;
+                <%= link_to "削除", admin_japan_area_path(japan_area.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除後は復元できません）" %>
               </td>
             </tr>
             <% end %>

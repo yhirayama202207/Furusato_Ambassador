@@ -10,8 +10,7 @@ class Admin::JapanAreasController < ApplicationController
 
   def create
     @japan_area = JapanArea.new
-    @japan_areas = JapanArea.all
-    @japan_area_new = JapanArea.new(japan_area_params)
+    @japan_area = JapanArea.new(japan_area_params)
     if @japan_area.save
       flash[:notice] = "日本エリア登録が完了しました"
       redirect_to admin_japan_areas_path
@@ -33,6 +32,13 @@ class Admin::JapanAreasController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    @japan_area = JapanArea.find(params[:id])
+    @japan_area.destroy
+    redirect_to admin_japan_areas_path
+  end
+
 
   #投稿データのストロングパラメータ
   private
