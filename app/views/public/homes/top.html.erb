@@ -108,60 +108,9 @@
         <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
         </br>
 
-        <%# いいね／行った！の表示（人気投稿）---------- %>
-
-        <%# ログイン済みの場合はいいね／行った！機能が使える（人気投稿）%>
-        <% if user_signed_in? %>
-
-          <% if article.liked_by?(current_user) %>
-            <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理（人気投稿）%>
-            <label>
-              <%= link_to article_likes_path(article), method: :delete do %>
-                <i class="fas fa-heart" style="color: #ff4500;"></i>
-              <% end %>
-              <%= article.likes.count %>いいね
-            </label>
-          <% else %>
-            <%# まだいいねされていない時にクリックされたらいいねを付ける処理（人気投稿）%>
-            <label>
-              <%= link_to article_likes_path(article), method: :post do %>
-                <i class="fas fa-heart" style="color: #dcdcdc;"></i>
-              <% end %>
-              <%= article.likes.count %>いいね
-            </label>
-          <% end %>
-
-          <% if article.foot_printed_by?(current_user) %>
-            <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理（人気投稿）%>
-            <label>
-              <%= link_to article_foot_prints_path(article), method: :delete do %>
-                <i class="fas fa-paw" style="color: #f39800;"></i>
-              <% end %>
-              <%= article.foot_prints.count %>行った！
-            </label>
-          <% else %>
-            <%# まだ行った！されていない時にクリックされたら行った！を付ける処理（人気投稿）%>
-            <label>
-              <%= link_to article_foot_prints_path(article), method: :post do %>
-                <i class="fas fa-paw" style="color: #dcdcdc;"></i>
-              <% end %>
-              <%= article.foot_prints.count %>行った！
-            </label>
-          <% end %>
-
-        <% else %>
-          <%# ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示（人気投稿）%>
-          <label>
-            <i class="fas fa-heart" style="color: #dcdcdc;"></i>
-            <%= article.likes.count %>いいね
-          </label>
-
-          <label>
-            <i class="fas fa-paw" style="color: #dcdcdc;"></i>
-            <%= article.foot_prints.count %>行った！
-          </label>
-        <% end %>
-
+        <%# いいね／行った！の表示（人気投稿） ここから---------- %>
+        <div id="article_<%= article.id %>"><%= render "public/likes/like", article: article %></div>
+        <%# いいね／行った！の表示（人気投稿） ここまで ---------- %>
       </div>
       <% end %>
   </div>
@@ -207,59 +156,9 @@
         <%= article.japan_prefecture.name %>&emsp;<%= article.japan_prefecture.name_english %>
         </br>
 
-        <%# いいね／行った！の表示（みんなの投稿）---------- %>
-
-        <%# ログイン済みの場合はいいね／行った！機能が使える（みんなの投稿）%>
-        <% if user_signed_in? %>
-
-          <% if article.liked_by?(current_user) %>
-            <%# 既にいいねされている場合にはクリックされたらいいねを取り消す処理（みんなの投稿）%>
-            <label>
-                <%= link_to article_likes_path(article), method: :delete do %>
-                  <i class="fas fa-heart" style="color: #ff4500;"></i>
-                <% end %>
-                <%= article.likes.count %>いいね
-              </label>
-            <% else %>
-              <%# まだいいねされていない時にクリックされたらいいねを付ける処理（みんなの投稿）%>
-              <label>
-                <%= link_to article_likes_path(article), method: :post do %>
-                  <i class="fas fa-heart" style="color: #d3d3d3;"></i>
-                <% end %>
-                <%= article.likes.count %>いいね
-              </label>
-            <% end %>
-
-            <% if article.foot_printed_by?(current_user) %>
-              <%# 既に行った！されている場合にはクリックされたら行った！を取り消す処理（みんなの投稿）%>
-              <label>
-                <%= link_to article_foot_prints_path(article), method: :delete do %>
-                  <i class="fas fa-paw" style="color: #f39800;"></i>
-                <% end %>
-                <%= article.foot_prints.count %>行った！
-              </label>
-            <% else %>
-              <%# まだ行った！されていない時にクリックされたら行った！を付ける処理（みんなの投稿）%>
-              <label>
-                <%= link_to article_foot_prints_path(article), method: :post do %>
-                  <i class="fas fa-paw" style="color: #d3d3d3;"></i>
-                <% end %>
-                <%= article.foot_prints.count %>行った！
-              </label>
-            <% end %>
-
-          <% else %>
-            <%# ログイン未の場合はいいね／行った！機能は使えない→アイコンと数だけ表示（みんなの投稿）%>
-            <label>
-              <i class="fas fa-heart" style="color: #d3d3d3;"></i>
-              <%= article.likes.count %>いいね
-            </label>
-
-            <label>
-              <i class="fas fa-paw" style="color: #d3d3d3;"></i>
-              <%= article.foot_prints.count %>行った！
-            </label>
-          <% end %>
+        <%# いいね／行った！の表示（みんなの投稿） ここから---------- %>
+        <div id="article_<%= article.id %>"><%= render "public/likes/like", article: article %></div>
+        <%# いいね／行った！の表示（みんなの投稿） ここまで ---------- %>
 
         </div>
         <% end %>

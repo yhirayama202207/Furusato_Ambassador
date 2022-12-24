@@ -6,119 +6,122 @@
 
   <!--（右側全体）ここから------------>
   <div class= "col-10">
-  </br>
-  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  </br>
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
 
-  <!--記事内容ここから------------>
-  <h5 class= "mt-2">
-    <%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）
-    &emsp;
-    <% if @article.user == current_user %>
-      <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
-      <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+    <!--記事内容ここから------------>
+    <h5 class= "mt-2">
+      <%= @article.title %>（<%= @article.japan_prefecture.name %><%= @article.region %>／<%= @article.japan_prefecture.japan_area.name %>地方）
+      &emsp;
+      <% if @article.user == current_user %>
+        <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
+        <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+      <% end %>
+    </h5>
+
+    <h6>
+    <%= link_to user_path(@article.user.id) do %>
+    <% if @article.user.image.attached? %>
+      <%= image_tag @article.user.image, size: "30x30" %>
+    <% else %>
+      <%= image_tag 'no_image.jpg', size: "30x30" %>
     <% end %>
-  </h5>
-
-  <h6>
-  <%= link_to user_path(@article.user.id) do %>
-  <% if @article.user.image.attached? %>
-    <%= image_tag @article.user.image, size: "30x30" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "30x30" %>
-  <% end %>
-  <%= @article.user.user_name %>
-  <% end %>
-  &emsp;
-  <%= @article.created_at.strftime("%Y-%m-%d %H:%M") %>
-  </h6>
+    <%= @article.user.user_name %>
+    <% end %>
+    &emsp;
+    <%= @article.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </h6>
 
 
-<% @article.tags.each do |tag| %>
-  <i class="fas fa-tags" style="color:#690DFF;"></i>
-  <%= link_to articles_tag_index_path(tag.id) do %>
-    <%= tag.name %>
-  <% end %>
-<% end %>
-</br>
-</br>
+    <% @article.tags.each do |tag| %>
+      <i class="fas fa-tags" style="color:#690DFF;"></i>
+      <%= link_to articles_tag_index_path(tag.id) do %>
+        <%= tag.name %>
+      <% end %>
+    <% end %>
+    </br>
+    </br>
 
-<div class= "row">
+    <div class= "row">
 
-<!--（記事の左側）ここから------------>
+      <!--（記事の左側）ここから------------>
 
-<div class= "col-6">
-  <p><%= @article.body %></p>
+      <div class= "col-6">
+        <p><%= @article.body %></p>
 
-  <% if @article.image.attached? %>
-    <%= image_tag @article.image, size: "400x400" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "400x400" %>
-  <% end %>
-</div>
-<!--（記事の左側）ここまで------------>
+        <% if @article.image.attached? %>
+          <%= image_tag @article.image, size: "400x400" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "400x400" %>
+        <% end %>
+      </div>
+      <!--（記事の左側）ここまで------------>
 
-<!--（記事の右側）ここから------------>
-<div class= "col-6">
-<label>～Information～</label></br>
-<%= @article.name %></br>
-<%= @article.address %>
+      <!--（記事の右側）ここから------------>
+      <div class= "col-6">
+        <label>～Information～</label></br>
+        <%= @article.name %></br>
+        <%= @article.address %>
 
-<% if @article.latitude %>
-<!--Google Maps APIの表示 ここから-->
-<div id='map'></div>
+        <% if @article.latitude %>
+        <!--Google Maps APIの表示 ここから-->
+        <div id='map'></div>
 
-<style>
-#map {
-  height: 300px;
-  width: 400px;
-}
-</style>
+        <style>
+        #map {
+          height: 300px;
+          width: 400px;
+        }
+        </style>
 
-<!-- js部分 -->
-<script>
-//初期マップの設定
-let map
-let marker
-function initMap(){
-  geocoder = new google.maps.Geocoder()
+        <!-- js部分 -->
+        <script>
+        //初期マップの設定
+        let map
+        let marker
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},
-    zoom: 15,
-  });
+          map = new google.maps.Map(document.getElementById('map'), {
+            center:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},
+            zoom: 15,
+          });
 
-   marker = new google.maps.Marker({
-    position:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},
-    map: map
-  });
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
-<% end %>
-<!--Google Maps APIの表示 ここまで-->
+           marker = new google.maps.Marker({
+            position:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},
+            map: map
+          });
+        }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+        <% end %>
+        <!--Google Maps APIの表示 ここまで-->
 
-</div>
-<!--（記事の右側）ここまで------------>
+      </div>
+      <!--（記事の右側）ここまで------------>
 
-</div>
+     </div>
 
-</br>
+    </br>
 
-<div id="article_<%= @article.id %>"><%= render "public/likes/like_for_show", article: @article %></div>
+    <div class= "flex-row">
+      <div class= "col-6">
+        <div id="article_<%= @article.id %>"><%= render "public/likes/like_for_show", article: @article %></div>
+        &emsp;
+        Twitterでシェア
+        <%= link_to "http://twitter.com/share?url=#{request.url}/&text=ふるさとアンバサダーで地域の魅力を発信しよう&hashtags=ふるさとSNS",{class:"footer-icon_1"} do %>
+          <i class="fab fa-twitter"></i>
+        <% end %>
+      </div>
+    </div>
+    </br>
+    </br>
 
-&emsp;
-Twitterでシェア
-<%= link_to "http://twitter.com/share?url=#{request.url}/&text=ふるさとアンバサダーで地域の魅力を発信しよう&hashtags=ふるさとSNS",{class:"footer-icon_1"} do %>
-  <i class="fab fa-twitter"></i>
-<% end %>
-</br>
-</br>
+    <!--コメント一覧ここから------------>
+    <div id="article_<%= @article.id %>"><%= render "public/comments/comments", article: @article %></div>
+    <!--コメント一覧ここまで------------>
 
-<!--コメント一覧ここから------------>
-<div id="article_<%= @article.id %>"><%= render "public/comments/comments", article: @article %></div>
-<!--コメント一覧ここまで------------>
-
+    </div>
   </div>
-</div>
 </div>
