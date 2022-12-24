@@ -105,53 +105,7 @@ function initMap(){
 
 </br>
 
-<% if @article.liked_by?(current_user) %>
-    <label>
-      <%= link_to article_likes_path(@article), method: :delete do %>
-        <i class="fas fa-heart" style="color: #ff4500;"></i>
-      <% end %>
-      <%= @article.likes.count %> いいね済み
-    </label>
-    <% else %>
-    <label>
-      <%= link_to article_likes_path(@article), method: :post do %>
-        <i class="fas fa-heart" style="color: #d3d3d3;"></i>
-      <% end %>
-      <%= @article.likes.count %> いいね
-    </label>
-  <% end %>
-  &emsp;
-  <% if @article.foot_printed_by?(current_user) %>
-    <label>
-      <%= link_to article_foot_prints_path(@article), method: :delete do %>
-        <i class="fas fa-paw" style="color: #f39800;"></i>
-      <% end %>
-      <%= @article.foot_prints.count %> 行った！済み
-    </label>
-    <% else %>
-    <label>
-      <%= link_to article_foot_prints_path(@article), method: :post do %>
-        <i class="fas fa-paw" style="color: #d3d3d3;"></i>
-      <% end %>
-      <%= @article.foot_prints.count %> 行った
-    </label>
-  <% end %>
-  &emsp;
-  <% if @article.clipped_by?(current_user) %>
-    <label>
-      <%= link_to article_clips_path(@article), method: :delete do %>
-        <i class="fas fa-paperclip" style="color: #2ca9e1;"></i>
-      <% end %>
-      <%= @article.clips.count %> クリップ済み
-    </label>
-    <% else %>
-    <label>
-      <%= link_to article_clips_path(@article), method: :post do %>
-        <i class="fas fa-paperclip" style="color: #d3d3d3;"></i>
-      <% end %>
-      <%= @article.clips.count %> クリップ
-    </label>
-  <% end %>
+<div id="article_<%= @article.id %>"><%= render "public/likes/like_for_show", article: @article %></div>
 
 &emsp;
 Twitterでシェア
@@ -161,52 +115,10 @@ Twitterでシェア
 </br>
 </br>
 
-<h5>この記事にコメントする<i class="far fa-comment-dots"></i></h5>
-<%= form_with model: @comment, url: article_comments_path(@comment.article_id), method: :post do |f| %>
-    <%= f.text_field :comment, placeholder: "コメント" %>&emsp;
-    <label>画像</label>
-    <%= f.file_field :image, accept: "image/*" %></br>
-    <%= f.submit "新規登録", class: "btn btn-success" %></br>
-<% end %>
-</br>
-</br>
+<!--コメント一覧ここから------------>
+<div id="article_<%= @article.id %>"><%= render "public/comments/comments", article: @article %></div>
+<!--コメント一覧ここまで------------>
 
-<h5>コメント一覧</h5>
-<% 20.times do  %>
-  <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
-  <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
-<% end %>
-</br>
-<% @comments.each do |comment| %>
-<%= link_to user_path(comment.user_id) do %>
-<% if comment.user.image.attached? %>
-  <%= image_tag comment.user.image, size: "30x30" %>
-<% else %>
-  <%= image_tag 'no_image.jpg', size: "30x30" %>
-<% end %>
-<%= comment.user.user_name %>
-<% end %>&emsp;
-<%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>
-</br>
-<%= comment.comment %>
-</br>
-<% if comment.image.attached? %>
-  </br>
-  <%= image_tag comment.image, size: "200x200" %>
-  </br>
-<% end %>
-</br>
-<% if comment.user == current_user %>
-<%= link_to "編集", edit_article_comment_path(@article.id, comment.id), class: "btn btn-success" %>&emsp;
-<%= link_to "削除", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
-<% end %>
-</br>
-<% 20.times do  %>
-  <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
-  <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
-<% end %>
-</br>
-<% end %>
-</div>
+  </div>
 </div>
 </div>

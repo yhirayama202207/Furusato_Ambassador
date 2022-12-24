@@ -9,6 +9,7 @@ class Public::CommentsController < ApplicationController
   end
 
   def create
+    @article = Article.find(params[:article_id])
     @comment = Comment.new(comment_params)
     #@comment = current_user.comments.new(article_id: article.id)
     @comment.user_id = current_user.id
@@ -42,6 +43,7 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
+    @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
     if @comment.destroy
       redirect_to article_path(@comment.article.id)
