@@ -1,5 +1,7 @@
 class Admin::ArticlesController < ApplicationController
 
+  before_action :authenticate_admin!
+
   def index
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all

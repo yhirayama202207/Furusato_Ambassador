@@ -19,11 +19,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/" => "homes#top"
-    get "/admin/users/:id/user_articles" => "users#user_articles", as: "admin_user_articles"
+    get "/admin/users/:id/user_articles" => "users#user_articles", as: "user_articles"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
     get "/articles/tags/:id" => "articles#tag_index", as: "articles_tag_index"
-    delete "comments/:id" => "comments#destroy", as: "admin_comment_destroy"
+    delete "comments/:id" => "comments#destroy", as: "comment_destroy"
     resources :japan_areas, only: [:index, :create, :edit, :update]
     resources :japan_prefectures, only: [:index, :create, :edit, :update]
     resources :users, only: [:show, :edit, :update, :index] do
