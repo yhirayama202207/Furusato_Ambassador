@@ -8,7 +8,7 @@
   <div class= "col-10">
     </br>
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">都道府県一覧・追加</h5>
+    <h5 class= "m-2">都道府県登録／一覧</h5>
     </br>
 
     <%= form_with model: @japan_prefecture, url: admin_japan_prefectures_path, method: :post do |f| %>
@@ -18,7 +18,7 @@
     <label>日本語表記</label>&emsp;<%= f.text_field :name %>&emsp;
     <label>英語表記</label>&emsp;<%= f.text_field :name_english %></br>
     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-    <label>日本エリア名</label>&emsp;
+    <label>エリア名</label>&emsp;
       <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>&emsp;
     <%= f.submit "新規登録", class: "btn btn-success" %></br>
     <% end %>
@@ -33,8 +33,8 @@
               <tr>
                 <th>都道府県（日本語）</th>
                 <th>都道府県（英語）</th>
-                <th>日本エリア（日本語）</th>
-                <th>日本エリア（英語）</th>
+                <th>エリア（日本語）</th>
+                <th>エリア（英語）</th>
                 <th></th>
                 <th colspan="3"></th>
               </tr>
