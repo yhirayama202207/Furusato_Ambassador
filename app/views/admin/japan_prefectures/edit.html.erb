@@ -19,7 +19,7 @@
               <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
               <%= f.label :"英語表記" %>&emsp;&emsp;
               <%= f.text_field :name_english, autofocus: true, id:"inputname", placeholder:""%></br>
-              <%= f.label :"日本エリア名" %>
+              <%= f.label :"エリア名" %>&emsp;&emsp;
               <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
               </br>&emsp;&emsp;&emsp;&emsp;&emsp;
               <%= f.submit "変更を保存", class: "btn btn-success" %>

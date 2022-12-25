@@ -32,6 +32,12 @@ class Admin::JapanPrefecturesController < ApplicationController
     end
   end
 
+  def destroy
+    @japan_prefecture = JapanPrefecture.find(params[:id])
+    @japan_prefecture.destroy
+    redirect_to admin_japan_prefectures_path
+  end
+
   #投稿データのストロングパラメータ
   private
 

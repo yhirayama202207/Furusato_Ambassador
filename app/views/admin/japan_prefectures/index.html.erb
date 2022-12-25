@@ -18,7 +18,7 @@
     <label>日本語表記</label>&emsp;<%= f.text_field :name %>&emsp;
     <label>英語表記</label>&emsp;<%= f.text_field :name_english %></br>
     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-    <label>エリア名</label>&emsp;
+    <label>エリア名</label>&emsp;&emsp;
       <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>&emsp;
     <%= f.submit "新規登録", class: "btn btn-success" %></br>
     <% end %>
@@ -47,7 +47,8 @@
                 <td><%= japan_prefecture.japan_area.name %></td>
                 <td><%= japan_prefecture.japan_area.name_english %></td>
                 <td>
-                  <%= link_to "編集", edit_admin_japan_prefecture_path(japan_prefecture.id), class: "btn btn-info" %>
+                  <%= link_to "編集", edit_admin_japan_prefecture_path(japan_prefecture.id), class: "btn btn-info" %>&emsp;
+                  <%= link_to "削除", admin_japan_prefecture_path(japan_prefecture.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除後は復元できません）" %>
                 </td>
               </tr>
               <% end %>
