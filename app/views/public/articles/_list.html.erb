@@ -5,7 +5,7 @@
 
   <div style="text-align:center;">
   <% if user_signed_in? %>
-    <%= link_to new_article_path, class: 'nav-link text-dark' do %>
+    <%= link_to new_article_path, class: 'nav-link text-dark', "data-turbolinks": false do  %>
       <h5>
         投稿する<i class="fas fa-edit" style="color: #cc9933;"></i>
       </h5>

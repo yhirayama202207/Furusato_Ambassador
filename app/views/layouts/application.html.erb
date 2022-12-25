@@ -35,12 +35,6 @@
       </li>
 
       <li>
-      <%= link_to new_article_path, class: 'nav-link text-light', "data-turbolinks": false do %>
-        <i class="fas fa-edit"></i>
-      <% end %>
-      </li>
-
-      <li>
         <%= link_to notifications_path, class: 'nav-link text-light' do %>
           <i class="fas fa-bell"></i>
           <% if unchecked_notifications.any? %>

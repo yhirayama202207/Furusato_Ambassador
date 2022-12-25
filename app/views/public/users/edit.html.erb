@@ -9,18 +9,19 @@
     </br>
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
     </br>
-    <h5 class= "m-2">会員情報編集</h5>
+    <h5 class= "m-2">登録情報編集</h5>
     </br>
 
     <!--（入力部分）ここから------------>
     <div class= "row">
       <div class= "col-6">
         <%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
-          <label>ユーザーネーム／Username</label></br>
+          <%= render 'public/shared/error_notices', model: f.object %>
+          <label>ユーザーネーム（必須）／User name（required）</label></br>
           <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %>
           </br>
           </br>
-          <label>メールアドレス／E-mail</label></br>
+          <label>メールアドレス（必須）／E-mail（required）</label></br>
           <%= f.text_field :email, autofocus: true, id:"inputemail", placeholder:"" %>
           </br>
           </br>

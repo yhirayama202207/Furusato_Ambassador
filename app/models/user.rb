@@ -24,6 +24,10 @@ class User < ApplicationRecord
   #フォロワー一覧用
   has_many :followers, through: :reverse_of_relationships, source: :following
 
+  with_options presence: true do
+    validates :user_name, presence: { message: 'を入力してください' }
+  end
+
   #フォローしているか判定
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?

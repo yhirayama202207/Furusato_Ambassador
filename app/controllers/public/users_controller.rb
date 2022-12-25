@@ -30,7 +30,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "会員情報の更新が完了しました"
-      redirect_to user_path(@user.id)
+      redirect_to users_mypage_path(@user.id)
     end
   end
 

@@ -5,7 +5,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def after_sign_up_path_for(resource)
-    user_path(current_user.id)
+    users_mypage_path(current_user.id)
   end
 
   def new
@@ -14,10 +14,11 @@ class Public::RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  # def create
-  #   super
-  #   # byebug
-  # end
+  def create
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    super
+  end
 
   # GET /resource/sign_up
   # def new

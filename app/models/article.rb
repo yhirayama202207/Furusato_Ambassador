@@ -16,6 +16,12 @@ class Article < ApplicationRecord
   #accepts_nested_attributes_for :article_tags, allow_destroy: true
   #accepts_nested_attributes_for :tags
 
+  with_options presence: true do
+    validates :title, presence: { message: 'を入力してください' }
+    validates :body, presence: { message: 'を入力してください' }
+    validates :japan_prefecture, presence: { message: 'を入力してください' }
+  end
+
   def liked_by?(user)
     if user.present?
       return likes.exists?(user_id: user.id)
