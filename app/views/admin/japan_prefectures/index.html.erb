@@ -11,17 +11,20 @@
     <h5 class= "m-2">都道府県登録／一覧</h5>
     </br>
 
-    <%= form_with model: @japan_prefecture, url: admin_japan_prefectures_path, method: :post do |f| %>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-    <label>都道府県名</label></br>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-    <label>日本語表記</label>&emsp;<%= f.text_field :name %>&emsp;
-    <label>英語表記</label>&emsp;<%= f.text_field :name_english %></br>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-    <label>エリア名</label>&emsp;&emsp;
-      <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>&emsp;
-    <%= f.submit "新規登録", class: "btn btn-success" %></br>
-    <% end %>
+    <div class="row">
+      <div class= "col-2">
+      </div>
+      <div class= "col-8">
+        <%= form_with model: @japan_prefecture, url: admin_japan_prefectures_path, method: :post do |f| %>
+            <label>都道府県追加</label></br>
+            <label>日本語表記</label>&emsp;<%= f.text_field :name %>&emsp;
+            <label>英語表記</label>&emsp;<%= f.text_field :name_english %></br>
+            <label>エリア名</label>&emsp;&emsp;
+              <%= f.collection_select :japan_area_id, JapanArea.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %>&emsp;
+            <%= f.submit "新規登録", class: "btn btn-success" %></br>
+        <% end %>
+      </div>
+    </div>
     </br>
     <div style="text-align:center;">
       <div class= "row">
