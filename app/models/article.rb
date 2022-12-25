@@ -117,7 +117,7 @@ class Article < ApplicationRecord
     )
     #自分の投稿に対するコメントの場合は、通知済みとする
     if notification.sender_id == notification.receiver_id
-      notification.checked = true
+      notification.is_checked = true
     end
     notification.save if notification.valid?
   end

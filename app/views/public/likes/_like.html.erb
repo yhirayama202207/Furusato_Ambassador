@@ -6,7 +6,7 @@
   <% if article.liked_by?(current_user) %>
     <!--既にいいねされている場合にはクリックされたらいいねを取り消す処理-->
     <label>
-      <%= link_to article_likes_path(article), method: :delete, remote: true do %>
+      <%= link_to article_likes_path(article, show: false), method: :delete, remote: true do %>
         <i class="fas fa-heart" style="color: #ff4500;"></i>
       <% end %>
       <%= article.likes.count %>いいね
@@ -14,7 +14,7 @@
   <% else %>
     <!--まだいいねされていない時にクリックされたらいいねを付ける処理-->
     <label>
-      <%= link_to article_likes_path(article), method: :post, remote: true do %>
+      <%= link_to article_likes_path(article, show: false), method: :post, remote: true do %>
         <i class="fas fa-heart" style="color: #d3d3d3;"></i>
       <% end %>
       <%= article.likes.count %>いいね

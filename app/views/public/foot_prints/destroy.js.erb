@@ -1,1 +1,5 @@
-$("#article_<%= @article.id %>").html("<%= j(render 'public/likes/like', article: @article) %>")
+<% if !@show || @show === "false" %>
+  $("#article_<%= @article.id %>").html("<%= j(render 'public/likes/like', article: @article) %>")
+<% else %>
+  $("#article_<%= @article.id %>").html("<%= j(render 'public/likes/like_for_show', article: @article) %>")
+<% end %>

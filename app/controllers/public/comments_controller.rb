@@ -10,19 +10,17 @@ class Public::CommentsController < ApplicationController
 
   def create
     @article = Article.find(params[:article_id])
-    @comments = @article.comments
+    # @comments = @article.comments.order(created_at: :desc)
     @comment = Comment.new(comment_params)
     #@comment = current_user.comments.new(article_id: article.id)
     @comment.user_id = current_user.id
-    article = Article.find(params[:article_id])
-    @comment.article_id = params[:article_id]
+    @comment.article_id = @article.id
     @comment.save
-    flash[:notice] = "新規コメント投稿が完了しました。"
-    article.create_notification_comment!(current_user, @comment.id)
+    @article.create_notification_comment!(current_user, @comment.id)
     #   redirect_to article_path(@comment.article.id)
     # else
     #   redirect_to article_path(@comment.article.id)
-    
+
   end
 
   def edit

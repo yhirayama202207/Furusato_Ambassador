@@ -15,7 +15,7 @@
 <% end %>
 </br>
 
-<% @article.comments.each do |comment| %>
+<% @article.comments.order(created_at: :desc).each do |comment| %>
   <%= link_to user_path(comment.user_id) do %>
     <% if comment.user.image.attached? %>
       <%= image_tag comment.user.image, size: "30x30" %>

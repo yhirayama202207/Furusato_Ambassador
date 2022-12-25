@@ -15,8 +15,6 @@ class Public::ArticlesController < ApplicationController
     @tag_list = params[:article][:tag_ids].split("、")
     if @article.save
       @article.save_tag(@tag_list)
-
-      flash[:notice] = "新規記事投稿が完了しました。"
       redirect_to article_path(@article.id)
     else
       @articles = Article.all
@@ -30,7 +28,8 @@ class Public::ArticlesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @user = @article.user
-    @comments = @article.comments.all
+    # @comments = @article.comments.order(created_at: :desc)
+    # @article.comments = @article.comments.order(created_at: :desc)
   end
 
   def edit
