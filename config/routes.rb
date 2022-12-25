@@ -63,8 +63,14 @@ Rails.application.routes.draw do
     end
     resources :articles, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
       resources :comments, only: [:create, :edit, :update, :index, :destroy]
-      resource :likes, only: [:create, :destroy]
-      resource :foot_prints, only: [:create, :destroy]
+      resource :likes, only: [:create, :destroy] do
+        post "create_show"
+        delete "destroy_show"
+      end
+      resource :foot_prints, only: [:create, :destroy] do
+        post "create_show"
+        delete "destroy_show"
+      end
       resource :clips, only: [:create, :destroy]
       collection do
         get 'search'

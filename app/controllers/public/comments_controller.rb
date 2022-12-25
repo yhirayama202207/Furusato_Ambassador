@@ -10,18 +10,19 @@ class Public::CommentsController < ApplicationController
 
   def create
     @article = Article.find(params[:article_id])
+    @comments = @article.comments
     @comment = Comment.new(comment_params)
     #@comment = current_user.comments.new(article_id: article.id)
     @comment.user_id = current_user.id
     article = Article.find(params[:article_id])
     @comment.article_id = params[:article_id]
-    if @comment.save
-      flash[:notice] = "新規コメント投稿が完了しました。"
-      article.create_notification_comment!(current_user, @comment.id)
-      redirect_to article_path(@comment.article.id)
-    else
-      redirect_to article_path(@comment.article.id)
-    end
+    @comment.save
+    flash[:notice] = "新規コメント投稿が完了しました。"
+    article.create_notification_comment!(current_user, @comment.id)
+    #   redirect_to article_path(@comment.article.id)
+    # else
+    #   redirect_to article_path(@comment.article.id)
+    
   end
 
   def edit
@@ -45,11 +46,11 @@ class Public::CommentsController < ApplicationController
   def destroy
     @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
-    if @comment.destroy
-      redirect_to article_path(@comment.article.id)
-    else
-      redirect_to article_path(@comment.article.id)
-    end
+    @comment.destroy
+    #   redirect_to article_path(@comment.article.id)
+    # else
+    #   redirect_to article_path(@comment.article.id)
+    # end
   end
 
   # 投稿データのストロングパラメータ

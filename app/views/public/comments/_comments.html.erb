@@ -1,5 +1,5 @@
 <h5>この記事にコメントする<i class="far fa-comment-dots"></i></h5>
-<%= form_with model: @comment, url: article_comments_path(@comment.article_id), method: :post, remote: true do |f| %>
+<%= form_with model: Comment.new, url: article_comments_path(@article.id), method: :post, local: false do |f| %>
     <%= f.text_field :comment, placeholder: "コメント" %>&emsp;
     <label>画像</label>
     <%= f.file_field :image, accept: "image/*" %></br>
@@ -14,7 +14,8 @@
   <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
 <% end %>
 </br>
-<% @comments.each do |comment| %>
+
+<% @article.comments.each do |comment| %>
   <%= link_to user_path(comment.user_id) do %>
     <% if comment.user.image.attached? %>
       <%= image_tag comment.user.image, size: "30x30" %>
@@ -35,7 +36,7 @@
   </br>
   <% if comment.user == current_user %>
   <%= link_to "編集", edit_article_comment_path(@article.id, comment.id), class: "btn btn-success" %>&emsp;
-  <%= link_to "削除", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+  <%= link_to "削除", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）", remote: true %>
   <% end %>
   </br>
   <% 20.times do  %>

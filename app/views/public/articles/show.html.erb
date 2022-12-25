@@ -105,10 +105,10 @@
 
     </br>
 
-    <div class= "flex-row">
-      <div class= "col-6">
-        <div id="article_<%= @article.id %>"><%= render "public/likes/like_for_show", article: @article %></div>
-        &emsp;
+    <div class= "row">
+      <div id="article_<%= @article.id %>"><%= render "public/likes/like_for_show", article: @article %></div>
+      &emsp;&emsp;
+      <div>
         Twitterでシェア
         <%= link_to "http://twitter.com/share?url=#{request.url}/&text=ふるさとアンバサダーで地域の魅力を発信しよう&hashtags=ふるさとSNS",{class:"footer-icon_1"} do %>
           <i class="fab fa-twitter"></i>
@@ -118,8 +118,12 @@
     </br>
     </br>
 
+
+
     <!--コメント一覧ここから------------>
-    <div id="article_<%= @article.id %>"><%= render "public/comments/comments", article: @article %></div>
+    <div class="article_comment_<%= @article.id %>">
+      <%= render "public/comments/comments", article: @article %>
+    </div>
     <!--コメント一覧ここまで------------>
 
     </div>

@@ -30,7 +30,6 @@ class Public::ArticlesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @user = @article.user
-    @comment = @article.comments.build
     @comments = @article.comments.all
   end
 
