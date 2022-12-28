@@ -71,9 +71,9 @@
             </br>
 
             <label>地図を追加する</label></br>
-            <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
-            <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
-            <%= f.hidden_field :address,:value =>"住所", id: :addr %>
+            <%= f.hidden_field :latitude, id: :lat %>
+            <%= f.hidden_field :longitude, id: :lng %>
+            <%= f.hidden_field :address, id: :addr %>
 
             <!--Google Maps APIの表示 ここから-->
             <input id="address" type="textbox" value="" placeholder="検索して地図を追加">

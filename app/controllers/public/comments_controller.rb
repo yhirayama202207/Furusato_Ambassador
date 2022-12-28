@@ -9,14 +9,18 @@ class Public::CommentsController < ApplicationController
   end
 
   def create
+    @hoge = "hoge"
     @article = Article.find(params[:article_id])
     # @comments = @article.comments.order(created_at: :desc)
     @comment = Comment.new(comment_params)
     #@comment = current_user.comments.new(article_id: article.id)
     @comment.user_id = current_user.id
     @comment.article_id = @article.id
-    @comment.save
-    @article.create_notification_comment!(current_user, @comment.id)
+    if @comment.save
+      @article.create_notification_comment!(current_user, @comment.id)
+    else
+      render "public/comments/error"
+    end
     #   redirect_to article_path(@comment.article.id)
     # else
     #   redirect_to article_path(@comment.article.id)

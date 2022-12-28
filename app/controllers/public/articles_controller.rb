@@ -43,6 +43,8 @@ class Public::ArticlesController < ApplicationController
   end
 
   def update
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @tag_list = params[:article][:tag_ids].split("、")
     if @article.update(article_params)

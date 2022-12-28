@@ -8,7 +8,7 @@
   <div class= "col-10">
   </br>
   <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  <h5 class= "m-2">投稿編集</h5>
+  <h5 class= "m-2">記事編集</h5>
   </br>
 
   <!--（入力部分全体）ここから------------>
@@ -17,6 +17,8 @@
       </div>
       <div class= "col-10">
         <%= form_with model: @article, url: article_path(@article.id), method: :patch do |f| %>
+
+        <%#= render "public/shared/error_messages", resource: resource %>
 
         <!--基本項目＆追加項目の大枠 ここから------------>
         <div class= "row">
@@ -66,14 +68,16 @@
             </br>
 
             <label>地図を追加する</label></br>
-            <%= f.hidden_field :latitude,:value =>"緯度", id: :lat %>
-            <%= f.hidden_field :longitude,:value =>"経度", id: :lng %>
-            <%= f.hidden_field :address,:value =>"住所", id: :addr %>
+            <%= f.hidden_field :latitude, id: :lat %>
+            <%= f.hidden_field :longitude, id: :lng %>
 
               <!--Google Maps APIの表示 ここから-->
               <input id="address" type="textbox" value="" placeholder="検索して地図を追加">
               <input type="button" value="検索" onclick="codeAddress()">
               <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+
+              下記の住所が記事に表示されます（直接入力も可能）</br>
+              <%= f.text_field :address, id: :addr %>
 
               <div id='map'></div>
 
@@ -92,7 +96,7 @@
                 geocoder = new google.maps.Geocoder()
 
                 map = new google.maps.Map(document.getElementById('map'), {
-                  center:  {lat: <%= @article.latitude %>, lng: <%= @article.longitude %>},  //東京
+                  center:  {lat: <%= @article.latitude ||= 35.6769 %>, lng: <%= @article.longitude ||=  139.7588 %>},  //東京
                   zoom: 15,
 
                 });
@@ -124,16 +128,18 @@
                       //検索した時に緯度経度を入力する
                       document.getElementById('lat').value = results[0].geometry.location.lat();
                       document.getElementById('lng').value = results[0].geometry.location.lng();
-
+                      console.log(results[0])
+                       document.getElementById('addr').value = results[0].formatted_address;
                       // マーカーのドロップ（ドラッグ終了）時のイベント
                       google.maps.event.addListener( marker, 'dragend', function(ev){
                           // イベントの引数evの、プロパティ.latLngが緯度経度
                           document.getElementById('lat').value = ev.latLng.lat();
                           document.getElementById('lng').value = ev.latLng.lng();
+                          console.log(ev.latLng)
                           geocoder.geocode({latLng:ev.latLng, language:"ja"}, function(results, status) {
               			        if (status == google.maps.GeocoderStatus.OK) {
               				        if (results[0].geometry) {
-              					        console.log(results);
+              					        console.log(results[0].formatted_address);
               					        document.getElementById('addr').value = results[0].formatted_address;
 
               				          }
@@ -160,7 +166,7 @@
         　<!--投稿するボタン ここから------------>
         　<div style="text-align:center;">
             </br>
-            <%= f.submit "変更を保存", class: "btn btn-success" %>
+            <%= f.submit "変更を保存／Update", class: "btn btn-success" %>
             <% end %>
           </div>
           <!--投稿するボタン ここまで------------>
