@@ -1,9 +1,11 @@
+<%#= render "public/shared/error_notices" %>
+
 <h5>この記事にコメントする<i class="far fa-comment-dots"></i></h5>
 <%= form_with model: Comment.new, url: article_comments_path(@article.id), method: :post, local: false do |f| %>
-    <%= f.text_field :comment, placeholder: "コメント" %>&emsp;
+    <%= f.text_field :comment, placeholder: "コメントを入力" %>&emsp;
     <label>画像</label>
     <%= f.file_field :image, accept: "image/*" %></br>
-    <%= f.submit "新規登録", class: "btn btn-success" %></br>
+    <%= f.submit "投稿", class: "btn btn-success" %></br>
 <% end %>
 </br>
 </br>
@@ -29,7 +31,6 @@
   <%= comment.comment %>
   </br>
   <% if comment.image.attached? %>
-    </br>
     <%= image_tag comment.image, size: "200x200" %>
     </br>
   <% end %>

@@ -67,9 +67,13 @@
       <div class= "col-6">
         <label>～Information～</label></br>
         <%= @article.name %></br>
-        <%= @article.address %>
+        <%#= if @article.address == !"住所" %>
+          <%= @article.address %>
+        <%# else %>
+          <label>この記事のインフォメーションはありません。</label>
+        <%# end %>
 
-        <% if @article.latitude %>
+        <% if @article.latitude == !0.0 %>
         <!--Google Maps APIの表示 ここから-->
         <div id='map'></div>
 
@@ -111,6 +115,7 @@
     </br>
 
     <div class= "row">
+      &emsp;
       <div id="article_<%= @article.id %>"><%= render "public/likes/like_for_show", article: @article %></div>
       &emsp;&emsp;
       <div>
