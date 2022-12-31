@@ -24,10 +24,11 @@ class Public::CommentsController < ApplicationController
     #   redirect_to article_path(@comment.article.id)
     # else
     #   redirect_to article_path(@comment.article.id)
-
   end
 
   def edit
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @comment = Comment.find(params[:id])
     @user = current_user
     unless @comment.user == current_user

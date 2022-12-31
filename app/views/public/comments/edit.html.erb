@@ -1,11 +1,34 @@
-<h5>コメント編集</h5>
-</br>
+<div class= "row">
 
-<div style="text-align:center;">
-<%= form_with model: @comment, url: article_comment_path(@comment.id), method: :patch do |f| %>
-  <label>コメント</label><%= f.text_field :comment, autofocus: true, id:"inputcomment", placeholder:"" %></br>
-  <label>画像</label>
-  <%= f.file_field :image, accept: "image/*" %></br>
-    <%= f.submit "変更を保存", class: "btn btn-success" %>
-<% end %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+    </br>
+    <h5 class= "m-2">コメント編集</h5>
+    </br>
+
+    <!--（入力部分）ここから------------>
+    <div class= "row">
+      <div class= "col-12 m-2">
+      <%= form_with model: @comment, url: article_comment_path(@comment.id), method: :patch do |f| %>
+        <label>コメント</label>&emsp;<%= f.text_field :comment, autofocus: true, id:"inputcomment", placeholder:"" %></br>
+        </br>
+        <label>画像</label>&emsp;&emsp;&emsp;
+        <%= f.file_field :image, accept: "image/*" %></br>
+        </br>
+        &emsp;&emsp;&emsp;&emsp;
+        <%= f.submit "変更を保存／Update", class: "btn btn-success" %>
+      <% end %>
+      </div>
+    </div>
+    <!--（入力部分）ここまで------------>
+  </div>
+  <!--（右側全体）ここまで------------>
+
 </div>
