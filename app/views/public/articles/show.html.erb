@@ -18,7 +18,7 @@
         <% if @article.is_active %>
           <label class="text-success">公開中</label>
         <% else %>
-          <label class="text-secondary">非公開</label>
+          <label class="text-secondary">非公開（下書き）</label>
         <% end %>&emsp;
         <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
         <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
