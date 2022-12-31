@@ -68,6 +68,11 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     likes= Like.where(user_id: @user.id).pluck(:article_id)
     @like_articles = Article.find(likes)
+    # if article.user.id == current_user.id
+    #   @like_articles = Article.find(likes)
+    # else
+    #   @like_articles = Article.find(likes).where(is_active: true)
+    # end
   end
 
   def foot_prints

@@ -8,7 +8,7 @@
   <div class= "col-10">
     </br>
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">すべての記事一覧（全<%= @articles.count %>件）</h5>
+    <h5 class= "m-2">すべての記事（全<%= @articles.count %>件）</h5>
 
     <div class= "row">
     <% @articles.each do |article| %>
