@@ -94,7 +94,7 @@ class Public::ArticlesController < ApplicationController
   def search
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
-    @articles = Article.search(params[:keyword])
+    @articles = Article.search(params[:keyword]).where(is_active: true)
     @articles_page = Article.all.page(params[:page])
   end
 
