@@ -20,8 +20,9 @@
       <% else %>
         <%= image_tag 'no_image.jpg', size: "100x100" %>
       <% end %>
-      <label>登録情報</label>
-      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      <label>登録情報</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      <label class="text-small mb-3"><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー&emsp;<%=link_to @user.followers.count, followers_user_path(@user) %>フォロワー</label>
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       <% if @user.user_name != "ゲスト" %>
         <%= link_to "編集", edit_user_path(current_user), class: "btn btn-success" %>
       <% end %>
