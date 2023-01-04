@@ -38,12 +38,16 @@ class Public::UsersController < ApplicationController
   def followings
     @user = User.find(params[:id])
     @users = @user.followings.page(params[:page])
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 
   # フォロワー一覧
   def followers
     @user = User.find(params[:id])
     @users = @user.followers.page(params[:page])
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
   end
 
   def user_articles
