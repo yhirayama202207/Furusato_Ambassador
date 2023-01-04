@@ -19,7 +19,6 @@ class Article < ApplicationRecord
   with_options presence: true do
     validates :title, presence: { message: 'を入力してください' }
     validates :body, presence: { message: 'を入力してください' }
-    validates :japan_prefecture, presence: { message: 'を入力してください' }
   end
 
   def liked_by?(user)

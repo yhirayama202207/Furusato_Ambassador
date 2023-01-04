@@ -35,3 +35,20 @@ ja:
       over_x_years:
         one:   "1年以上"
         other: "%{count}年以上"
+
+  activerecord:
+    models:
+      # view側： User.model_name.human => "ユーザ" / t("activerecord.models.user")と同じ
+      article:
+    # model毎に定義したいattributesを記述
+    attributes:
+        article:
+          title: タイトル
+          body: 本文
+          japan_prefecture: 都道府県
+          # view側： User.human_attribute_name :name => "名前" /　t("activerecord.attributes.user.name")と同じ
+          first_name: 名前
+          last_name: 姓
+          email: メールアドレス
+          file: プロフィール画像
+          crypted_password: パスワード

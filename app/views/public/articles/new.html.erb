@@ -11,14 +11,20 @@
   <h5 class= "m-2">新規記事投稿</h5>
   </br>
 
+  <% if @article.errors.any? %>
+    <%= @article.errors.count %>件のエラーが発生しました。
+    <ul>
+    <% @article.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+
   <!--（入力部分全体）ここから------------>
   <div class= "row">
       <div class= "col-1">
       </div>
       <div class= "col-10">
-        <% @article.errors.full_messages.each do | msg | %>
-          <%= msg %>
-        <% end %>
         <%= form_with model: @article, url: articles_path, method: :post do |f| %>
 
         <!--基本項目＆追加項目の大枠 ここから------------>

@@ -31,7 +31,10 @@ class Public::UsersController < ApplicationController
     if @user.update(user_params)
       flash[:notice] = "会員情報の更新が完了しました"
       redirect_to users_mypage_path(@user.id)
-    # else
+    else
+      @japan_areas = JapanArea.all
+      @japan_prefectures = JapanPrefecture.all
+      render :edit
     #   redirect_to edit_user_path(@user.id)
     #   flash[:notice] = "ユーザーネームとメールアドレスは必須です。（username and E-mail are required.）"
     end
@@ -74,12 +77,17 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     likes= Like.where(user_id: @user.id).pluck(:article_id)
-    @like_articles = Article.order(created_at: :desc).find(likes)
-    # if article.user.id == current_user.id
-    #   @like_articles = Article.find(likes)
-    # else
-    #   @like_articles = Article.find(likes).where(is_active: true)
-    # end
+    #@like_articles = Article.order(created_at: :desc).find(likes)
+    @a = []
+    @b = []
+    Article.find(likes).each do |article|
+     if article.user.id == current_user.id
+       @a << article
+     else
+       @b << article if article.is_active
+     end
+    end
+    @like_articles = @a + @b
   end
 
   def foot_prints
@@ -109,11 +117,11 @@ class Public::UsersController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = current_user
-    @user_articles = @user.articles.all
+    @user_articles = @user.articles.all.where(is_active: true).order(created_at: :desc)
     likes= Like.where(user_id: @user.id).pluck(:article_id)
-    @like_articles = Article.find(likes)
+    @like_articles = Article.where(is_active: true, id: likes).order(created_at: :desc)
     foot_prints= FootPrint.where(user_id: @user.id).pluck(:article_id)
-    @foot_print_articles = Article.find(foot_prints)
+    @foot_print_articles = Article.where(is_active: true, id: foot_prints).order(created_at: :desc)
     clips= Clip.where(user_id: @user.id).pluck(:article_id)
     @clip_articles = Article.find(clips)
   end

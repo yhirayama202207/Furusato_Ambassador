@@ -17,9 +17,9 @@ class Public::ArticlesController < ApplicationController
       @article.save_tag(@tag_list)
       redirect_to article_path(@article.id)
     else
-      @articles = Article.all
-      @user = current_user
-      render :index
+      @japan_areas = JapanArea.all
+      @japan_prefectures = JapanPrefecture.all
+      render :new
     end
   end
 
