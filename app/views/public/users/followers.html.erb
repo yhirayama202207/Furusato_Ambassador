@@ -32,6 +32,7 @@
             <tr>
               <th></th>
               <th>ユーザーネーム</th>
+              <th>居住地</th>
               <th>出身地</th>
               <th></th>
               <th colspan="4"></th>
@@ -52,6 +53,9 @@
                 <%= link_to user_path(user.id) do %>
                 <%= user.user_name %>
                 <% end %>
+              </td>
+              <td>
+                <%= user.home %>
               </td>
               <td>
                 <%= user.hometown %>
