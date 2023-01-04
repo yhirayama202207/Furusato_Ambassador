@@ -14,9 +14,9 @@ class Public::UsersController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
-    @user_articles = @user.articles.where(is_active: true)
+    @user_articles = @user.articles.where(is_active: true).order(created_at: :desc)
     if @user.id == current_user.id
-      @user_articles = @user.articles.all
+      @user_articles = @user.articles.all.order(created_at: :desc)
     end
   end
 
@@ -31,6 +31,9 @@ class Public::UsersController < ApplicationController
     if @user.update(user_params)
       flash[:notice] = "会員情報の更新が完了しました"
       redirect_to users_mypage_path(@user.id)
+    # else
+    #   redirect_to edit_user_path(@user.id)
+    #   flash[:notice] = "ユーザーネームとメールアドレスは必須です。（username and E-mail are required.）"
     end
   end
 
@@ -60,9 +63,9 @@ class Public::UsersController < ApplicationController
     #   @user_articles = @user.articles.where(is_active: true)
     # end
     @user = User.find(params[:id])
-    @user_articles = @user.articles.where(is_active: true)
+    @user_articles = @user.articles.where(is_active: true).order(created_at: :desc)
     if @user.id == current_user.id
-      @user_articles = @user.articles.all
+      @user_articles = @user.articles.all.order(created_at: :desc)
     end
   end
 
@@ -71,7 +74,7 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     likes= Like.where(user_id: @user.id).pluck(:article_id)
-    @like_articles = Article.find(likes)
+    @like_articles = Article.order(created_at: :desc).find(likes)
     # if article.user.id == current_user.id
     #   @like_articles = Article.find(likes)
     # else
@@ -84,7 +87,7 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     foot_prints= FootPrint.where(user_id: @user.id).pluck(:article_id)
-    @foot_print_articles = Article.find(foot_prints)
+    @foot_print_articles = Article.order(created_at: :desc).find(foot_prints)
   end
 
   def clips
@@ -92,7 +95,7 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     clips= Clip.where(user_id: @user.id).pluck(:article_id)
-    @clip_articles = Article.find(clips)
+    @clip_articles = Article.order(created_at: :desc).find(clips)
   end
 
   def search

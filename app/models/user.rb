@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :user_name, presence: { message: 'を入力してください' }
+    validates :email, presence: { message: 'を入力してください' }
   end
 
   #フォローしているか判定

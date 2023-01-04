@@ -64,7 +64,7 @@ class Public::ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.where(is_active: true)
+    @articles = Article.where(is_active: true).order(created_at: :desc)
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
   end
@@ -73,7 +73,7 @@ class Public::ArticlesController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @japan_prefecture = JapanPrefecture.find(params[:id])
-    @articles = @japan_prefecture.articles.where(is_active: true)
+    @articles = @japan_prefecture.articles.where(is_active: true).order(created_at: :desc)
   end
 
   def area_index
@@ -81,20 +81,20 @@ class Public::ArticlesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @japan_prefecture = JapanPrefecture.find(params[:id])
     @japan_area = JapanArea.find(params[:id])
-    @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id))
+    @articles = Article.where(is_active: true).where(japan_prefecture_id: @japan_area.japan_prefectures.pluck(:id)).order(created_at: :desc)
   end
 
   def tag_index
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @tag = Tag.find(params[:id])
-    @articles = @tag.articles.where(is_active: true)
+    @articles = @tag.articles.where(is_active: true).order(created_at: :desc)
   end
 
   def search
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
-    @articles = Article.search(params[:keyword]).where(is_active: true)
+    @articles = Article.search(params[:keyword]).where(is_active: true).order(created_at: :desc)
     @articles_page = Article.all.page(params[:page])
   end
 
