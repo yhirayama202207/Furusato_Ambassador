@@ -72,6 +72,16 @@ class Public::UsersController < ApplicationController
     end
   end
 
+  def user_itineraries
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @user = User.find(params[:id])
+    @user_itineraries = @user.itineraries.where(is_active: true).order(created_at: :desc)
+    if @user.id == current_user.id
+      @user_itineraries = @user.itineraries.all.order(created_at: :desc)
+    end
+  end
+
   def likes
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all

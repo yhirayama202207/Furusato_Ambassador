@@ -25,13 +25,8 @@ class Public::ItinerariesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @itinerary = Itinerary.find(params[:id])
     @user = @itinerary.user
-    #@total = 0
-    #byebugs
     @total = @itinerary.tasks.sum(:price)
     @tasks = @itinerary.tasks
-    #@tasks.each do |task|
-    #  @total += task.price
-    #end
   end
 
   def edit
@@ -59,7 +54,7 @@ class Public::ItinerariesController < ApplicationController
   def destroy
     @itinerary = Itinerary.find(params[:id])
     @itinerary.destroy
-    redirect_to itineraries_path
+    redirect_to user_itineraries_path(@user.id)
   end
 
   def index

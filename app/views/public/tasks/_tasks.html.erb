@@ -1,7 +1,7 @@
 <h5>
 旅程／Schedule&emsp;
 <% if @user == current_user %>
-  <%= link_to "予定の追加／Add", new_itinerary_task_path(@itinerary.id), class: "btn btn-warning text-light" %>
+  <%= link_to "＋予定の追加／Add", new_itinerary_task_path(@itinerary.id), class: "btn btn-warning text-light" %>
   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
   <%= link_to "持ち物リスト／Items to bring", belongings_path %>
 <% end %>
@@ -24,7 +24,12 @@
   </h5>
   <h4>
     <%= task.task %>&emsp;
-    <%= task.way %>&emsp;
+
+    <% if task.way.present? %>
+      <% flag = true %>
+      <%= task.way %>&emsp;
+    <% end %>
+
     <% if task.rate == 0 %>
       <label></label>
       <!--評価1の場合-->

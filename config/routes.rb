@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     get "users/confirm" => "users#confirm"
     get "users/mypage" => "users#mypage"
     get "users/:id/user_articles" => "users#user_articles", as: "user_articles"
+    get "users/:id/itineraries" => "users#user_itineraries", as: "user_itineraries"
     patch "users/unsubscribe" => "users#unsubscribe"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"

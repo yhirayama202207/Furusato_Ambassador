@@ -8,7 +8,7 @@
   <div class= "col-10">
     </br>
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">新しい旅程表を作る／Create an itinerary</h5>
+    <h5 class= "m-2">新しい旅のしおり（旅日記）を作る／Create an itinerary</h5>
     </br>
 
     <% if @itinerary.errors.any? %>
@@ -37,11 +37,11 @@
           <!--<%#= f.datetime_select :finished_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>-->
           <!--</br>-->
 
-          <label>ひとこと／comment</label></br>
-            <%= f.text_area :body, placeholder: "ひとこと" %></br>
-          </br>
+          <!--<label>ひとこと／comment</label></br>-->
+          <!--  <%#= f.text_area :body, placeholder: "ひとこと" %></br>-->
+          <!--</br>-->
 
-          <label>画像／image</label></br>
+          <label>表紙画像／image</label></br>
             <%= f.file_field :image, accept: "image/*" %></br>
           </br>
 
