@@ -10,7 +10,7 @@ class CreateArticles < ActiveRecord::Migration[6.1]
       t.float :latitude
       t.float :longitude
       t.text :body, null: false
-      t.float :rate
+      t.float :rate, default: 0
       t.boolean :is_active, null: false, default: true
 
       t.timestamps null: false

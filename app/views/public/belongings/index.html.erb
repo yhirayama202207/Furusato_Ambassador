@@ -1,0 +1,58 @@
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">持っていくものリスト</h5>
+    </br>
+
+    <div class="row">
+      <div class= "col-1">
+      </div>
+      <div class= "col-11">
+        <%= form_with model: @belonging, url: belongings_path, method: :post do |f| %>
+        <%= f.text_field :name %>
+        <%= f.submit "追加／Add", class: "btn btn-success" %></br>
+        <% end %>
+      </div>
+    </div>
+    </br>
+
+    <div class="row">
+      <div class= "col-1">
+      </div>
+      <div class= "col-10">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <!--<th>チェック<th>-->
+              <th>持っていくもの／Items to bring</th>
+              <th>Edit&emsp;&emsp;&emsp;Delete</th>
+              <th colspan="2"></th>
+            </tr>
+          </thread>
+          <tbody>
+            <% @belongings.each do |belonging| %>
+            <tr>
+              <td>
+                <div id="belonging_<%= belonging.id %>"><%= render "public/checks/check", belonging: belonging %></div>
+              </td>
+              <td>
+                <%= link_to "編集", edit_belonging_path(belonging.id), class: "btn btn-info" %>&emsp;
+                <%= link_to "削除", belonging_path(belonging.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除後は復元できません）" %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--（右側全体）ここまで------------>
+
+</div>

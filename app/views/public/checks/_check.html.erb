@@ -1,0 +1,17 @@
+<% if belonging.checked_by?(current_user) %>
+    <!--ユーザーが持ち物確認後、□にチェックを入れてグレーにし、持ち物名に線を引く処理-->
+    <label>
+      <%= link_to belonging_checks_path(belonging), method: :delete, remote: true do %>
+        <i class="far fa-check-square" style="color: #d3d3d3;"></i>
+      <% end %>
+      &emsp;<s><%= belonging.name %></s>
+    </label>
+  <% else %>
+    <!--まだチェックされていない時にクリックされたらチェックを付ける処理-->
+    <label>
+      <%= link_to belonging_checks_path(belonging), method: :post, remote: true do %>
+        <i class="far fa-square" style="color: #DC3545;"></i>
+      <% end %>
+      &emsp;<%= belonging.name %>
+    </label>
+  <% end %>

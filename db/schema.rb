@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_11_113517) do
+ActiveRecord::Schema.define(version: 2023_01_09_071649) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -91,6 +91,20 @@ ActiveRecord::Schema.define(version: 2022_12_11_113517) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "belongings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "checks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "belonging_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "cheer_regions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -115,6 +129,19 @@ ActiveRecord::Schema.define(version: 2022_12_11_113517) do
   create_table "foot_prints", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "article_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "itineraries", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.text "comment"
+    t.integer "rate", default: 0
+    t.integer "total_payment", default: 0, null: false
+    t.boolean "is_active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -180,6 +207,24 @@ ActiveRecord::Schema.define(version: 2022_12_11_113517) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer "itinerary_id", null: false
+    t.integer "user_id", null: false
+    t.string "task", null: false
+    t.datetime "started_at", null: false
+    t.datetime "finished_at", null: false
+    t.text "memo"
+    t.string "way"
+    t.string "spot"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "price", default: 0, null: false
+    t.integer "rate", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

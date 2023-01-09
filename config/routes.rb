@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       get :likes, on: :member
       get :foot_prints, on: :member
       get :clips, on: :member
+      get :checks, on: :member
       collection do
         get "search"
       end
@@ -75,6 +76,12 @@ Rails.application.routes.draw do
       collection do
         get 'search'
       end
+    end
+    resources :itineraries, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
+      resources :tasks, only: [:new, :create, :show, :edit, :update, :index, :destroy]
+    end
+    resources :belongings, only: [:index, :create, :edit, :update, :destroy] do
+      resource :checks, only: [:create, :destroy]
     end
     resources :notifications, only: [:index]
     delete :notifications, to: 'notifications#destroy_all', as: "destroy_all_notifications"

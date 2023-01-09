@@ -27,7 +27,8 @@
     <% if user_signed_in? %>
       <li>
       <label class="text-white">
-      おかえりなさい、<%= current_user.user_name %>さん🍵
+        <span>Welcome back!<span>
+        <h6>おかえりなさい、<%= current_user.user_name %>さん🍵</h6>
       </label>
       </li>
       <li>
@@ -45,22 +46,22 @@
 
       <li>
         <%= link_to users_mypage_path(current_user.id), class: 'nav-link text-light' do %>
-        マイページ
+        <span>My page<span><h6>マイページ</h6>
         <% end %>
       </li>
       <li>
         <%= link_to articles_path, class: 'nav-link text-light' do %>
-        記事一覧
+        <span>Articles<span><h6>記事一覧</h6>
         <% end %>
       </li>
       <li>
         <%= link_to users_path, class: 'nav-link text-light' do %>
-         ユーザー一覧
+         <span>Users<span><h6>ユーザー一覧</h6>
         <% end %>
       </li>
       <li>
         <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
-        ログアウト
+        <span>Log out<span><h6>ログアウト</h6>
         <% end %>
       </li>
       <% elsif admin_signed_in? %>
@@ -102,22 +103,22 @@
     <% else %>
       <li>
       <%= link_to homes_about_path, class: 'nav-link text-light' do %>
-        About
+        <span>About<span><h6>このサイトについて</h6>
         <% end %>
       </li>
       <li>
         <%= link_to articles_path, class: 'nav-link text-light' do %>
-        記事一覧
+        <span>Articles<span><h6>記事一覧</h6>
         <% end %>
       </li>
       <li>
         <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
-        新規登録
+        <span>Registration<span><h6>新規登録</h6>
         <% end %>
       </li>
       <li>
         <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
-        ログイン
+        <span>Log in<span><h6>ログイン</h6>
         <% end %>
       </li>
     <% end %>

@@ -1,0 +1,191 @@
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+  </br>
+  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+  <h5 class= "m-2">タスク編集</h5>
+  </br>
+
+  <% if @task.errors.any? %>
+    <%= @task.errors.count %>件のエラーが発生しました。
+    <ul>
+    <% @task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+
+  <!--（入力部分全体）ここから------------>
+  <div class= "row">
+      <div class= "col-1">
+      </div>
+      <div class= "col-10">
+        <%= form_with model: @task, url: itinerary_task_path(@task.id), method: :patch do |f| %>
+
+        <!--基本項目＆追加項目の大枠 ここから------------>
+        <div class= "row">
+
+          <!--基本項目（左側）ここから------------>
+          <div class= "col-6">
+
+            <h5>基本項目（Basic Infomation）</h5>
+            </br>
+
+            <label>タスク名（必須）／task（required）</label></br>
+            <%= f.text_field :task, placeholder: "タスク名" %></br>
+            </br>
+
+            <label>交通機関・便名等／means of transportation</label></br>
+            <%= f.text_field :way %></br>
+            </br>
+
+            <label>開始日時（必須）／started at（required）</label></br>
+            <%= f.datetime_select :started_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>
+            </br>
+
+            <label>終了日時（必須）／finished_at（required）</label></br>
+            <%= f.datetime_select :finished_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>
+            </br>
+
+            <label>金額／price（required）</label></br>
+            <%= f.text_field :price %></br>
+            </br>
+
+            <label>画像／image</label></br>
+            <%= f.file_field :image, accept: "image/*" %></br>
+            </br>
+
+            </br>
+          </div>
+          <!--基本項目（左側）ここまで------------>
+
+          <!--追加項目（右側）ここから------------>
+          <div class= "col-6">
+            <h5>追加項目（Additional Information）</h5>
+            </br>
+
+            <label>場所／お店の名前／name of spot</label></br>
+            <%= f.text_field :spot %></br>
+            </br>
+
+            <label>メモ／memo</label></br>
+            <%= f.text_area :memo, placeholder: "ここにメモを記述します" %></br>
+            </br>
+
+            <label>地図を追加する／add map</label></br>
+            <%= f.hidden_field :latitude, id: :lat %>
+            <%= f.hidden_field :longitude, id: :lng %>
+
+              <!--Google Maps APIの表示 ここから-->
+              <input id="address" type="textbox" value="" placeholder="検索して地図を追加">
+              <input type="button" value="検索／search" onclick="codeAddress()">
+              <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+
+              下記の住所が記事に表示されます／address</br>
+              （下記のフォームにて直接入力／編集も可能です）</br>
+              <%= f.text_field :address, id: :addr %>
+
+              <div id='map'></div>
+
+              <style>
+              #map {
+                height: 300px;
+                width: 400px;
+              }
+              </style>
+
+              <script>
+              //初期マップの設定
+              let map
+              let marker
+              function initMap(){
+                geocoder = new google.maps.Geocoder()
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                  center:  {lat: <%= @task.latitude ||= 35.6769 %>, lng: <%= @task.longitude ||=  139.7588 %>},  //東京
+                  zoom: 15,
+
+                });
+              }
+
+              //検索後のマップ作成
+              let geocoder
+              let aft
+              function codeAddress(){
+                let inputAddress = document.getElementById('address').value;
+                geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+                  if (status == 'OK') {
+                      //マーカーが複数できないようにする
+                      if (aft == true){
+                          marker.setMap(null);
+                      }
+
+                      //新しくマーカーを作成する
+                      map.setCenter(results[0].geometry.location);
+                          marker = new google.maps.Marker({
+                          map: map,
+                          position: results[0].geometry.location,
+                          draggable: true	// ドラッグ可能にする
+                      });
+
+                      //二度目以降か判断
+                      aft = true
+
+                      //検索した時に緯度経度を入力する
+                      document.getElementById('lat').value = results[0].geometry.location.lat();
+                      document.getElementById('lng').value = results[0].geometry.location.lng();
+                      console.log(results[0])
+                      document.getElementById('addr').value = results[0].formatted_address;
+                      // マーカーのドロップ（ドラッグ終了）時のイベント
+                      google.maps.event.addListener( marker, 'dragend', function(ev){
+                          // イベントの引数evの、プロパティ.latLngが緯度経度
+                          document.getElementById('lat').value = ev.latLng.lat();
+                          document.getElementById('lng').value = ev.latLng.lng();
+                          console.log(ev.latLng)
+                          geocoder.geocode({latLng:ev.latLng, language:"ja"}, function(results, status) {
+              			        if (status == google.maps.GeocoderStatus.OK) {
+              				        if (results[0].geometry) {
+              					        console.log(results[0].formatted_address);
+              					        document.getElementById('addr').value = results[0].formatted_address;
+
+              				          }
+              			          }
+              		          });
+
+                      });
+                  } else {
+                    alert('該当する結果がありませんでした：' + status);
+                  }
+                });
+              }
+
+              </script>
+              <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+              <!--Google Maps APIの表示 ここまで-->
+
+          </div>
+          <!--追加項目（右側）ここまで------------>
+
+        </div>
+        <!--基本項目＆追加項目の大枠 ここまで------------>
+
+        <!--編集ボタン ここから------------>
+        <div style="text-align:center;">
+          </br>
+          <%= f.submit "編集／Update", class: "btn btn-success" %>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</br>
+          <% end %>
+        </div>
+        <!--編集ボタン ここまで------------>
+
+      </div>
+    </div>
+    <!--（入力部分全体）ここまで------------>
+
+  </div>
+  <!--（右側全体）ここまで------------>
+</div>

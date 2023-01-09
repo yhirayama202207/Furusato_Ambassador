@@ -1,0 +1,63 @@
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">新しい旅程表を作る／Create an itinerary</h5>
+    </br>
+
+    <% if @itinerary.errors.any? %>
+      <%= @itinerary.errors.count %>件のエラーが発生しました。
+      <ul>
+      <% @itinerary.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+
+    <!--入力部分ここから------------>
+    <div class= "row">
+      <div class= "col-12">
+        <%= form_with model: @itinerary, url: itineraries_path, method: :post do |f| %>
+
+          <label>タイトル（必須）／title（required）</label></br>
+            <%= f.text_field :title, placeholder: "タイトル" %></br>
+            </br>
+
+          <!--<label class="control-label" for="">開始日時</label>-->
+          <!--  <%#= f.datetime_select :started_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>-->
+          <!--  </br>-->
+
+          <!--<label class="control-label" for="">終了日時</label>-->
+          <!--<%#= f.datetime_select :finished_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>-->
+          <!--</br>-->
+
+          <label>ひとこと／comment</label></br>
+            <%= f.text_area :body, placeholder: "ひとこと" %></br>
+          </br>
+
+          <label>画像／image</label></br>
+            <%= f.file_field :image, accept: "image/*" %></br>
+          </br>
+
+          <%= f.hidden_field :is_active, :value => false %>
+          <%= f.hidden_field :total_payment, :value => 0 %>
+          <%= f.hidden_field :rate, :value => 0 %>
+
+          <!--投稿するボタン ここから------------>
+          </br>
+          <%= f.submit "作成／Create", class: "btn btn-success" %>
+        <% end %>
+        <!--投稿するボタン ここまで------------>
+
+      </div>
+      <!--入力部分ここまで------------>
+
+  </div>
+  <!--（右側全体）ここまで------------>
+</div>

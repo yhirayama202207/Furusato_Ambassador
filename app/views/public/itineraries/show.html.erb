@@ -1,0 +1,59 @@
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+
+    <!--記事内容ここから------------>
+    <h5 class= "mt-2">
+      <% if @itinerary.image.attached? %>
+          <%= image_tag @itinerary.image, size: "30x30" %>
+        <% else %>
+          <%= image_tag 'default-image.jpg', size: "30x30" %>
+        <% end %>
+      <%= @itinerary.title %></br>
+      （<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+      &emsp;
+      <% if @itinerary.user == current_user %>
+        <% if @itinerary.is_active %>
+          <label class="text-success">公開中</label>
+        <% else %>
+          <label class="text-secondary">非公開</label>
+        <% end %>&emsp;
+        <%= link_to "編集", edit_itinerary_path(@itinerary.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
+        <%= link_to "×削除", itinerary_path(@itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+      <% end %>
+    </h5>
+
+    <h6>
+    <%= link_to user_path(@itinerary.user.id) do %>
+    <% if @itinerary.user.image.attached? %>
+      <%= image_tag @itinerary.user.image, size: "30x30" %>
+    <% else %>
+      <%= image_tag 'no_image.jpg', size: "30x30" %>
+    <% end %>
+    <%= @itinerary.user.user_name %>
+    <% end %>
+    &emsp;
+    <%= @itinerary.created_at.strftime("%Y-%m-%d %H:%M") %></br>
+    </br>
+    <p><%= @itinerary.comment %></p></br>
+    <p>旅行の合計金額&emsp;<%= @total %>円</p>
+    </h6>
+    </br>
+    </br>
+
+    <!--タスク一覧ここから------------>
+    <div class="itinerary_task_<%= @itinerary.id %>">
+      <%= render "public/tasks/tasks", itinerary: @itinerary %>
+    </div>
+    <!--タスク一覧ここまで------------>
+
+  </div>
+</div>

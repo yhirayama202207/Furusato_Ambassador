@@ -1,0 +1,28 @@
+<div class= "row">
+
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'public/articles/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <h5 class= "m-2">持ちもの名編集</h5>
+    </br>
+    <div class= "container">
+      <div class= "row">
+        <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+          <div style="text-align:center;">
+            <%= form_with model: @belonging, url: belonging_path(@belonging.id), method: :patch do |f| %>
+              <%= f.text_field :name, autofocus: true, id:"inputname", placeholder:""%></br>
+              </br>
+              <%= f.submit "保存／Update", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--（右側全体）ここまで------------>
+</div>

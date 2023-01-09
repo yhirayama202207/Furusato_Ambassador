@@ -1,0 +1,2 @@
+module Public::ChecksHelper
+end

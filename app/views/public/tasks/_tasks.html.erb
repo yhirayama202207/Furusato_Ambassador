@@ -1,0 +1,78 @@
+<h5>
+予定一覧／schedule&emsp;
+<% if @user == current_user %>
+  <%= link_to "予定の追加／Add", new_itinerary_task_path(@itinerary.id), class: "btn btn-success" %>&emsp;
+<% end %>
+</h5>
+
+<% 20.times do  %>
+  <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
+  <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+<% end %>
+</br>
+
+<% @itinerary.tasks.order(started_at: "ASC").each do |task| %>
+  <!--@lists = List.joins(:task).includes(:task).where(user: current_user).order("created_at ASC,tasks.time ASC")-->
+  <%= task.started_at.strftime("%Y-%m-%d %H:%M") %>～<%= task.finished_at.strftime("%Y-%m-%d %H:%M") %></br>
+  <%= task.task %>
+  <%= task.spot %>
+  <%= task.address %>
+  <%= task.way %>
+  <%= task.price %>
+  <%= task.memo %>
+  <%= task.rate %>
+  </br>
+
+  <% if task.latitude && task.longitude %>
+           <% flag = true %>
+          <!--Google Maps APIの表示 ここから-->
+          <div id='map'></div>
+
+          <style>
+          #map {
+            height: 300px;
+            width: 400px;
+          }
+          </style>
+
+          <!-- js部分 -->
+          <script>
+          //初期マップの設定
+          let map
+          let marker
+          function initMap(){
+            geocoder = new google.maps.Geocoder()
+
+            map = new google.maps.Map(document.getElementById('map'), {
+              center:  {lat: <%= task.latitude %>, lng: <%= task.longitude %>},
+              zoom: 15,
+            });
+
+             marker = new google.maps.Marker({
+              position:  {lat: <%= task.latitude %>, lng: <%= task.longitude %>},
+              map: map
+            });
+          }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+          <% end %>
+          <!--Google Maps APIの表示 ここまで-->
+
+          <% if task.image.attached? %>
+            <%= image_tag task.image, size: "200x200" %>
+          <% end %>
+
+
+
+  <% if task.user == current_user %>
+    <%= link_to "編集", edit_itinerary_task_path(@itinerary.id, task.id), class: "btn btn-success" %>&emsp;
+    <%= link_to "削除", itinerary_task_path(@itinerary.id, task.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+  <% end %>
+  </br>
+
+  <% 20.times do  %>
+    <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
+    <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+  <% end %>
+  </br>
+  <% end %>

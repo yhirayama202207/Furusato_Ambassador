@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :foot_prints, dependent: :destroy
   has_many :clips, dependent: :destroy
+  has_many :checks, dependent: :destroy
+  has_many :belongings
+  has_many :itineraries
+  has_many :tasks
 
   has_many :active_notifications, class_name: "Notification", foreign_key: "sender_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "receiver_id", dependent: :destroy
