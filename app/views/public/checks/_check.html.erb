@@ -2,7 +2,7 @@
     <!--ユーザーが持ち物確認後、□にチェックを入れてグレーにし、持ち物名に線を引く処理-->
     <label>
       <%= link_to belonging_checks_path(belonging), method: :delete, remote: true do %>
-        <i class="far fa-check-square" style="color: #d3d3d3;"></i>
+        <i class="far fa-check-square" style="color: #000000;"></i>
       <% end %>
       &emsp;<s><%= belonging.name %></s>
     </label>

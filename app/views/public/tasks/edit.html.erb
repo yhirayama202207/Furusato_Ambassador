@@ -69,6 +69,10 @@
             <h5>追加項目（Additional Information）</h5>
             </br>
 
+            <label>評価／rate（0/1/2/3/4/5 ※0だと非表示になります）</label></br>
+            <%= f.text_field :rate %></br>
+            </br>
+
             <label>場所／お店の名前／name of spot</label></br>
             <%= f.text_field :spot %></br>
             </br>
@@ -86,7 +90,7 @@
               <input type="button" value="検索／search" onclick="codeAddress()">
               <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
 
-              下記の住所が記事に表示されます／address</br>
+              下記の住所が旅程表に表示されます／address</br>
               （下記のフォームにて直接入力／編集も可能です）</br>
               <%= f.text_field :address, id: :addr %>
 

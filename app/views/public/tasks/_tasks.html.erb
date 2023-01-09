@@ -1,78 +1,107 @@
 <h5>
-予定一覧／schedule&emsp;
+旅程／Schedule&emsp;
 <% if @user == current_user %>
-  <%= link_to "予定の追加／Add", new_itinerary_task_path(@itinerary.id), class: "btn btn-success" %>&emsp;
+  <%= link_to "予定の追加／Add", new_itinerary_task_path(@itinerary.id), class: "btn btn-warning text-light" %>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  <%= link_to "持ち物リスト／Items to bring", belongings_path %>
 <% end %>
 </h5>
 
-<% 20.times do  %>
-  <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
-  <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+<% 20.times do %>
+  <i class="fas fa-suitcase" style="color: #A83E18;"></i>
+  <i class="fas fa-suitcase" style="color: #75564B;"></i>
 <% end %>
 </br>
 
 <% @itinerary.tasks.order(started_at: "ASC").each do |task| %>
-  <!--@lists = List.joins(:task).includes(:task).where(user: current_user).order("created_at ASC,tasks.time ASC")-->
-  <%= task.started_at.strftime("%Y-%m-%d %H:%M") %>～<%= task.finished_at.strftime("%Y-%m-%d %H:%M") %></br>
-  <%= task.task %>
-  <%= task.spot %>
-  <%= task.address %>
-  <%= task.way %>
-  <%= task.price %>
-  <%= task.memo %>
-  <%= task.rate %>
-  </br>
+  <h5>
+    <i class="far fa-clock"></i>&emsp;<%= task.started_at.strftime("%Y-%m-%d %H:%M") %>&emsp;～&emsp;<%= task.finished_at.strftime("%Y-%m-%d %H:%M") %>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <% if task.user == current_user %>
+    <%= link_to "編集／Edit", edit_itinerary_task_path(@itinerary.id, task.id) %>&emsp;
+    <%= link_to "×削除／Delete", itinerary_task_path(@itinerary.id, task.id), method: :delete, "data-confirm" => "本当に削除しますか？（削除した予定は復元できません）" %>
+  <% end %>
+  </h5>
+  <h4>
+    <%= task.task %>&emsp;
+    <%= task.way %>&emsp;
+    <% if task.rate == 0 %>
+      <label></label>
+      <!--評価1の場合-->
+      <% elsif task.rate == 1 %>
+        <!--黄色い星アイコン1つ-->
+        <i class="fas fa-star" style="color: #cc9933;"></i>
+        <!--グレーの星アイコン4つ-->
+        <% 4.times do %>
+          <i class="far fa-star" style="color: #d3d3d3;"></i>
+        <% end %>
+      <!--評価2の場合-->
+      <% elsif task.rate == 2 %>
+        <!--黄色い星アイコン2つ-->
+        <% 2.times do %>
+          <i class="fas fa-star" style="color: #cc9933;"></i>
+        <% end %>
+        <!--グレーの星アイコン3つ-->
+        <% 3.times do %>
+        <i class="far fa-star" style="color: #d3d3d3;"></i>
+        <% end %>
+      <!--評価3の場合-->
+      <% elsif task.rate == 3 %>
+        <!--黄色い星アイコン3つ-->
+        <% 3.times do %>
+          <i class="fas fa-star" style="color: #cc9933;"></i>
+        <% end %>
+        <!--グレーの星アイコン2つ-->
+        <% 2.times do %>
+          <i class="far fa-star" style="color: #d3d3d3;"></i>
+        <% end %>
+      <!--評価4の場合-->
+      <% elsif task.rate == 4 %>
+        <!--黄色い星アイコン4つ-->
+        <% 4.times do %>
+        <i class="fas fa-star" style="color: #cc9933;"></i>
+        <% end %>
+        <!--グレーの星アイコン1つ-->
+        <i class="far fa-star" style="color: #d3d3d3;"></i>
+      <!--評価5の場合-->
+      <% elsif task.rate == 5 %>
+        <!--黄色い星アイコン5つ-->
+        <% 5.times do %>
+          <i class="fas fa-star" style="color: #cc9933;"></i>
+        <% end %>
+    <% end %>
+  </h4>
+  <% if task.spot.present? %>
+    <% flag = true %>
+    <%= task.spot %><br>
+  <% end %>
+  <% if task.address.present? %>
+    <% flag = true %>
+    <%= task.address %><br>
+  <% end %>
 
-  <% if task.latitude && task.longitude %>
-           <% flag = true %>
-          <!--Google Maps APIの表示 ここから-->
-          <div id='map'></div>
-
-          <style>
-          #map {
-            height: 300px;
-            width: 400px;
-          }
-          </style>
-
-          <!-- js部分 -->
-          <script>
-          //初期マップの設定
-          let map
-          let marker
-          function initMap(){
-            geocoder = new google.maps.Geocoder()
-
-            map = new google.maps.Map(document.getElementById('map'), {
-              center:  {lat: <%= task.latitude %>, lng: <%= task.longitude %>},
-              zoom: 15,
-            });
-
-             marker = new google.maps.Marker({
-              position:  {lat: <%= task.latitude %>, lng: <%= task.longitude %>},
-              map: map
-            });
-          }
-          </script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
-          <% end %>
-          <!--Google Maps APIの表示 ここまで-->
-
-          <% if task.image.attached? %>
-            <%= image_tag task.image, size: "200x200" %>
-          <% end %>
-
-
-
-  <% if task.user == current_user %>
-    <%= link_to "編集", edit_itinerary_task_path(@itinerary.id, task.id), class: "btn btn-success" %>&emsp;
-    <%= link_to "削除", itinerary_task_path(@itinerary.id, task.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）" %>
+  <% if task.longitude && task.latitude.present? %>
+    <% flag = true %>
+    <%= link_to itinerary_task_path(@itinerary.id, task.id) , "data-turbolinks": false do %>
+      地図／MAP
+    <% end %>
+    <br>
   <% end %>
   </br>
+  予算：￥<%= task.price %></br>
+  <% if task.memo.present? %>
+    <% flag = true %>
+    メモ：<%= task.memo %><br>
+  <% end %>
+  <% if task.image.attached? %>
+    </br>
+    <%= image_tag task.image, size: "200x200" %>
+    </br>
+  <% end %>
 
-  <% 20.times do  %>
-    <i class="fas fa-apple-alt" style="color: #ff3545;"></i>
-    <i class="fas fa-apple-alt" style="color: #2ADBB6;"></i>
+  <% 20.times do %>
+    <i class="fas fa-suitcase" style="color: #A83E18;"></i>
+    <i class="fas fa-suitcase" style="color: #75564B;"></i>
   <% end %>
   </br>
   <% end %>

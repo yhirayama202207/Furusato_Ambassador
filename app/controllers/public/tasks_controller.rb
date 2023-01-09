@@ -22,6 +22,12 @@ class Public::TasksController < ApplicationController
     end
   end
 
+  def show
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @task = Task.find(params[:id])
+  end
+
   def edit
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all

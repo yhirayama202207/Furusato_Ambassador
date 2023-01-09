@@ -38,16 +38,20 @@
           <!--</br>-->
 
           <label>ひとこと／comment</label></br>
-            <%= f.text_area :body, placeholder: "ひとこと" %></br>
+            <%= f.text_area :comment, placeholder: "ひとこと" %></br>
           </br>
 
           <label>画像／image</label></br>
             <%= f.file_field :image, accept: "image/*" %></br>
           </br>
 
+          <label>（旅行後）</br>
+          評価／rate（0/1/2/3/4/5 ※0だと非表示になります）</label></br>
+            <%= f.text_field :rate %></br>
+          </br>
+
           <%= f.hidden_field :is_active, :value => false %>
           <%= f.hidden_field :total_payment, :value => 0 %>
-          <%= f.hidden_field :rate, :value => 0 %>
 
           <!--投稿するボタン ここから------------>
           </br>

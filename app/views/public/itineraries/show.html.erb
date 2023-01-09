@@ -10,28 +10,81 @@
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
     </br>
 
-    <!--記事内容ここから------------>
-    <h5 class= "mt-2">
+    <!--内容ここから------------>
+    <h4 class= "mt-2">
       <% if @itinerary.image.attached? %>
-          <%= image_tag @itinerary.image, size: "30x30" %>
-        <% else %>
-          <%= image_tag 'default-image.jpg', size: "30x30" %>
+        <%= image_tag @itinerary.image, size: "40x40" %>
+      <% else %>
+        <%= image_tag 'default-image.jpg', size: "40x40" %>
+      <% end %>
+
+      <%= @itinerary.title %>（<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+
+      <% if @itinerary.rate == 0 %>
+      <label></label>
+
+      <!--評価1の場合-->
+      <% elsif @itinerary.rate == 1 %>
+        <!--黄色い星アイコン1つ-->
+        <i class="fas fa-star" style="color: #FFE14E;"></i>
+        <!--グレーの星アイコン4つ-->
+        <% 4.times do %>
+          <i class="far fa-star" style="color: #d3d3d3;"></i>
         <% end %>
-      <%= @itinerary.title %></br>
-      （<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+
+      <!--評価2の場合-->
+      <% elsif @itinerary.rate == 2 %>
+        <!--黄色い星アイコン2つ-->
+        <% 2.times do %>
+          <i class="fas fa-star" style="color: #FFE14E;"></i>
+        <% end %>
+        <!--グレーの星アイコン3つ-->
+        <% 3.times do %>
+          <i class="far fa-star" style="color: #d3d3d3;"></i>
+        <% end %>
+
+      <!--評価3の場合-->
+      <% elsif @itinerary.rate == 3 %>
+        <!--黄色い星アイコン3つ-->
+        <% 3.times do %>
+          <i class="fas fa-star" style="color: #FFE14E;"></i>
+        <% end %>
+        <!--グレーの星アイコン2つ-->
+        <% 2.times do %>
+          <i class="far fa-star" style="color: #d3d3d3;"></i>
+        <% end %>
+
+      <!--評価4の場合-->
+      <% elsif @itinerary.rate == 4 %>
+        <!--黄色い星アイコン4つ-->
+        <% 4.times do %>
+          <i class="fas fa-star" style="color: #FFE14E;"></i>
+        <% end %>
+        <!--グレーの星アイコン1つ-->
+        <i class="far fa-star" style="color: #d3d3d3;"></i>
+
+      <!--評価5の場合-->
+      <% elsif @itinerary.rate == 5 %>
+        <!--黄色い星アイコン5つ-->
+        <% 5.times do %>
+          <i class="fas fa-star" style="color: #FFE14E;"></i>
+        <% end %>
+      <% end %>
       &emsp;
       <% if @itinerary.user == current_user %>
-        <% if @itinerary.is_active %>
-          <label class="text-success">公開中</label>
-        <% else %>
-          <label class="text-secondary">非公開</label>
-        <% end %>&emsp;
+        <!--<%# if @itinerary.is_active %>-->
+        <!--  <label class="text-success">公開中</label>-->
+        <!--<%# else %>-->
+        <!--  <label class="text-secondary">非公開</label>-->
+        <!--<%# end %>-->
+        <!--&emsp;-->
         <%= link_to "編集", edit_itinerary_path(@itinerary.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
-        <%= link_to "×削除", itinerary_path(@itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+        <%= link_to "×削除", itinerary_path(@itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
       <% end %>
-    </h5>
+    </h4>
 
     <h6>
+      作成者：
     <%= link_to user_path(@itinerary.user.id) do %>
     <% if @itinerary.user.image.attached? %>
       <%= image_tag @itinerary.user.image, size: "30x30" %>
@@ -41,12 +94,12 @@
     <%= @itinerary.user.user_name %>
     <% end %>
     &emsp;
-    <%= @itinerary.created_at.strftime("%Y-%m-%d %H:%M") %></br>
+    作成日：<%= @itinerary.created_at.strftime("%Y-%m-%d") %>&emsp;&emsp;
+    旅の見積もり額：<%= @total %>円</br>
     </br>
-    <p><%= @itinerary.comment %></p></br>
-    <p>旅行の合計金額&emsp;<%= @total %>円</p>
+    <%= @itinerary.comment %></br>
+    </br>
     </h6>
-    </br>
     </br>
 
     <!--タスク一覧ここから------------>
