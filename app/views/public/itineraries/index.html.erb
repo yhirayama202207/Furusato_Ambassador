@@ -16,6 +16,18 @@
     <div class= "row">
       <% @itineraries.each do |itinerary| %>
       <div class= "col-3 mb-3">
+        <%# 記事を書いたユーザーの画像 %>
+        <%= link_to user_path(itinerary.user.id) do %>
+          <% if itinerary.user.image.attached? %>
+            <%= image_tag itinerary.user.image, size: "20x20" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "20x20" %>
+          <% end %>
+          <%# 記事を書いたユーザーの名前 %>
+          <%= itinerary.user.user_name %>
+        <% end %>
+        </br>
+
         <%= link_to itinerary_path(itinerary.id) do %>
           <% if itinerary.image.attached? %>
             <%= image_tag itinerary.image, size: "200x200" %>
