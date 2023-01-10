@@ -31,6 +31,8 @@
           <%= itinerary.title %>
         <% end %>
         </br>
+        <%=  itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>
+        </br>
 
         <!--評価★の表示 ここから------------>
 
