@@ -20,47 +20,78 @@
       </ul>
     <% end %>
 
-    <!--入力部分ここから------------>
+    <!--（入力部分全体）ここから------------>
     <div class= "row">
-      <div class= "col-12">
+      <div class= "col-1">
+      </div>
+      <div class= "col-10">
         <%= form_with model: @itinerary, url: itinerary_path, method: :patch do |f| %>
 
-          <label>タイトル（必須）／title（required）</label></br>
-            <%= f.text_field :title, placeholder: "タイトル" %></br>
-            </br>
+          <!--基本項目＆追加項目の大枠 ここから------------>
+          <div class= "row">
 
-          <!--<label class="control-label" for="">開始日時</label>-->
-          <!--  <%#= f.datetime_select :started_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>-->
-          <!--  </br>-->
+            <!--基本項目（左側）ここから------------>
+            <div class= "col-6">
 
-          <!--<label class="control-label" for="">終了日時</label>-->
-          <!--<%#= f.datetime_select :finished_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>-->
-          <!--</br>-->
+              <h5>基本項目（Basic Infomation）</h5>
+              </br>
 
-          <label>ひとこと／comment</label></br>
-            <%= f.text_area :comment, placeholder: "ひとこと" %></br>
-          </br>
+              <label>タイトル（必須）／title（required）</label></br>
+              <%= f.text_field :title, placeholder: "タイトル" %></br>
+              </br>
 
-          <label>画像／image</label></br>
-            <%= f.file_field :image, accept: "image/*" %></br>
-          </br>
+              <label>ひとこと／comment</label></br>
+                <%= f.text_area :comment, placeholder: "ひとこと" %></br>
+              </br>
 
-          <label>（旅行後）</br>
-          評価／rate（0/1/2/3/4/5 ※0だと非表示になります）</label></br>
-            <%= f.text_field :rate %></br>
-          </br>
+              <label>画像／image</label></br>
+                <%= f.file_field :image, accept: "image/*" %></br>
+              </br>
 
-          <%= f.hidden_field :is_active, :value => false %>
-          <%= f.hidden_field :total_payment, :value => 0 %>
+            </div>
+            <!--基本項目（左側）ここまで------------>
 
-          <!--投稿するボタン ここから------------>
-          </br>
-          <%= f.submit "変更／Update", class: "btn btn-success" %>
+            <!--追加項目（右側）ここから------------>
+            <div class= "col-6">
+
+              <h5>旅行後の追加項目（Additional Information）</h5>
+              </br>
+              <label>評価（必須 0/1/2/3/4/5 ※0だと非表示になります）</label></br>
+              <label>rate（required 0/1/2/3/4/5 ※0 doesn't show your rate）</label></br>
+              <%= f.text_field :rate %></br>
+              </br>
+
+              <label>旅程表を公開しますか？／public or private</label></br>
+              <label>（※公開するとすべてのユーザーからの閲覧が可能となります。犯罪被害防止のため、旅程表は必ず旅行終了後に公開ください。）</label></br>
+              <label>（※To protect you from crimes, show your itinerary to public after the trip. ）</label>
+              <%= f.radio_button :is_active, :true %>
+              <%= f.label :is_active, "公開／Public", {value: :true, checked: true, style: "display: inline-block;"} %>
+              &emsp;
+              <%= f.radio_button :is_active, :false %>
+              <%= f.label :is_active, "非公開／Private", {value: :false, style: "display: inline-block;"} %></br>
+
+              <%= f.hidden_field :total_payment, :value => 0 %>
+
+            </div>
+            <!--追加項目（右側）ここまで------------>
+
+          </div>
+          <!--基本項目＆追加項目の大枠 ここまで------------>
+
+            <!--投稿するボタン ここから------------>
+            <!--<div class= "row">-->
+            <!--  <div class= "col-10">-->
+                </br>
+                <div style="text-align:center;">
+                  <%= f.submit "変更／Update", class: "btn btn-success" %>
+                </div>
+            <!--  </div>-->
+            <!--</div>-->
+            <!--投稿するボタン ここまで------------>
         <% end %>
-        <!--投稿するボタン ここまで------------>
-
       </div>
-      <!--入力部分ここまで------------>
+    </div>
+    <!--入力部分ここまで------------>
 
   </div>
   <!--（右側全体）ここまで------------>

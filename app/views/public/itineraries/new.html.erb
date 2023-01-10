@@ -7,8 +7,10 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">新しい旅のしおり（旅日記）を作る／Create an itinerary</h5>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %></br>
+    <label>※過去のしおり（旅日記）は<%= link_to "こちら／History", user_itineraries_path(current_user.id) %></label></br>
+    </br>
+    <h5>新しい旅のしおり（旅日記）を作る／Create an itinerary</h5>
     </br>
 
     <% if @itinerary.errors.any? %>

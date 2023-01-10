@@ -72,12 +72,6 @@
       <% end %>
       &emsp;
       <% if @itinerary.user == current_user %>
-        <!--<%# if @itinerary.is_active %>-->
-        <!--  <label class="text-success">公開中</label>-->
-        <!--<%# else %>-->
-        <!--  <label class="text-secondary">非公開</label>-->
-        <!--<%# end %>-->
-        <!--&emsp;-->
         <%= link_to "編集", edit_itinerary_path(@itinerary.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
         <%= link_to "×削除", itinerary_path(@itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
       <% end %>
@@ -95,7 +89,19 @@
     <% end %>
     &emsp;
     作成日：<%= @itinerary.created_at.strftime("%Y-%m-%d") %>&emsp;&emsp;
-    旅の総額：<%= @total %>円</br>
+    旅の総額：<%= @total %>円&emsp;&emsp;
+
+    <% if @itinerary.user == current_user %>
+      <% if @itinerary.is_active %>
+        公開ステータス：
+        <label class="text-success">公開中</label>
+      <% else %>
+        公開ステータス：
+        <label class="text-secondary">非公開</label>
+      <% end %>
+    <% end %>
+    &emsp;
+    </br>
     </br>
     <%= @itinerary.comment %></br>
     </br>
