@@ -59,7 +59,7 @@ class Public::ItinerariesController < ApplicationController
 
   def index
     @user = current_user
-    @itineraries = @user.itineraries.all.order(created_at: :desc)
+    @itineraries = Itinerary.where(is_active: true).order(created_at: :desc)
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
   end

@@ -71,7 +71,7 @@
         <% if @user.image.attached? %>
           <%= image_tag @user.image, size: "20x20" %>
         <% else %>
-          <%= image_tag 'no_image.jpg', size: "20x20" %>
+          <%= image_tag 'default-image.jpg', size: "20x20" %>
         <% end %>
         <%= link_to user_articles_path(@user.id) do %>
           <%= @user.user_name %>さんの記事（全<%= @user_articles.count %>件）をすべて見る
@@ -91,7 +91,7 @@
               <% if article.image.attached? %>
                 <%= image_tag article.image, size: "200x200" %>
               <% else %>
-                <%= image_tag 'no_image.jpg', size: "200x200" %>
+                <%= image_tag 'default-image.jpg', size: "200x200" %>
               <% end %>
               <%= article.title %>
             <% end %>
@@ -145,7 +145,7 @@
           <% if article.image.attached? %>
             <%= image_tag article.image, size: "200x200" %>
           <% else %>
-            <%= image_tag 'no_image.jpg', size: "200x200" %>
+            <%= image_tag 'default-image.jpg', size: "200x200" %>
           <% end %>
           <!--記事タイトル（いいねした記事）-->
           <%= article.title %>
@@ -200,7 +200,7 @@
           <% if article.image.attached? %>
             <%= image_tag article.image, size: "200x200" %>
           <% else %>
-            <%= image_tag 'no_image.jpg', size: "200x200" %>
+            <%= image_tag 'default-image.jpg', size: "200x200" %>
           <% end %>
           <!--記事タイトル（行った！した記事）-->
           <%= article.title %>
@@ -255,7 +255,7 @@
           <% if article.image.attached? %>
             <%= image_tag article.image, size: "200x200" %>
           <% else %>
-            <%= image_tag 'no_image.jpg', size: "200x200" %>
+            <%= image_tag 'default-image.jpg', size: "200x200" %>
           <% end %>
           <!--記事タイトル（クリップした記事）-->
           <%= article.title %>

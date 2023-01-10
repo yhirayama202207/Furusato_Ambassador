@@ -16,7 +16,7 @@
         <i class="fas fa-suitcase" style="color: #A82835;"></i>
         旅を計画する
       </h5>
-      <span>Plan trips</span>
+      <span>Plan a trip</span>
     <% end %>
 
 
@@ -35,6 +35,16 @@
     </br>
   <% end %>
 
+  </div>
+
+  <div style="text-align:center;">
+    <%= link_to itineraries_path, class: 'nav-link text-dark', "data-turbolinks": false do  %>
+      <h5>
+        みんなの旅
+        <i class="fas fa-plane" style="color: #8ECCF5;"></i>
+      </h5>
+      <span>Refer travels</span>
+    <% end %>
   </div>
 
   <table class="table table-hover table-bordered table-inverse">
