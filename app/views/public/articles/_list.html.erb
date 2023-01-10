@@ -1,7 +1,6 @@
 <!--「投稿する＋エリア・都道府県から記事を検索する」の部分テンプレート-->
 
-<div class= "col-2">
-</br>
+<div class= "col-2 mt-3">
 
   <div style="text-align:center;">
   <% if user_signed_in? %>
@@ -9,6 +8,7 @@
       <h5>
         投稿する<i class="fas fa-edit" style="color: #cc9933;"></i>
       </h5>
+      <span>Post</span>
     <% end %>
 
     <%= link_to new_itinerary_path, class: 'nav-link text-dark', "data-turbolinks": false do  %>
@@ -16,6 +16,7 @@
         <i class="fas fa-suitcase" style="color: #A82835;"></i>
         旅を計画する
       </h5>
+      <span>Plan trips</span>
     <% end %>
 
 

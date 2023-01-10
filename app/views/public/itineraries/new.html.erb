@@ -8,9 +8,22 @@
   <div class= "col-10">
     </br>
     <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %></br>
-    <label>※過去のしおり（旅日記）は<%= link_to "こちら／History", user_itineraries_path(current_user.id) %></label></br>
     </br>
-    <h5>新しい旅のしおり（旅日記）を作る／Create an itinerary</h5>
+
+    <%= link_to user_itineraries_path(current_user.id) do %>
+      <i class="fas fa-clipboard-list" style="color: #2ADBB6;"></i>
+      作成済みのしおり（旅日記）／History
+    <% end %>
+    &emsp;&emsp;
+    <%= link_to belongings_path do  %>
+      <i class="fas fa-suitcase" style="color: #A82835;"></i>
+      旅の準備（持ち物リスト）／Item list for traveling
+    <% end %>
+    </br>
+    </br>
+
+    <h5>新しい旅のしおり（旅日記）を作る／Create new itinerary</h5>
+    <p>旅行終了後は評価やコメントを入れて旅日記としてもご利用いただけます。</p>
     </br>
 
     <% if @itinerary.errors.any? %>
@@ -58,7 +71,8 @@
         <!--投稿するボタン ここまで------------>
 
       </div>
-      <!--入力部分ここまで------------>
+    </div>
+    <!--入力部分ここまで------------>
 
   </div>
   <!--（右側全体）ここまで------------>

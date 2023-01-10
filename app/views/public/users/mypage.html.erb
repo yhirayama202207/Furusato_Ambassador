@@ -24,7 +24,7 @@
       <label class="text-small mb-3"><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー&emsp;<%=link_to @user.followers.count, followers_user_path(@user) %>フォロワー</label>
       &emsp;&emsp;
       <!--旅日記／旅の計画へのリンク ここから----------------------------------------------------->
-      <%= link_to "旅日記／旅計画履歴", user_itineraries_path(@user.id), class: "btn btn-info" %>
+      <%= link_to "旅程表／旅日記履歴", user_itineraries_path(@user.id), class: "btn btn-info" %>
       <!--旅日記／旅の計画へのリンク ここまで----------------------------------------------------->
       <% if @user.user_name != "ゲスト" %>
         <%= link_to "編集", edit_user_path(current_user), class: "btn btn-success" %>
