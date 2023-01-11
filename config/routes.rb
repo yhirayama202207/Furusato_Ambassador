@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
     get "/articles/tags/:id" => "articles#tag_index", as: "articles_tag_index"
-    get "/tasks" => "tasks#tasks", as: "tasks"
+    get "/tasks" => "tasks#index", as: "tasks"
     delete "comments/:id" => "comments#destroy", as: "comment_destroy"
     delete "tasks/:id" => "tasks#destroy", as: "task_destroy"
     resources :japan_areas, only: [:index, :create, :edit, :update, :destroy]
