@@ -22,7 +22,7 @@
 
         <% @tasks.order(created_at: "DESC").each do |task| %>
 
-          作成者：
+          作成者&emsp;&emsp;：
           <%= link_to admin_user_path(task.user.id) do %>
             <% if task.user.image.attached? %>
               <%= image_tag task.user.image, size: "30x30" %>
@@ -33,7 +33,10 @@
           <% end %>
           &emsp;
           作成日：<%= task.created_at.strftime("%Y-%m-%d") %>
-          &emsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <%= link_to "×削除", admin_task_destroy_path(task.itinerary_id, task.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した予定は復元できません）" %>
+          </br>
+
           旅のしおり：
           <%= link_to admin_itinerary_path(task.itinerary_id) do %>
             <%= task.itinerary.title %>
@@ -45,10 +48,6 @@
             <% end %>
             ）
           <% end %>
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <%= link_to "×削除", admin_task_destroy_path(task.itinerary_id, task.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した予定は復元できません）" %>
-          </br>
-
 
           <h5>
             <i class="far fa-clock"></i>&emsp;<%= task.started_at.strftime("%Y-%m-%d %H:%M") %>&emsp;～&emsp;<%= task.finished_at.strftime("%Y-%m-%d %H:%M") %>
