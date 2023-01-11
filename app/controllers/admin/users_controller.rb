@@ -13,6 +13,7 @@ class Admin::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     @user_articles = @user.articles.all
+    @user_itineraries = @user.itineraries.all
   end
 
   def edit
