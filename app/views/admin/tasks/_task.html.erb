@@ -9,7 +9,7 @@
 <% @itinerary.tasks.order(started_at: "ASC").each do |task| %>
   <h5>
     <i class="far fa-clock"></i>&emsp;<%= task.started_at.strftime("%Y-%m-%d %H:%M") %>&emsp;～&emsp;<%= task.finished_at.strftime("%Y-%m-%d %H:%M") %>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     <%= link_to "×削除／Delete", admin_itinerary_task_path(@itinerary.id, task.id), method: :delete, "data-confirm" => "本当に削除しますか？（削除した予定は復元できません）" %>
   </h5>
   <h4>
