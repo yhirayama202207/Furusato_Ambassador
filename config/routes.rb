@@ -20,10 +20,13 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/" => "homes#top"
     get "/admin/users/:id/user_articles" => "users#user_articles", as: "user_articles"
+    get "/admin/users/:id/user_itineraries" => "users#user_itineraries", as: "user_itineraries"
     get "articles/prefectures/:id" => "articles#prefecture_index", as: "articles_prefecture_index"
     get "articles/areas/:id" => "articles#area_index", as: "articles_area_index"
     get "/articles/tags/:id" => "articles#tag_index", as: "articles_tag_index"
+    get "/tasks" => "tasks#tasks", as: "tasks"
     delete "comments/:id" => "comments#destroy", as: "comment_destroy"
+    delete "tasks/:id" => "tasks#destroy", as: "task_destroy"
     resources :japan_areas, only: [:index, :create, :edit, :update, :destroy]
     resources :japan_prefectures, only: [:index, :create, :edit, :update, :destroy]
     resources :users, only: [:show, :edit, :update, :index] do
@@ -38,7 +41,7 @@ Rails.application.routes.draw do
     end
     resources :comments, only: [:index, :destroy]
     resources :itineraries, only: [:index, :show, :update, :destroy] do
-      resources :task, only: [:index, :show, :destroy]
+      resources :task, only: [:show, :destroy]
     end
   end
 
