@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
     resources :comments, only: [:index, :destroy]
     resources :itineraries, only: [:index, :show, :update, :destroy] do
-      resources :task, only: [:show, :destroy]
+      resources :tasks, only: [:show, :destroy]
     end
   end
 

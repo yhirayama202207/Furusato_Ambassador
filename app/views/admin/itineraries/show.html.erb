@@ -18,7 +18,12 @@
         <%= image_tag 'default-image.jpg', size: "40x40" %>
       <% end %>
 
-      <%= @itinerary.title %>（<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+      <%= @itinerary.title %>
+      <% if @itinerary.tasks.present? %>
+        （<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+      <% else %>
+        （&emsp;～&emsp;）
+      <% end %>
 
       <% if @itinerary.rate == 0 %>
       <label></label>
@@ -82,7 +87,7 @@
 
     <h6>
       作成者：
-    <%= link_to user_path(@itinerary.user.id) do %>
+    <%= link_to admin_user_path(@itinerary.user.id) do %>
     <% if @itinerary.user.image.attached? %>
       <%= image_tag @itinerary.user.image, size: "30x30" %>
     <% else %>
@@ -113,8 +118,8 @@
     </br>
 
     <!--タスク一覧ここから------------>
-    <div class="itinerary_task_<%= @itinerary.id %>">
-      <%= render "public/tasks/tasks", itinerary: @itinerary %>
+    <div class="admin_itinerary_task_<%= @itinerary.id %>">
+      <%= render "admin/tasks/task", itinerary: @itinerary %>
     </div>
     <!--タスク一覧ここまで------------>
 

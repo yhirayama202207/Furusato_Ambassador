@@ -1,0 +1,58 @@
+<div class= "row">
+
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここから------------>
+  <%= render 'admin/homes/list', japan_prefectures: @japan_prefectures, japan_areas: @japan_areas %>
+  <!--「管理メニュー＋エリア・都道府県から記事を検索する」の部分テンプレート（左側 col-2）ここまで------------>
+
+  <!--（右側全体）ここから------------>
+  <div class= "col-10">
+    </br>
+    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    </br>
+
+    <!--内容ここから------------>
+    <h5 class= "mt-2">地図</h5>
+
+    <% if @task.latitude && @task.longitude %>
+      <% flag = true %>
+      <!--Google Maps APIの表示 ここから-->
+      <div id='map'></div>
+
+      <style>
+      #map {
+        height: 600px;
+        width: 800px;
+      }
+      </style>
+
+      <!-- js部分 -->
+      <script>
+      //初期マップの設定
+      let map
+      let marker
+      function initMap(){
+        geocoder = new google.maps.Geocoder()
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center:  {lat: <%= @task.latitude %>, lng: <%= @task.longitude %>},
+          zoom: 15,
+        });
+
+         marker = new google.maps.Marker({
+          position:  {lat: <%= @task.latitude %>, lng: <%= @task.longitude %>},
+          map: map
+        });
+      }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+    <!--Google Maps APIの表示 ここまで-->
+
+    <% else %>
+      <label>この旅程には地図の登録がありません。</label>
+    <% end %>
+    <!--内容ここまで------------>
+
+  </div>
+  <!--（右側全体）ここまで------------>
+
+</div>

@@ -18,7 +18,7 @@ class Admin::ItinerariesController < ApplicationController
   end
 
   def update
-    @itinerary = itinerary.find(params[:id])
+    @itinerary = Itinerary.find(params[:id])
     if @itinerary.update(itinerary_params)
       flash[:notice] = "旅のしおりの編集が完了しました"
       redirect_to admin_itinerary_path(@itinerary.id)
