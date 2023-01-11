@@ -44,7 +44,7 @@
         <!--評価★の表示 ここから------------>
 
         <% if itinerary.rate == 0 %>
-        <label></label>
+        <label>評価はまだありません</label>
 
         <!--評価1の場合-->
         <% elsif itinerary.rate == 1 %>
@@ -97,15 +97,6 @@
         <!--評価★の表示ここまで ------------>
         </br>
 
-        <% if itinerary.user_id == current_user.id %>
-          <% if itinerary.is_active %>
-            <label class="text-success">公開中</label>
-          <% else %>
-            <label class="text-secondary">非公開</label>
-          <% end %>&emsp;
-          <%= link_to "編集", edit_itinerary_path(itinerary.id), class: "btn btn-success" %>
-          <%= link_to "削除", itinerary_path(itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
-        <% end %>
       </div>
       <% end %>
     </div>

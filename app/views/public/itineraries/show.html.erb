@@ -18,7 +18,12 @@
         <%= image_tag 'default-image.jpg', size: "40x40" %>
       <% end %>
 
-      <%= @itinerary.title %>（<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+      <%= @itinerary.title %>
+      <% if @itinerary.tasks.present? %>
+        （<%=  @itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= @itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>）
+      <% else %>
+        （&emsp;～&emsp;）
+      <% end %>
 
       <% if @itinerary.rate == 0 %>
       <label></label>
