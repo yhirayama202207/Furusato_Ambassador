@@ -42,6 +42,13 @@ class Admin::UsersController < ApplicationController
     @user_articles = @user.articles.all
   end
 
+  def user_itineraries
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
+    @user = User.find(params[:id])
+    @user_itineraries = @user.itineraries.all
+  end
+
   #投稿データのストロングパラメータ
   private
 

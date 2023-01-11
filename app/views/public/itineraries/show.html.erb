@@ -89,15 +89,15 @@
     <% end %>
     &emsp;
     作成日：<%= @itinerary.created_at.strftime("%Y-%m-%d") %>&emsp;&emsp;
-    旅の総額：<%= @total %>円&emsp;&emsp;
+    旅の総額／Total budget：￥<%= @total %>&emsp;&emsp;
 
     <% if @itinerary.user == current_user %>
       <% if @itinerary.is_active %>
         公開ステータス：
-        <label class="text-success">公開中</label>
+        <label class="text-success">公開中（Public）</label>
       <% else %>
         公開ステータス：
-        <label class="text-secondary">非公開</label>
+        <label class="text-secondary">非公開（Private）</label>
       <% end %>
     <% end %>
     &emsp;

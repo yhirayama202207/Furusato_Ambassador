@@ -93,10 +93,10 @@
     <br>
   <% end %>
   </br>
-  予算：￥<%= task.price %></br>
+  予算（Budget）：￥<%= task.price %></br>
   <% if task.memo.present? %>
     <% flag = true %>
-    メモ：<%= task.memo %><br>
+    メモ（Memo） ：<%= task.memo %><br>
   <% end %>
   <% if task.image.attached? %>
     </br>
