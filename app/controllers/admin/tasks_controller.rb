@@ -15,7 +15,7 @@ class Admin::TasksController < ApplicationController
   end
 
   def destroy
-    @itinerary = Itinerary.find(params[:itinerary_id])
+    #@itinerary = Itinerary.find(params[:itinerary_id])
     @task = Task.find(params[:id])
     if @task.destroy
       redirect_to admin_itinerary_path(@task.itinerary.id)

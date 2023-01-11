@@ -34,7 +34,7 @@
           &emsp;
           作成日：<%= task.created_at.strftime("%Y-%m-%d") %>
           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <%= link_to "×削除", admin_task_destroy_path(task.itinerary_id, task.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した予定は復元できません）" %>
+          <%= link_to "×削除", admin_task_destroy_path(task.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した予定は復元できません）" %>
           </br>
 
           旅のしおり：
