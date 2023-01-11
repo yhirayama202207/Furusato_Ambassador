@@ -37,6 +37,9 @@ Rails.application.routes.draw do
       end
     end
     resources :comments, only: [:index, :destroy]
+    resources :itineraries, only: [:index, :show, :update, :destroy] do
+      resources :task, only: [:index, :show, :destroy]
+    end
   end
 
   scope module: :public do
