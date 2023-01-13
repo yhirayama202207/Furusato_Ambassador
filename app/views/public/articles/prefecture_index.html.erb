@@ -7,8 +7,8 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
   </br>
-  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  <h5 class= "m-2"><%= @japan_prefecture.name %>の記事（全<%= @japan_prefecture.articles.where(is_active: true).count %>件）</h5>
+  <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
+  <h5 class= "m-2"><%= @japan_prefecture.name %>の記事（全<%= @japan_prefecture.articles.where(is_active: true).count %>件）／Articles of <%= @japan_prefecture.name_english %> Prefecture</h5>
 
     <div class= "row">
     <% @articles.each do |article| %>

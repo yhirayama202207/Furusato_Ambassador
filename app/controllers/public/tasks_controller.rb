@@ -6,11 +6,9 @@ class Public::TasksController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
   end
 
-  def index
-    @tasks = Task.all
-  end
-
   def create
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @itinerary = Itinerary.find(params[:itinerary_id])
     @task = Task.new(task_params)
     @task.user_id = current_user.id
@@ -18,7 +16,7 @@ class Public::TasksController < ApplicationController
     if @task.save
       redirect_to itinerary_path(@task.itinerary.id)
     else
-      redirect_to itinerary_path(@task.itinerary.id)
+      render :new
     end
   end
 
@@ -39,9 +37,10 @@ class Public::TasksController < ApplicationController
   end
 
   def update
+    @japan_areas = JapanArea.all
+    @japan_prefectures = JapanPrefecture.all
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:notice] = "タスクの編集が完了しました"
       redirect_to itinerary_path(@task.itinerary.id)
     else
       render :edit

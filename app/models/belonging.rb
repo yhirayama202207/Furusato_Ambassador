@@ -8,4 +8,5 @@ class Belonging < ApplicationRecord
     end
     return false
   end
+
 end

@@ -49,7 +49,6 @@ class Public::ArticlesController < ApplicationController
     @tag_list = params[:article][:tag_ids].split("、")
     if @article.update(article_params)
       @article.save_tag(@tag_list)
-      flash[:notice] = "記事の編集が完了しました"
       redirect_to article_path(@article.id)
     else
       render :edit

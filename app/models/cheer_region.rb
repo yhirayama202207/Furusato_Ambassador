@@ -1,2 +1,0 @@
-class CheerRegion < ApplicationRecord
-end

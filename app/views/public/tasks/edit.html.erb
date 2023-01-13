@@ -7,8 +7,8 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
   </br>
-  <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  <h5 class= "m-2">タスク編集</h5>
+  <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
+  <h5 class= "m-2">スケジュール編集／Edit schedule</h5>
   </br>
 
   <% if @task.errors.any? %>
@@ -69,7 +69,8 @@
             <h5>追加項目（Additional Information）</h5>
             </br>
 
-            <label>評価／rate（0/1/2/3/4/5 ※0だと非表示になります）</label></br>
+            <label>評価（必須 0/1/2/3/4/5 ※0だと非表示になります）</label></br>
+            <label>rate（required 0/1/2/3/4/5 ※0 doesn't show your rate）</label></br>
             <%= f.text_field :rate %></br>
             </br>
 
@@ -78,7 +79,7 @@
             </br>
 
             <label>メモ／memo</label></br>
-            <%= f.text_area :memo, placeholder: "ここにメモを記述します" %></br>
+            <%= f.text_area :memo, placeholder: "メモや旅行後の日記としてご利用ください。" %></br>
             </br>
 
             <label>地図を追加する／add map</label></br>

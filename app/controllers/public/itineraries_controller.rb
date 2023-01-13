@@ -44,7 +44,6 @@ class Public::ItinerariesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @itinerary = Itinerary.find(params[:id])
     if @itinerary.update(itinerary_params)
-      flash[:notice] = "旅のしおりの編集が完了しました"
       redirect_to itinerary_path(@itinerary.id)
     else
       render :edit

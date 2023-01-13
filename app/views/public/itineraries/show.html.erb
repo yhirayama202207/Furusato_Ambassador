@@ -7,7 +7,7 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
 
     <!--内容ここから------------>
@@ -77,20 +77,19 @@
       <% end %>
       &emsp;
       <% if @itinerary.user == current_user %>
-        <%= link_to "編集", edit_itinerary_path(@itinerary.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
-        <%= link_to "×削除", itinerary_path(@itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
+        <%= link_to "編集 Edit", edit_itinerary_path(@itinerary.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
+        <%= link_to "×削除 Delete", itinerary_path(@itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
       <% end %>
     </h4>
 
     <h6>
-      作成者：
     <%= link_to user_path(@itinerary.user.id) do %>
-    <% if @itinerary.user.image.attached? %>
-      <%= image_tag @itinerary.user.image, size: "30x30" %>
-    <% else %>
-      <%= image_tag 'no_image.jpg', size: "30x30" %>
-    <% end %>
-    <%= @itinerary.user.user_name %>
+      <% if @itinerary.user.image.attached? %>
+        <%= image_tag @itinerary.user.image, size: "30x30" %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', size: "30x30" %>
+      <% end %>
+      <%= @itinerary.user.user_name %>
     <% end %>
     &emsp;
     作成日：<%= @itinerary.created_at.strftime("%Y-%m-%d") %>&emsp;&emsp;

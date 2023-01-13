@@ -7,8 +7,8 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">旅の持ち物リスト</h5>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
+    <h5 class= "m-2">旅の持ち物リスト／Items to take for trip</h5>
     </br>
 
     <div class="row">
@@ -19,6 +19,11 @@
         <%= f.text_field :name %>
         <%= f.submit "追加／Add", class: "btn btn-success" %></br>
         <% end %>
+
+        <!--<%#= link_to destroy_all_checks_path, method: :delete do %>-->
+        <!--  <i class="fas fa-trash" style="color: black;"></i>-->
+        <!--  <h7 style="color: black;">すべてのチェックをリセット／Reset checks</h7>-->
+        <!--<# end %>-->
       </div>
     </div>
     </br>
@@ -31,7 +36,7 @@
           <thead>
             <tr>
               <!--<th>チェック<th>-->
-              <th>持っていくもの／Items to bring</th>
+              <th>持っていくもの／Items</th>
               <th>Edit&emsp;&emsp;&emsp;Delete</th>
               <th colspan="2"></th>
             </tr>
@@ -44,7 +49,7 @@
               </td>
               <td>
                 <%= link_to "編集", edit_belonging_path(belonging.id), class: "btn btn-info" %>&emsp;
-                <%= link_to "削除", belonging_path(belonging.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除後は復元できません）" %>
+                <%= link_to "削除", belonging_path(belonging.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除後は復元できません）／Are you sure to delete?" %>
               </td>
             </tr>
             <% end %>

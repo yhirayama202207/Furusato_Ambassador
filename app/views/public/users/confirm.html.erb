@@ -7,11 +7,10 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
 
     <div style="text-align:center;">
-      </br>
       </br>
       <h5>本当に退会しますか？</h5>
       </br>
@@ -21,6 +20,18 @@
       </br>
       <%= link_to "退会しない", user_path(current_user), class: "btn btn-primary" %>&emsp;
       <%= link_to "退会する", users_unsubscribe_path(@user.id), method: :patch, class: "btn btn-danger", "data-confirm" => "本当に退会しますか？" %>
+
+      </br>
+      </br>
+      </br>
+      <h5>Are you sure to unsubscribe?</h5>
+      </br>
+      <p>After you unsubscribe,</p>
+      <p>you will not be able to access my page and to post articles/itineraries.</p>
+      <p>Click "Unsubscribe" if you would like to unsubscribe.</p>
+      </br>
+      <%= link_to "Don't unsubscribe", user_path(current_user), class: "btn btn-primary" %>&emsp;
+      <%= link_to "Unsubscribe", users_unsubscribe_path(@user.id), method: :patch, class: "btn btn-danger", "data-confirm" => "本当に退会しますか？／Are you sure to unsubscribe?" %>
     </div>
   </div>
     <!--（右側全体）ここまで------------>

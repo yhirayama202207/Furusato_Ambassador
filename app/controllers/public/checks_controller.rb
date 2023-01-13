@@ -5,7 +5,6 @@ class Public::ChecksController < ApplicationController
     belonging = Belonging.find(params[:belonging_id])
     check = current_user.checks.new(belonging_id: belonging.id)
     check.save
-    #redirect_to request.referer || article_path(article)
   end
 
   def destroy
@@ -13,7 +12,12 @@ class Public::ChecksController < ApplicationController
     belonging = Belonging.find(params[:belonging_id])
     check = current_user.checks.find_by(belonging_id: belonging.id)
     check.destroy
-    #redirect_to request.referer || article_path(article)
   end
+
+  # def destroy_all
+  #   #チェックを全削除
+  #   current_user.passive_checks.destroy_all
+  # 	redirect_to belongings_path
+  # end
 
 end

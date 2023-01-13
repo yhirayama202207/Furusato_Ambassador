@@ -11,11 +11,6 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
-  # has_many :article_tags, dependent: :destroy
-  # has_many :tags, through: :article_tags
-  #accepts_nested_attributes_for :article_tags, allow_destroy: true
-  #accepts_nested_attributes_for :tags
-
   with_options presence: true do
     validates :title, presence: { message: 'を入力してください' }
     validates :body, presence: { message: 'を入力してください' }
@@ -152,20 +147,5 @@ class Article < ApplicationRecord
       self.tags << new_post_tag
    end
 end
-  # # 検索タグ登録時の処理
-  # def tags_attributes=(tag_attributes)
-  #   # 送られてきたタグパラメータの重複排除後、タグ追加の処理を行う
-  #   tag_attributes.values.uniq.each do |tag_params|
-  #     if tag_params["name"].present?
-  #       # DBに入る値を全て小文字にして統一(jAva、JAVaなどの乱立を防ぐため。)
-  #       tag_params["name"] = tag_params["name"].humanize(capitalize: false)
-  #       # DBに重複がない場合は作成、重複している場合は既に登録されているデータを使用
-  #       tag = Tag.find_or_create_by(tag_params)
-
-  #       # 募集に同じタグが紐づいていない場合、募集とタグを紐付け。(複合ユニークキー制約)
-  #       self.tags << tag if self.tags.where(name: tag["name"]).blank?
-  #     end
-  #   end
-  # end
 
 end

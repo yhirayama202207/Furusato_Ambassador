@@ -7,8 +7,8 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">ユーザー検索結果一覧（全<%= @users.count %>件）</h5>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
+    <h5 class= "m-2">ユーザー検索結果一覧（全<%= @users.count %>件）／Search results</h5>
     </br>
 
     <!--ユーザー検索・一覧 ここから----------------------------------------------------->
@@ -16,10 +16,10 @@
       <div class= "col-1">
       </div>
       <div class= "col-10">
-      <label>ユーザー検索</label>
+      <label>ユーザー検索／Search users</label>
       <%= form_with(url: search_users_path, local: true, method: :get, class: "search-form") do |form| %>
         <%= form.text_field :keyword, placeholder: "キーワードを入力", class: "search-input" %>
-        <%= form.submit "検索", class: "search-btn" %>
+        <%= form.submit "検索／Search", class: "search-btn" %>
       <% end %>
       </br>
 
@@ -28,9 +28,18 @@
             <thead>
               <tr>
                 <th></th>
-                <th>ユーザーネーム</th>
-                <th>居住地</th>
-                <th>出身地</th>
+                <th>
+                  <p>ユーザーネーム</p>
+                  <span>User name</span>
+                </th>
+                <th>
+                  <p>居住地</p>
+                  <span>City lives</span>
+                </th>
+                <th>
+                  <p>出身地</p>
+                  <span>Hometown</span>
+                </th>
                 <th></th>
                 <th colspan="5"></th>
               </tr>
@@ -63,9 +72,9 @@
                   <p></p>
                 <% else %>
                   <% if user.is_followed_by?(current_user) %>
-                    <%= link_to "フォロー解除", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
+                    <%= link_to "フォロー解除／Unfollow", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
                   <% else %>
-                    <%= link_to "フォロー", user_relationships_path(user), method: :post, class: "btn btn-info" %>
+                    <%= link_to "フォロー／Follow", user_relationships_path(user), method: :post, class: "btn btn-info" %>
                   <% end %>
                 <% end %>
               </td>

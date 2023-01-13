@@ -7,7 +7,7 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
     </br>
     <%= render "public/shared/links" %>
@@ -53,7 +53,7 @@
                 </br>
 
                 <div class="field">
-                  <%= f.label "ユーザーネーム／User name" %></br>
+                  <%= f.label "ユーザーネーム／User name（public）" %></br>
                   <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name" %>
                 </div>
                 </br>
@@ -69,19 +69,19 @@
                 </br>
 
                 <div class="field">
-                  <%= f.label "居住地 例：東京都文京区／Home ex)Tokyo, Japan" %></br>
+                  <%= f.label "居住地 例：東京都文京区／Home ex)Tokyo, Japan（public）" %></br>
                   <%= f.text_field :home, autofocus: true, autocomplete: "home" %>
                 </div>
                 </br>
 
                 <div class="field">
-                  <%= f.label "出身地 例：北海道札幌市／Hometown ex)Taipei, Taiwan" %></br>
+                  <%= f.label "出身地 例：北海道札幌市／Hometown ex)Taipei, Taiwan（public）" %></br>
                   <%= f.text_field :hometown, autofocus: true, autocomplete: "hometown" %>
                 </div>
                 </br>
 
                 <div class="field">
-                  <%= f.label "プロフィール画像／Profile picture"  %></br>
+                  <%= f.label "プロフィール画像／Profile picture（public）"  %></br>
                   <%= f.file_field :image, accept: "image/*" %></br>
                 </div>
                 </br>

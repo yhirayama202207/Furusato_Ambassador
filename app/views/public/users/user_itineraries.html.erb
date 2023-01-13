@@ -7,7 +7,7 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
     <h5 class= "m-2">
       <% if @user.image.attached? %>
@@ -15,7 +15,7 @@
       <% else %>
         <%= image_tag 'no_image.jpg', size: "30x30" %>
       <% end %>
-      <%= @user.user_name %>さんの旅のしおり／旅日記（全<%= @user_itineraries.count %>件）
+      <%= @user.user_name %>さんの旅のしおり／旅日記（全<%= @user_itineraries.count %>件）／Mx.<%= @user.user_name %>'s itineraries
     </h5>
 
     <div class= "row">
@@ -36,7 +36,7 @@
         <% else %>
           （&emsp;～&emsp;）
         <% end %>
-
+        </br>
         <!--評価★の表示 ここから------------>
 
         <% if itinerary.rate == 0 %>
@@ -100,7 +100,7 @@
             <label class="text-secondary">非公開</label>
           <% end %>&emsp;
           <%= link_to "編集", edit_itinerary_path(itinerary.id), class: "btn btn-success" %>
-          <%= link_to "削除", itinerary_path(itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
+          <%= link_to "×削除", itinerary_path(itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）／Are you sure to delete?" %>
         <% end %>
       </div>
       <% end %>

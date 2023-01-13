@@ -8,7 +8,7 @@
   <div class= "col-10">
   </br>
   <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  <h5 class= "m-2">新規記事投稿</h5>
+  <h5 class= "m-2">新規記事投稿／Post new article</h5>
   </br>
 
   <% if @article.errors.any? %>
@@ -56,10 +56,10 @@
 
             <label>記事を公開しますか？／public or private</label></br>
               <%= f.radio_button :is_active, :true %>
-              <%= f.label :is_active, "公開", {value: :true, checked: true, style: "display: inline-block;"} %>
-              &emsp;or&emsp;
+              <%= f.label :is_active, "公開 Public", {value: :true, checked: true, style: "display: inline-block;"} %>
+              &emsp;
               <%= f.radio_button :is_active, :false %>
-              <%= f.label :is_active, "非公開（下書きに保存）", {value: :false, style: "display: inline-block;"} %></br>
+              <%= f.label :is_active, "非公開（下書きに保存） Private", {value: :false, style: "display: inline-block;"} %></br>
           </div>
           <!--基本項目（左側）ここまで------------>
 

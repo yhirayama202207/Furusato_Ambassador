@@ -7,8 +7,8 @@
 <!--（右側全体）ここから------------>
 <div class= "col-10">
 </br>
-<%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-  <h5 class= "m-2">マイページ</h5>
+<%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
+  <h5 class= "m-2">マイページ／My page</h5>
 
   <!--ユーザーの登録情報 ここから----------------------------------------------------->
   <div class="row">
@@ -20,37 +20,37 @@
       <% else %>
         <%= image_tag 'no_image.jpg', size: "100x100" %>
       <% end %>
-      <label>登録情報</label>&emsp;&emsp;&emsp;
+      &emsp;&emsp;&emsp;
       <label class="text-small mb-3"><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー&emsp;<%=link_to @user.followers.count, followers_user_path(@user) %>フォロワー</label>
-      &emsp;&emsp;
+      &emsp;&emsp;&emsp;
       <!--旅日記／旅の計画へのリンク ここから----------------------------------------------------->
-      <%= link_to "旅程表／旅日記履歴", user_itineraries_path(@user.id), class: "btn btn-info" %>
+      <%= link_to "旅のしおり／Itineraries", user_itineraries_path(@user.id), class: "btn btn-info" %>
       <!--旅日記／旅の計画へのリンク ここまで----------------------------------------------------->
       <% if @user.user_name != "ゲスト" %>
-        <%= link_to "編集", edit_user_path(current_user), class: "btn btn-success" %>
+        <%= link_to "編集 Edit", edit_user_path(current_user), class: "btn btn-success" %>
       <% end %>
       <table class="table table-hover table-bordered table-inverse">
         <tbody>
           <tr>
-            <th class="table-secondary">ユーザーネーム</th>
+            <th class="table-secondary">ユーザーネーム&emsp;／User name</th>
             <td>
               <%= @user.user_name %>
             </td>
           </tr>
           <tr>
-            <th class="table-secondary">メールアドレス</th>
+            <th class="table-secondary">メールアドレス&emsp;／E-mail</th>
             <td>
               <%= @user.email %>
             </td>
           </tr>
           <tr>
-            <th class="table-secondary">居住地</th>
+            <th class="table-secondary">居住地&emsp;&emsp;&emsp;&emsp;&emsp;／The city you live</th>
             <td>
               <%= @user.home %>
             </td>
           </tr>
           <tr>
-            <th class="table-secondary">出身地</th>
+            <th class="table-secondary">出身地&emsp;&emsp;&emsp;&emsp;&emsp;／Hometown</th>
             <td>
               <%= @user.hometown %>
             </td>
@@ -74,7 +74,7 @@
           <%= image_tag 'default-image.jpg', size: "20x20" %>
         <% end %>
         <%= link_to user_articles_path(@user.id) do %>
-          <%= @user.user_name %>さんの記事（全<%= @user_articles.count %>件）をすべて見る
+          <%= @user.user_name %>さんの記事（全<%= @user_articles.count %>件）をすべて見る／Your all articles
         <% end %>
       </label>
     </div>
@@ -126,7 +126,7 @@
       <label>
         <i class="fas fa-heart" style="color: #ff4500;"></i>
         <%= link_to likes_user_path(@user.id) do %>
-          いいねした記事（全<%= @like_articles.count %>件）をすべて見る
+          いいねした記事（全<%= @like_articles.count %>件）をすべて見る／Articles you liked
         <% end %>
       </label>
     </div>
@@ -182,7 +182,7 @@
     <label>
       <i class="fas fa-paw" style="color: #f39800;"></i>
       <%= link_to foot_prints_user_path(@user.id) do %>
-        行った！した記事（全<%= @foot_print_articles.count %>件）をすべて見る
+        行った！した記事（全<%= @foot_print_articles.count %>件）をすべて見る／Articles of the places you went
       <% end %>
     </label>
     </div>
@@ -237,7 +237,7 @@
     <label>
       <i class="fas fa-paperclip" style="color: #2ca9e1;"></i>
       <%= link_to clips_user_path(@user.id) do %>
-        クリップした記事（全<%= @clip_articles.count %>件）をすべて見る
+        クリップした記事（全<%= @clip_articles.count %>件）をすべて見る／Articles you clipped
       <% end %>
     </label>
     </div>

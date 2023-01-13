@@ -52,3 +52,12 @@ ja:
           email: メールアドレス
           file: プロフィール画像
           crypted_password: パスワード
+        itinerary:
+          title: タイトル
+          rate: 評価
+        task:
+          task: タスク名
+          started_at: 開始日時
+          finished_at: 終了日時
+          price: 金額
+          rate: 評価

@@ -34,7 +34,7 @@
     <div class="carousel-item">
       <%= image_tag 'paddy_field1.jpg', class: "d-block w-100", alt: "田んぼ写真" %>
       <div class="carousel-caption d-none d-md-block">
-        <h1>それが、地域の力になるかもしれない</h1>
+        <h1>それが、地域の大きな力になるかもしれない</h1>
         </br>
         <h4>みんなのちからでふるさとを、日本を、興そう。</h4>
         </br>
@@ -75,7 +75,7 @@
 
     <h5>
       <i class="fas fa-crown" style="color: #ffcc00;"></i>
-      人気投稿（<i class="fas fa-heart" style="color: #ff4500;"></i>いいねが多い順）
+      人気記事（<i class="fas fa-heart" style="color: #ff4500;"></i>いいねが多い順）／Popular articles
     </h5>
     <div class= "row">
       <% @all_ranks.each do |article| %>
@@ -121,7 +121,7 @@
     </br>
     <h5>
       <i class="fas fa-child" style="color: #ff9900;"></i>
-      みんなの投稿
+      新着記事／New articles
     </h5>
     <div class= "row">
       <% @articles.last(30).each do |article| %>

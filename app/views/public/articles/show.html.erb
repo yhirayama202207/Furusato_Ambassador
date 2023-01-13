@@ -7,7 +7,7 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
 
     <!--記事内容ここから------------>
@@ -16,12 +16,12 @@
       &emsp;
       <% if @article.user == current_user %>
         <% if @article.is_active %>
-          <label class="text-success">公開中</label>
+          <label class="text-success">公開中 Public</label>
         <% else %>
           <label class="text-secondary">非公開（下書き）</label>
         <% end %>&emsp;
-        <%= link_to "記事を編集", edit_article_path(@article.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
-        <%= link_to "×削除", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+        <%= link_to "編集 Edit", edit_article_path(@article.id), class: "btn btn-success", "data-turbolinks": false %>&emsp;
+        <%= link_to "×削除 Delete", article_path(@article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）／Are you sure to delete?" %>
       <% end %>
     </h5>
 

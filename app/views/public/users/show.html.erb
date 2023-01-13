@@ -7,8 +7,8 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
-    <h5 class= "m-2">プロフィール</h5>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
+    <h5 class= "m-2">プロフィール／Profile</h5>
 
     <!--ユーザー情報 ここから----------------------------------------------------->
     <div class="row">
@@ -26,8 +26,8 @@
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       <% if @user == current_user %>
         <% if @user.user_name != "ゲスト" %>
-          &emsp;&emsp;&emsp;&emsp;
-          <%= link_to "編集", edit_user_path(current_user), class: "btn btn-success" %>
+          &emsp;&emsp;
+          <%= link_to "編集 Edit", edit_user_path(current_user), class: "btn btn-success" %>
         <% end %>
       <% else %>
         <% if @user.is_followed_by?(current_user) %>
@@ -40,13 +40,13 @@
       <table class="table table-hover table-bordered table-inverse">
         <tbody>
           <tr>
-            <th class="table-secondary">居住地</th>
+            <th class="table-secondary">居住地&emsp;City lives</th>
             <td>
               <%= @user.home %>
             </td>
           </tr>
           <tr>
-            <th class="table-secondary">出身地</th>
+            <th class="table-secondary">出身地&emsp;Hometown</th>
             <td>
               <%= @user.hometown %>
             </td>
@@ -64,7 +64,7 @@
       </div>
       <div class= "col-md-10 mb-1">
         <%= link_to user_itineraries_path(@user.id) do %>
-          <label>旅のしおり／旅日記 履歴（全<%= @user_itineraries.count %>件）を見る</label>
+          <label>旅のしおり／旅日記 履歴（全<%= @user_itineraries.count %>件）を見る／See user's all itineraries</label>
         <% end %>
       </div>
     </div>
@@ -151,7 +151,7 @@
                 <label class="text-secondary">非公開</label>
               <% end %>
               <%= link_to "編集", edit_itinerary_path(itinerary.id), class: "btn btn-success" %>
-              <%= link_to "削除", itinerary_path(itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）" %>
+              <%= link_to "×削除", itinerary_path(itinerary.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した旅程表は復元できません）／Are you sure to delete?" %>
             <% end %>
           </div>
         <% end %>
@@ -166,7 +166,7 @@
       </div>
       <div class= "col-md-10 mb-1">
         <%= link_to user_articles_path(@user.id) do %>
-          <label>記事履歴（全<%= @user_articles.count %>件）</label>
+          <label>記事履歴（全<%= @user_articles.count %>件）を見る／See user's all articles</label>
         <% end %>
       </div>
     </div>
@@ -203,7 +203,7 @@
                 <label class="text-secondary">非公開</label>
               <% end %>
               <%= link_to "編集", edit_article_path(article.id), class: "btn btn-success" %>
-              <%= link_to "削除", article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）" %>
+              <%= link_to "×削除", article_path(article.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除した記事は復元できません）／Are you sure to delete?" %>
             <% end %>
           </div>
         <% end %>

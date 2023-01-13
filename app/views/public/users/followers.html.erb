@@ -7,7 +7,7 @@
   <!--（右側全体）ここから------------>
   <div class= "col-10">
     </br>
-    <%= link_to "<< 前のページに戻る", 'javascript:history.back()' %>
+    <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     <h5 class= "m-2">
       <%= link_to user_path(@user.id) do %>
         <% if @user.image.attached? %>
@@ -17,7 +17,7 @@
         <% end %>
         <%= @user.user_name %>
       <% end %>
-      さん を フォローしている人
+      さん を フォローしている人（Users following Mx.<%= @user.user_name %>）
     </h5>
     </br>
 
@@ -31,9 +31,18 @@
           <thead>
             <tr>
               <th></th>
-              <th>ユーザーネーム</th>
-              <th>居住地</th>
-              <th>出身地</th>
+              <th>
+                <p>ユーザーネーム</p>
+                <span>User name</span>
+              </th>
+              <th>
+                <p>居住地</p>
+                <span>City lives</span>
+              </th>
+              <th>
+                <p>出身地</p>
+                <span>Hometown</span>
+              </th>
               <th></th>
               <th colspan="4"></th>
             </tr>
@@ -65,9 +74,9 @@
                 <p></p>
                 <% else %>
                   <% if user.is_followed_by?(current_user) %>
-                    <%= link_to "フォロー解除", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
+                    <%= link_to "フォロー解除／Unfollow", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
                   <% else %>
-                    <%= link_to "フォロー", user_relationships_path(user), method: :post, class: "btn btn-info" %>
+                    <%= link_to "フォロー／Follow", user_relationships_path(user), method: :post, class: "btn btn-info" %>
                   <% end %>
                 <% end %>
               </td>
