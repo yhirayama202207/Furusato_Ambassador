@@ -35,6 +35,7 @@
   <% end %>
   </br>
   <% if comment.user == current_user %>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
   <%= link_to "編集 Edit", edit_article_comment_path(@article.id, comment.id), class: "btn btn-success" %>&emsp;
   <%= link_to "×削除 Delete", article_comment_path(@article.id, comment.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？（削除したコメントは復元できません）／Are you sure to delete?", remote: true %>
   </br>
