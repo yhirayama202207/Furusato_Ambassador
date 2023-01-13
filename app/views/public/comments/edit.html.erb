@@ -10,12 +10,12 @@
     <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
     </br>
-    <h5 class= "m-2">コメント編集／Edit comment</h5>
+    <h5 class= "mt-2">コメント編集／Edit comment</h5>
     </br>
 
     <!--（入力部分）ここから------------>
     <div class= "row">
-      <div class= "col-12 m-2">
+      <div class= "col-12 mt-2">
       <%= form_with model: @comment, url: article_comment_path(@comment.id), method: :patch do |f| %>
         <label>コメント／comment</label>&emsp;<%= f.text_field :comment, autofocus: true, id:"inputcomment", placeholder:"" %></br>
         </br>

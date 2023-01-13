@@ -9,7 +9,7 @@
     </br>
     <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     </br>
-    <h5 class= "m-2">
+    <h5 class= "mt-2">
       <% if @user.image.attached? %>
         <%= image_tag @user.image, size: "30x30" %>
       <% else %>
