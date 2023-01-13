@@ -18,7 +18,7 @@ class Public::BelongingsController < ApplicationController
     else
       @japan_areas = JapanArea.all
       @japan_prefectures = JapanPrefecture.all
-      redirect_to belongings_path
+      render :index
     end
   end
 

@@ -9,4 +9,8 @@ class Belonging < ApplicationRecord
     return false
   end
 
+  with_options presence: true do
+    validates :name, presence: { message: 'を入力してください' }
+  end
+
 end

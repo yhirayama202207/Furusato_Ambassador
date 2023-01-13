@@ -10,6 +10,16 @@
     <%= link_to "<< 前のページに戻る／Back", 'javascript:history.back()' %>
     <h5 class= "m-2">持ち物名編集／Edit item</h5>
     </br>
+
+    <% if @belonging.errors.any? %>
+      <%= @belonging.errors.count %>件のエラーが発生しました。
+      <ul>
+      <% @belonging.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+
     <div class= "container">
       <div class= "row">
         <div class= "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">

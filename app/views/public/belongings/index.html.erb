@@ -11,6 +11,15 @@
     <h5 class= "m-2">旅の持ち物リスト／Items to take for trip</h5>
     </br>
 
+    <% if @belonging.errors.any? %>
+      <%= @belonging.errors.count %>件のエラーが発生しました。
+      <ul>
+      <% @belonging.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+
     <div class="row">
       <div class= "col-1">
       </div>
