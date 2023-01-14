@@ -35,14 +35,11 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "会員情報の更新が完了しました"
       redirect_to users_mypage_path(@user.id)
     else
       @japan_areas = JapanArea.all
       @japan_prefectures = JapanPrefecture.all
       render :edit
-    #   redirect_to edit_user_path(@user.id)
-    #   flash[:notice] = "ユーザーネームとメールアドレスは必須です。（username and E-mail are required.）"
     end
   end
 
@@ -65,12 +62,6 @@ class Public::UsersController < ApplicationController
   def user_articles
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
-    # @user = current_user
-    # if @user = current_user
-    #   @user_articles = @user.articles.all
-    # else
-    #   @user_articles = @user.articles.where(is_active: true)
-    # end
     @user = User.find(params[:id])
     @user_articles = @user.articles.where(is_active: true).order(created_at: :desc)
     if @user.id == current_user.id
@@ -93,7 +84,6 @@ class Public::UsersController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
     likes= Like.where(user_id: @user.id).pluck(:article_id)
-    #@like_articles = Article.order(created_at: :desc).find(likes)
     @a = []
     @b = []
     Article.find(likes).each do |article|
@@ -152,7 +142,6 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.update(is_deleted: true)
       reset_session
-      #flash[:notice] = "退会が完了しました"
       redirect_to homes_top_path
     end
   end

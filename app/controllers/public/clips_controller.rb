@@ -1,5 +1,7 @@
 class Public::ClipsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def create
     @article = Article.find(params[:article_id])
     article = Article.find(params[:article_id])

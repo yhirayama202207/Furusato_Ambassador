@@ -1,5 +1,7 @@
 class Public::LikesController < ApplicationController
 
+  before_action :authenticate_user!
+
   def create
     @show = params[:show]
     @article = Article.find(params[:article_id])

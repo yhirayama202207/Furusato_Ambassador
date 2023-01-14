@@ -1,5 +1,7 @@
 class Public::ArticlesController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
     @article = Article.new
     @tags = Tag.all
@@ -28,8 +30,6 @@ class Public::ArticlesController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @article = Article.find(params[:id])
     @user = @article.user
-    # @comments = @article.comments.order(created_at: :desc)
-    # @article.comments = @article.comments.order(created_at: :desc)
   end
 
   def edit
@@ -59,7 +59,6 @@ class Public::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
     redirect_to user_path(current_user.id)
-    #redirect_to request.referer
   end
 
   def index

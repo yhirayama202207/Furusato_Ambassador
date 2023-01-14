@@ -1,5 +1,7 @@
 class Public::TasksController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
     @task = Task.new
     @japan_areas = JapanArea.all

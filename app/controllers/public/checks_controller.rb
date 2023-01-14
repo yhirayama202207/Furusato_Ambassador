@@ -1,5 +1,7 @@
 class Public::ChecksController < ApplicationController
 
+  before_action :authenticate_user!
+
   def create
     @belonging = Belonging.find(params[:belonging_id])
     belonging = Belonging.find(params[:belonging_id])

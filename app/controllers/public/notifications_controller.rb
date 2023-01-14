@@ -1,5 +1,7 @@
 class Public::NotificationsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all

@@ -1,5 +1,7 @@
 class Public::BelongingsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     @belonging = Belonging.new
     @belongings = current_user.belongings.all

@@ -1,5 +1,7 @@
 class Public::ItinerariesController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
     @itinerary = Itinerary.new
     @japan_areas = JapanArea.all
