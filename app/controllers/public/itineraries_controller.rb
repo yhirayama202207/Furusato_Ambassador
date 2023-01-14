@@ -51,6 +51,7 @@ class Public::ItinerariesController < ApplicationController
   end
 
   def destroy
+    @user = current_user
     @itinerary = Itinerary.find(params[:id])
     @itinerary.destroy
     redirect_to user_itineraries_path(@user.id)
