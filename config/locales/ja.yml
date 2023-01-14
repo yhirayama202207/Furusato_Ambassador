@@ -61,3 +61,5 @@ ja:
           finished_at: 終了日時
           price: 金額
           rate: 評価
+        belongings:
+          name: 持ち物名
