@@ -14,10 +14,10 @@ class Public::ChecksController < ApplicationController
     check.destroy
   end
 
-  # def destroy_all
-  #   #チェックを全削除
-  #   current_user.passive_checks.destroy_all
-  # 	redirect_to belongings_path
-  # end
+  def destroy_all
+    #チェックを全削除
+    current_user.checks.destroy_all
+  	redirect_to belongings_path
+  end
 
 end

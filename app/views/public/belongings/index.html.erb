@@ -29,10 +29,10 @@
         <%= f.submit "追加／Add", class: "btn btn-success" %></br>
         <% end %>
 
-        <!--<%#= link_to destroy_all_checks_path, method: :delete do %>-->
-        <!--  <i class="fas fa-trash" style="color: black;"></i>-->
-        <!--  <h7 style="color: black;">すべてのチェックをリセット／Reset checks</h7>-->
-        <!--<# end %>-->
+        <%= link_to destroy_all_checks_path, method: :delete do %>
+          <i class="fas fa-trash" style="color: black;"></i>
+          <h7 style="color: black;">すべてのチェックをリセット／Reset checks</h7>
+        <% end %>
       </div>
     </div>
     </br>

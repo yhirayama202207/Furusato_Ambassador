@@ -2,8 +2,7 @@ class Public::BelongingsController < ApplicationController
 
   def index
     @belonging = Belonging.new
-    @user = current_user
-    @belongings = @user.belongings.all
+    @belongings = current_user.belongings.all
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
   end
@@ -18,6 +17,7 @@ class Public::BelongingsController < ApplicationController
     else
       @japan_areas = JapanArea.all
       @japan_prefectures = JapanPrefecture.all
+      @belongings = current_user.belongings.all
       render :index
     end
   end
