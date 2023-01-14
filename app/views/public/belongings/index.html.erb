@@ -11,20 +11,19 @@
     <h5 class= "mt-2">旅の持ち物リスト／Items to take for trip</h5>
     </br>
 
+    <% if @belonging.errors.any? %>
+      <%= @belonging.errors.count %>件のエラーが発生しました。
+      <ul>
+      <% @belonging.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+
     <div class="row">
       <div class= "col-1">
       </div>
       <div class= "col-11">
-
-        <% if @belonging.errors.any? %>
-          <%= @belonging.errors.count %>件のエラーが発生しました。
-          <ul>
-          <% @belonging.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-          <% end %>
-          </ul>
-        <% end %>
-
         <%= form_with model: @belonging, url: belongings_path, method: :post do |f| %>
         <%= f.text_field :name %>
         <%= f.submit "追加／Add", class: "btn btn-success" %></br>
