@@ -136,11 +136,8 @@ ActiveRecord::Schema.define(version: 2023_01_09_071649) do
   create_table "itineraries", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
-    t.datetime "started_at"
-    t.datetime "finished_at"
     t.text "comment"
     t.integer "rate", default: 0
-    t.integer "total_payment", default: 0, null: false
     t.boolean "is_active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

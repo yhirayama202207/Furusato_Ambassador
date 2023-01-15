@@ -70,8 +70,6 @@
               <%= f.radio_button :is_active, :false %>
               <%= f.label :is_active, "非公開／Private", {value: :false, style: "display: inline-block;"} %></br>
 
-              <%= f.hidden_field :total_payment, :value => 0 %>
-
             </div>
             <!--追加項目（右側）ここまで------------>
 
@@ -79,14 +77,10 @@
           <!--基本項目＆追加項目の大枠 ここまで------------>
 
             <!--投稿するボタン ここから------------>
-            <!--<div class= "row">-->
-            <!--  <div class= "col-10">-->
                 </br>
                 <div style="text-align:center;">
                   <%= f.submit "変更／Update", class: "btn btn-success" %>
                 </div>
-            <!--  </div>-->
-            <!--</div>-->
             <!--投稿するボタン ここまで------------>
         <% end %>
       </div>
