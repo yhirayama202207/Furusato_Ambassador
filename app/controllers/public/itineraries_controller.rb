@@ -1,6 +1,6 @@
 class Public::ItinerariesController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   def new
     @itinerary = Itinerary.new

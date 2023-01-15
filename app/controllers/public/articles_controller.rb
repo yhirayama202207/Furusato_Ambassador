@@ -1,6 +1,6 @@
 class Public::ArticlesController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :prefecture_index, :area_index]
 
   def new
     @article = Article.new
