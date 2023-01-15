@@ -22,9 +22,7 @@
 <https://drive.google.com/file/d/11OF1_rCp-LjF7C16FSSX8gx4jWn3cr0d/view?usp=sharing>
 
 ###ワイヤーフレーム／画面遷移図
-<...>
-<...>
-<...>
+<https://xd.adobe.com/view/9263aa35-5cd4-4be1-86d8-a633aee8fc92-c730/>
 
 ## 開発環境
 - OS：Linux(CentOS)
