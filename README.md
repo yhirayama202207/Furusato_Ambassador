@@ -21,11 +21,9 @@
  地方自治体や地域企業・商品・ご当地キャラクターのマーケティング・PR活動、ふるさと納税サイトやIターン・Uターンサイトへの誘導>
 
 ## 設計書
-### 画面遷移図
-<https://xd.adobe.com/view/9263aa35-5cd4-4be1-86d8-a633aee8fc92-c730/flow>
 
-### ワイヤーフレーム
-<https://xd.adobe.com/view/9263aa35-5cd4-4be1-86d8-a633aee8fc92-c730/grid>
+### ワイヤーフレーム／画面遷移図
+<https://xd.adobe.com/view/9263aa35-5cd4-4be1-86d8-a633aee8fc92-c730/>
 
 ### ER図
 <https://drive.google.com/file/d/11OF1_rCp-LjF7C16FSSX8gx4jWn3cr0d/view?usp=sharing>
