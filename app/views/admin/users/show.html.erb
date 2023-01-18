@@ -86,7 +86,7 @@
         <div class="row">
         <% @user_itineraries.last(4).each do |itinerary| %>
           <div class= "col-3 mb-3">
-            <%= link_to itinerary_path(itinerary.id) do %>
+            <%= link_to admin_itinerary_path(itinerary.id) do %>
               <% if itinerary.image.attached? %>
                 <%= image_tag itinerary.image, size: "200x200" %>
               <% else %>
