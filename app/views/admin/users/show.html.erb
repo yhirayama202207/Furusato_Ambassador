@@ -95,7 +95,7 @@
               <%= itinerary.title %>
             <% end %>
             </br>
-            <% if @itinerary.tasks.present? %>
+            <% if itinerary.tasks.present? %>
               <%=  itinerary.tasks.order(started_at: :asc).first.started_at.to_date.strftime("%Y/%m/%d") %>～<%= itinerary.tasks.order(finished_at: :desc).first.finished_at.to_date.strftime("%Y/%m/%d") %>
             <% else %>
               （&emsp;～&emsp;）
