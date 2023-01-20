@@ -55,6 +55,9 @@ class Public::ItinerariesController < ApplicationController
   def destroy
     @user = current_user
     @itinerary = Itinerary.find(params[:id])
+    unless @itinerary.user == current_user
+      redirect_to itineraries_path
+    end
     @itinerary.destroy
     redirect_to user_itineraries_path(@user.id)
   end
