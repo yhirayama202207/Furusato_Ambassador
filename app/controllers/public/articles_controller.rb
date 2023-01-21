@@ -57,6 +57,9 @@ class Public::ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
+    unless @article.user == current_user
+      redirect_to articles_path
+    end
     @article.destroy
     redirect_to user_path(current_user.id)
   end
