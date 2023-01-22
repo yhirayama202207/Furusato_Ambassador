@@ -30,6 +30,9 @@ class Public::UsersController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      redirect_to users_path
+    end
   end
 
   def update
