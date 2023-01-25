@@ -14,12 +14,13 @@ class Public::UsersController < ApplicationController
     @japan_areas = JapanArea.all
     @japan_prefectures = JapanPrefecture.all
     @user = User.find(params[:id])
-
+    #ユーザーの旅のしおり一覧（他のユーザーには公開中のみ表示、ユーザー本人にはすべての旅のしおりを表示）
     @user_itineraries = @user.itineraries.where(is_active: true).order(created_at: :desc)
     if @user.id == current_user.id
       @user_itineraries = @user.itineraries.all.order(created_at: :desc)
     end
 
+    #ユーザーの記事一覧（他のユーザーには公開中のみ表示、ユーザー本人にはすべての記事を表示）
     @user_articles = @user.articles.where(is_active: true).order(created_at: :desc)
     if @user.id == current_user.id
       @user_articles = @user.articles.all.order(created_at: :desc)
