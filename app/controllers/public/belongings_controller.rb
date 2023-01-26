@@ -39,7 +39,6 @@ class Public::BelongingsController < ApplicationController
     @japan_prefectures = JapanPrefecture.all
     @belonging = Belonging.find(params[:id])
     if @belonging.update(belonging_params)
-      flash[:notice] = "持ち物の追加が完了しました"
       redirect_to belongings_path
     else
       render :index
