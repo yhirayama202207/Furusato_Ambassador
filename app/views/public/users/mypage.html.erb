@@ -26,7 +26,7 @@
       <!--旅日記／旅の計画へのリンク ここから----------------------------------------------------->
       <%= link_to "旅のしおり／Itineraries", user_itineraries_path(@user.id), class: "btn btn-info" %>
       <!--旅日記／旅の計画へのリンク ここまで----------------------------------------------------->
-      <% if @user.user_name != "ゲスト" %>
+      <% if @user.user_name != "ゲスト" && @user.email != "test_hanako@test.com" %>
         <%= link_to "編集 Edit", edit_user_path(current_user), class: "btn btn-success" %>
       <% end %>
       <table class="table table-hover table-bordered table-inverse">
