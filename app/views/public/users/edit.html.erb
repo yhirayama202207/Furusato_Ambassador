@@ -25,11 +25,11 @@
     <div class= "row">
       <div class= "col-6">
         <%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
-          <label>メールアドレス（必須）／E-mail（required）</label></br>
+          <label>メールアドレス／E-mail*</label></br>
           <%= f.text_field :email, autofocus: true, id:"inputemail", placeholder:"" %>
           </br>
           </br>
-          <label>ユーザーネーム（必須）／User name（required）</label></br>
+          <label>ユーザーネーム／User name*</label></br>
           <%= f.text_field :user_name, autofocus: true, id:"inputuser_name", placeholder:"" %>
           </br>
           </br>
