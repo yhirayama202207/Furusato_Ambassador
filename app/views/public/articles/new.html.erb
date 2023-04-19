@@ -36,15 +36,17 @@
             <h5>基本項目（Basic Infomation）</h5>
             </br>
 
-            <label>タイトル／title*</label></br>
+            <label>タイトル／title<label class="text-danger">*</label></label></br>
               <%= f.text_field :title, placeholder: "タイトル" %></br>
+              </br>
 
-            <label>本文／body*</label></br>
+            <label>本文／body<label class="text-danger">*</label></label></br>
               <%= f.text_area :body, placeholder: "ここに本文を記述します" %></br>
             </br>
 
-            <label>都道府県／prefecture*</label></br>
+            <label>都道府県／prefecture<label class="text-danger">*</label></label></br>
               <%= f.collection_select :japan_prefecture_id, JapanPrefecture.all, :id, :name, include_blank: "--選択してください--", class: "form-control col-sm-8" %></br>
+            </br>
 
             <label>市区町村／city</label></br>
               <%= f.text_field :region, placeholder: "市区町村名（例：青森市）" %></br>
