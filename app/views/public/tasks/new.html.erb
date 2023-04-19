@@ -36,7 +36,7 @@
             <h5>基本項目（Basic Infomation）</h5>
             </br>
 
-            <label>タスク名（必須）／task（required）</label></br>
+            <label>タスク名／task*</label></br>
             <%= f.text_field :task %></br>
             </br>
 
@@ -44,15 +44,15 @@
             <%= f.text_field :way %></br>
             </br>
 
-            <label>開始日時（必須）／started at（required）</label></br>
+            <label>開始日時／started at*</label></br>
             <%= f.datetime_select :started_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>
             </br>
 
-            <label>終了日時（必須）／finished_at（required）</label></br>
+            <label>終了日時／finished_at*</label></br>
             <%= f.datetime_select :finished_at, {use_month_numbers: true}, class: 'form-control bootstrap-date' %></br>
             </br>
 
-            <label>金額／price（required）</label></br>
+            <label>金額／price*</label></br>
             ￥<%= f.text_field :price %></br>
             </br>
 
