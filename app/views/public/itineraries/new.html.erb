@@ -39,7 +39,7 @@
       <div class= "col-12">
         <%= form_with model: @itinerary, url: itineraries_path, method: :post do |f| %>
 
-          <label>タイトル／title*</label></br>
+          <label>タイトル／titlee<label class="text-danger">*</label></label></br>
             <%= f.text_field :title, placeholder: "タイトル" %></br>
             </br>
 
